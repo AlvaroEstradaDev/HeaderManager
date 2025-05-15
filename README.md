@@ -11,28 +11,28 @@ License Header Manager allows you to:
 * Share license headers between projects via "Add as Link"
 * Add, remove and replace headers at any time for one or all files
 * Put your license headers in #regions
-* Use [Expendable Properties](https://github.com/rubicon-oss/LicenseHeaderManager/wiki/Expendable-Properties) like %FileName%, %Project% or %UserName% and many more, which are automatically filled everytime the Header is reinserted 
+* Use [Expendable Properties](https://github.com/rubicon-oss/HeaderManager/wiki/Expendable-Properties) like %FileName%, %Project% or %UserName% and many more, which are automatically filled everytime the Header is reinserted 
 
 
-[Start right here!](https://github.com/rubicon-oss/LicenseHeaderManager/wiki)
+[Start right here!](https://github.com/rubicon-oss/HeaderManager/wiki)
 
-Install License Header Manager from Visual Studio via Tools | Extensions and Updates | Online or directly from [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=StefanWenig.LicenseHeaderManager)
+Install License Header Manager from Visual Studio via Tools | Extensions and Updates | Online or directly from [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=StefanWenig.HeaderManager)
 
-ReSharper user? Take a look at [this](https://github.com/rubicon-oss/LicenseHeaderManager/wiki/License-Header-Manager-and-Resharper)!
+ReSharper user? Take a look at [this](https://github.com/rubicon-oss/HeaderManager/wiki/License-Header-Manager-and-Resharper)!
 
 Previously located at: https://licensemanager.codeplex.com/
 
-There is also the `LicenseHeaderManager.Console` project that is a console application which can be used to insert, replace or remove license headers
+There is also the `HeaderManager.Console` project that is a console application which can be used to insert, replace or remove license headers
 via the command line. It can be supplied with a license header definition, a list of files or a directory as input and a JSON configuration file that controls
-the behaviour of the `LicenseHeaderManager.Core` component. The code below illustrates its usage.
+the behaviour of the `HeaderManager.Core` component. The code below illustrates its usage.
 
 <details>
   <summary>Click to show help text</summary>
 
 ```text
-> LicenseHeaderManager.Console.exe --help
+> HeaderManager.Console.exe --help
 
-LicenseHeaderManager.Console 1.0.0.0
+HeaderManager.Console 1.0.0.0
 Copyright © 2021
 
   -m, --mode                         (Default: Add) Specifies whether license headers should be added or removed. Must be one of {Add, Remove}, case-insensitive.
@@ -53,13 +53,13 @@ Copyright © 2021
 
 USAGE:
  Add license headers to one file with a custom configuration:
-   LicenseHeaderManager.Console.exe --configuration CoreOptions.json --files file.cs --license-header-definition DefinitionFile.licenseheader
+   HeaderManager.Console.exe --configuration CoreOptions.json --files file.cs --license-header-definition DefinitionFile.licenseheader
  Remove license headers from multiple files with standard configuration:
-   LicenseHeaderManager.Console.exe --files file1.cs,file2.html,file3.xaml --license-header-definition DefinitionFile.licenseheader --mode Remove
+   HeaderManager.Console.exe --files file1.cs,file2.html,file3.xaml --license-header-definition DefinitionFile.licenseheader --mode Remove
  Add license headers to all files in a directory, but not its subdirectories, with custom configuration:
-   LicenseHeaderManager.Console.exe --configuration CoreOptions.json --directory C:\SomeDirectory --license-header-definition DefinitionFile.licenseheader
+   HeaderManager.Console.exe --configuration CoreOptions.json --directory C:\SomeDirectory --license-header-definition DefinitionFile.licenseheader
  Remove license headers from all files in a directory and its subdirectories with standard configuration:
-   LicenseHeaderManager.Console.exe --directory C:\SomeDirectory --license-header-definition DefinitionFile.licenseheader --mode Remove --recursive
+   HeaderManager.Console.exe --directory C:\SomeDirectory --license-header-definition DefinitionFile.licenseheader --mode Remove --recursive
 ```
 </details>
 
