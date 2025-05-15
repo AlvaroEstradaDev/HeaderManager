@@ -12,6 +12,8 @@
  */
 
 using System;
+using System.IO;
+using System.Threading.Tasks;
 
 namespace LicenseHeaderManager.Core
 {
@@ -32,8 +34,30 @@ namespace LicenseHeaderManager.Core
     /// <param name="currentHeaderText">The old, already existing, header text.</param>
     /// <param name="commentParser">An <see cref="ICommentParser" /> instance required for enforcing the described rules.</param>
     /// <returns></returns>
-    public static string Prepare (string headerText, string currentHeaderText, ICommentParser commentParser)
+    public static string Prepare (string headerText, string currentHeaderText, ICommentParser commentParser, DocumentHeader headerDoc = null)
     {
+      // Check if the header document is null or empty
+      if (headerDoc != null)
+      {
+        // Insert the creationDate and the modificationDate as new fields at the end of the header
+        // Check if the header text already contains the date placeholders
+        if (!headerText.Contains("Created on:"))
+        {
+          headerText += $"\n// Created on: %CreationTime%";
+        }
+        
+        if (!headerText.Contains("Last Modified on:"))
+        {
+          headerText += $"\n// Last Modified on: %CurrentTime%";
+        }
+
+        if (!headerText.Contains("Features:"))
+        {
+          headerText += $"\n// Features: %Features%";
+        }
+
+      }
+
       var lineEndingInDocument = NewLineManager.DetectMostFrequentLineEnd (headerText);
       var headerWithNewLine = NewLineManager.ReplaceAllLineEnds (headerText, lineEndingInDocument);
 

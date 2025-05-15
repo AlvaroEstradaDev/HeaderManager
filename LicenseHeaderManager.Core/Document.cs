@@ -229,7 +229,7 @@ namespace LicenseHeaderManager.Core
     private async Task ReplaceHeader (string existingHeader, string newHeader)
     {
       await RemoveHeader (existingHeader);
-      await AddHeader (LicenseHeaderPreparer.Prepare (newHeader, await GetText(), _commentParser));
+      await AddHeader (LicenseHeaderPreparer.Prepare(newHeader, await GetText(), _commentParser, _headerCache));
     }
 
     private async Task AddHeader (string header)

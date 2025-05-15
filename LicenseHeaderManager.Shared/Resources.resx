@@ -252,7 +252,6 @@
   <data name="WpfLanguageDialogTitle" xml:space="preserve">
     <value>Edit language</value>
   </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="Question_AddNewLicenseHeaderDefinitionForSolution" xml:space="preserve">
     <value>The file scan has finished.\nNo License Header Definition File found. Do you want to add a new one for the Solution?</value>
   </data>
@@ -270,5 +269,8 @@
   </data>
   <data name="TaskFailed" xml:space="preserve">
     <value>Execution of asynchronous Task failed</value>
+  </data>
+  <data name="Features" xml:space="preserve">
+    <value>Features:</value>
   </data>
 </root>

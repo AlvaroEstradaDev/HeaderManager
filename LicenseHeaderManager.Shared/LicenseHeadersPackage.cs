@@ -32,6 +32,7 @@ using LicenseHeaderManager.MenuItemCommands.SolutionMenu;
 using LicenseHeaderManager.Options;
 using LicenseHeaderManager.Options.DialogPages;
 using LicenseHeaderManager.Options.Model;
+using LicenseHeaderManager.PopUp.FeaturesQuestion;
 using LicenseHeaderManager.Utils;
 using log4net;
 using log4net.Appender;
@@ -411,8 +412,21 @@ namespace LicenseHeaderManager
         if (headers == null)
           continue;
 
+        var fileName = item.FileNames[1];
+        var properties = item.GetAdditionalProperties() as List<AdditionalProperty>;
+        var dialog = new WpfFeaturesQuestion(fileName);
+        var dialogResult = dialog.ShowDialog();
+
+        if (dialogResult.HasValue && dialogResult.Value)
+        {
+          properties.Add(new AdditionalProperty(
+            "%Features%",
+            dialog.Features
+          ));
+        }
+
         var result = await LicenseHeaderReplacer.RemoveOrReplaceHeader (
-            new LicenseHeaderContentInput (content, item.FileNames[1], headers, item.GetAdditionalProperties()));
+            new LicenseHeaderContentInput (content, fileName, headers, properties));
         await CoreHelpers.HandleResultAsync (result, this, wasAlreadyOpen, false);
       }
 

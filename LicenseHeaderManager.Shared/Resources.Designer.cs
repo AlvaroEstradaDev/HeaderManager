@@ -239,7 +239,16 @@ namespace LicenseHeaderManager {
                 return ResourceManager.GetString("Extensions", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///   Looks up a localized string similar to Features:.
+        /// </summary>
+        public static string Features {
+            get {
+              return ResourceManager.GetString("Features", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to Edit....
         /// </summary>
