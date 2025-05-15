@@ -101,6 +101,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)Options\WpfHost.Designer.cs">
       <DependentUpon>WpfHost.cs</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)PopUp\FeaturesQuestion\WpfFeaturesQuestion.xaml.cs">
+      <DependentUpon>WpfFeaturesQuestion.xaml</DependentUpon>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Resources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -151,6 +154,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="$(MSBuildThisFileDirectory)Options\DialogPageControls\WpfOptions.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)PopUp\FeaturesQuestion\WpfFeaturesQuestion.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

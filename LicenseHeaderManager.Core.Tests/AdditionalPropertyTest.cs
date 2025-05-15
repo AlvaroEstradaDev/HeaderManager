@@ -29,8 +29,8 @@ namespace LicenseHeaderManager.Core.Tests
       var actualToken = property.Token;
       var actualValue = property.Value;
 
-      Assert.That (actualToken, Is.EqualTo (token));
-      Assert.That (actualValue, Is.EqualTo (value));
+      Assert.That(actualToken, Is.EqualTo(token));
+      Assert.That(actualValue, Is.EqualTo(value));
     }
   }
 }

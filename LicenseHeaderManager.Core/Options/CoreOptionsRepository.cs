@@ -42,7 +42,7 @@ namespace LicenseHeaderManager.Core.Options
     /// </returns>
     public static async Task<CoreOptions> LoadAsync (string filePath)
     {
-      return await JsonOptionsManager.DeserializeAsync<CoreOptions> (filePath);
+      return await JsonOptionsManager.DeserializeAsync<CoreOptions>(filePath);
     }
   }
 }

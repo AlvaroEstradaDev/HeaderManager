@@ -12,7 +12,9 @@
  */
 
 using System;
+using Microsoft.VisualStudio.TestPlatform.ObjectModel;
 using NUnit.Framework;
+using Rhino.Mocks;
 
 namespace LicenseHeaderManager.Core.Tests
 {
@@ -601,7 +603,7 @@ namespace LicenseHeaderManager.Core.Tests
     {
       var parser = new CommentParser ("//", "/*", "*/", "#region", "#endregion");
       var extractedHeader = parser.Parse (input);
-      Assert.That (extractedHeader, Is.EqualTo (expectedHeader));
+      NUnit.Framework.Assert.That(extractedHeader, Is.EqualTo(expectedHeader));
     }
 
     private void AssertThrowsException (

@@ -43,7 +43,7 @@ namespace LicenseHeaderManager.Core.Options
             AllowTrailingCommas = true,
             WriteIndented = true,
             Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
-            Converters = { new JsonStringEnumConverter (JsonNamingPolicy.CamelCase, false) }
+            Converters = { new JsonStringEnumConverter(JsonNamingPolicy.CamelCase, false) }
         };
 
     /// <summary>
@@ -66,12 +66,15 @@ namespace LicenseHeaderManager.Core.Options
     /// <seealso cref="LicenseHeaderManagerOptionsAttribute" />
     public static async Task<T> DeserializeAsync<T> (string filePath, JsonSerializerOptions serializerOptions = null)
     {
-      ValidateTypeParameter (typeof (T));
 
+      ValidateTypeParameter(typeof(T));
       try
       {
-        using var stream = new FileStream (filePath, FileMode.Open, FileAccess.Read, FileShare.Read);
-        return await JsonSerializer.DeserializeAsync<T> (stream, serializerOptions ?? SerializerDefaultOptions);
+        return await Task.Run(() =>
+        {
+          using var stream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read);
+          return JsonSerializer.Deserialize<T>(stream, serializerOptions ?? SerializerDefaultOptions);
+        });
       }
       catch (ArgumentNullException ex)
       {

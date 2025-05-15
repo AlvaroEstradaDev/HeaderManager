@@ -24,7 +24,7 @@ namespace LicenseHeaderManager.Core.Tests
     {
       const string extension = ".cs";
       var actual = extension.InsertDotIfNecessary();
-      Assert.That (actual, Is.EqualTo (extension));
+      NUnit.Framework.Assert.That(actual, Is.EqualTo(extension));
     }
 
     [Test]
@@ -32,7 +32,7 @@ namespace LicenseHeaderManager.Core.Tests
     {
       const string extension = "cs";
       var actual = extension.InsertDotIfNecessary();
-      Assert.That (actual, Is.EqualTo (".cs"));
+      NUnit.Framework.Assert.That(actual, Is.EqualTo(".cs"));
     }
 
     [Test]
@@ -40,7 +40,7 @@ namespace LicenseHeaderManager.Core.Tests
     {
       const string extension = @"test\ntext";
       var actual = extension.ReplaceNewLines();
-      Assert.That (actual, Is.EqualTo ("test\ntext"));
+      NUnit.Framework.Assert.That(actual, Is.EqualTo("test\ntext"));
     }
 
     [Test]
@@ -48,7 +48,7 @@ namespace LicenseHeaderManager.Core.Tests
     {
       const string extension = "test text";
       var actual = extension.ReplaceNewLines();
-      Assert.That (actual, Is.EqualTo ("test text"));
+      NUnit.Framework.Assert.That(actual, Is.EqualTo("test text"));
     }
 
     [Test]
