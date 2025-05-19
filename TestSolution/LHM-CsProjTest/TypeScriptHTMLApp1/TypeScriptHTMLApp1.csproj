@@ -28,8 +28,8 @@
     <TypeScriptCompile Include="testFolder\NewFolder1\file1.ts" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="TypeScriptHTMLApp1.licenseheader" />
-    <Content Include="testFolder\testFolder.licenseheader" />
+    <Content Include="TypeScriptHTMLApp1.header" />
+    <Content Include="testFolder\testFolder.header" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>

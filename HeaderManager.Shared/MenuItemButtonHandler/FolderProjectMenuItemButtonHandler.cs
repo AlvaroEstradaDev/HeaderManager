@@ -18,13 +18,13 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
-using LicenseHeaderManager.Interfaces;
-using LicenseHeaderManager.UpdateViewModels;
-using LicenseHeaderManager.UpdateViews;
-using LicenseHeaderManager.Utils;
+using HeaderManager.Interfaces;
+using HeaderManager.UpdateViewModels;
+using HeaderManager.UpdateViews;
+using HeaderManager.Utils;
 using log4net;
 
-namespace LicenseHeaderManager.MenuItemButtonHandler
+namespace HeaderManager.MenuItemButtonHandler
 {
   internal class FolderProjectMenuItemButtonHandler : IMenuItemButtonHandler
   {
@@ -66,7 +66,7 @@ namespace LicenseHeaderManager.MenuItemButtonHandler
       }
       catch (OperationCanceledException)
       {
-        await LicenseHeadersPackage.Instance.JoinableTaskFactory.SwitchToMainThreadAsync();
+        await HeadersPackage.Instance.JoinableTaskFactory.SwitchToMainThreadAsync();
         _dialog.Close();
       }
       catch (Exception ex)
@@ -76,7 +76,7 @@ namespace LicenseHeaderManager.MenuItemButtonHandler
         s_log.Error ($"The operation '{handler.Description}' failed", ex);
       }
 
-      await LicenseHeadersPackage.Instance.JoinableTaskFactory.SwitchToMainThreadAsync();
+      await HeadersPackage.Instance.JoinableTaskFactory.SwitchToMainThreadAsync();
       _dialog.Close();
     }
 

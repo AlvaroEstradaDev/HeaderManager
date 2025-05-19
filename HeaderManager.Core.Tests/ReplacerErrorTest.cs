@@ -14,7 +14,7 @@
 using System;
 using NUnit.Framework;
 
-namespace LicenseHeaderManager.Core.Tests
+namespace HeaderManager.Core.Tests
 {
   [TestFixture]
   public class ReplacerErrorTest
@@ -23,7 +23,7 @@ namespace LicenseHeaderManager.Core.Tests
     public void ReplacerError_ValidInput_ReturnsValidProperties ()
     {
       const string description = "error description";
-      var replacerError = new ReplacerError<LicenseHeaderContentInput> (null, ReplacerErrorType.Miscellaneous, description);
+      var replacerError = new ReplacerError<HeaderContentInput> (null, ReplacerErrorType.Miscellaneous, description);
 
       var actualInput = replacerError.Input;
       var actualType = replacerError.Type;

@@ -13,9 +13,9 @@
 
 using System;
 
-namespace LicenseHeaderManager.Core
+namespace HeaderManager.Core
 {
-  public partial class LicenseHeaderReplacer
+  public partial class HeaderReplacer
   {
     /// <summary>
     ///   Represents the result of a <see cref="TryCreateDocument" /> invocation.
@@ -33,7 +33,7 @@ namespace LicenseHeaderManager.Core
       FileNotFound,
 
       /// <summary>
-      ///   The <see cref="LicenseHeaderReplacer" /> instance was not initialized with a <see cref="Language" /> instance
+      ///   The <see cref="HeaderReplacer" /> instance was not initialized with a <see cref="Language" /> instance
       ///   representing the document's language, as determined by its file extension.
       /// </summary>
       LanguageNotFound,
@@ -47,7 +47,7 @@ namespace LicenseHeaderManager.Core
       /// <summary>
       ///   The document is a license header definition document.
       /// </summary>
-      LicenseHeaderDocument,
+      HeaderDocument,
 
       /// <summary>
       ///   The header definition for the language specified by the document's extension was found in the license header

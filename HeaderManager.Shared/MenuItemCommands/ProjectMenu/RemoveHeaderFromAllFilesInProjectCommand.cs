@@ -14,17 +14,17 @@
 using System;
 using System.ComponentModel.Design;
 using EnvDTE;
-using LicenseHeaderManager.Interfaces;
-using LicenseHeaderManager.MenuItemButtonHandler;
+using HeaderManager.Interfaces;
+using HeaderManager.MenuItemButtonHandler;
 using Microsoft.VisualStudio.Shell;
 using Task = System.Threading.Tasks.Task;
 
-namespace LicenseHeaderManager.MenuItemCommands.ProjectMenu
+namespace HeaderManager.MenuItemCommands.ProjectMenu
 {
   /// <summary>
   ///   Command handler
   /// </summary>
-  internal sealed class RemoveLicenseHeaderFromAllFilesInProjectCommand
+  internal sealed class RemoveHeaderFromAllFilesInProjectCommand
   {
     /// <summary>
     ///   Command ID.
@@ -39,14 +39,14 @@ namespace LicenseHeaderManager.MenuItemCommands.ProjectMenu
     private readonly OleMenuCommand _menuItem;
 
     /// <summary>
-    ///   Initializes a new instance of the <see cref="RemoveLicenseHeaderFromAllFilesInProjectCommand" /> class.
+    ///   Initializes a new instance of the <see cref="RemoveHeaderFromAllFilesInProjectCommand" /> class.
     ///   Adds our command handlers for menu (commands must exist in the command table file)
     /// </summary>
     /// <param name="package">Owner package, not null.</param>
     /// <param name="commandService">Command service to add command to, not null.</param>
-    private RemoveLicenseHeaderFromAllFilesInProjectCommand (AsyncPackage package, OleMenuCommandService commandService)
+    private RemoveHeaderFromAllFilesInProjectCommand (AsyncPackage package, OleMenuCommandService commandService)
     {
-      ServiceProvider = (ILicenseHeaderExtension) package ?? throw new ArgumentNullException (nameof(package));
+      ServiceProvider = (IHeaderExtension) package ?? throw new ArgumentNullException (nameof(package));
       commandService = commandService ?? throw new ArgumentNullException (nameof(commandService));
 
       var menuCommandID = new CommandID (s_commandSet, c_commandId);
@@ -58,12 +58,12 @@ namespace LicenseHeaderManager.MenuItemCommands.ProjectMenu
     /// <summary>
     ///   Gets the instance of the command.
     /// </summary>
-    public static RemoveLicenseHeaderFromAllFilesInProjectCommand Instance { get; private set; }
+    public static RemoveHeaderFromAllFilesInProjectCommand Instance { get; private set; }
 
     /// <summary>
     ///   Gets the service provider from the owner package.
     /// </summary>
-    private ILicenseHeaderExtension ServiceProvider { get; }
+    private IHeaderExtension ServiceProvider { get; }
 
     private void OnQueryAllFilesCommandStatus (object sender, EventArgs e)
     {
@@ -84,12 +84,12 @@ namespace LicenseHeaderManager.MenuItemCommands.ProjectMenu
     /// <param name="package">Owner package, not null.</param>
     public static async Task InitializeAsync (AsyncPackage package)
     {
-      // Switch to the main thread - the call to AddCommand in RemoveLicenseHeaderFromAllFilesInProjectCommand's constructor requires
+      // Switch to the main thread - the call to AddCommand in RemoveHeaderFromAllFilesInProjectCommand's constructor requires
       // the UI thread.
-      await LicenseHeadersPackage.Instance.JoinableTaskFactory.SwitchToMainThreadAsync (package.DisposalToken);
+      await HeadersPackage.Instance.JoinableTaskFactory.SwitchToMainThreadAsync (package.DisposalToken);
 
       var commandService = await package.GetServiceAsync (typeof (IMenuCommandService)) as OleMenuCommandService;
-      Instance = new RemoveLicenseHeaderFromAllFilesInProjectCommand (package, commandService);
+      Instance = new RemoveHeaderFromAllFilesInProjectCommand (package, commandService);
     }
 
     /// <summary>

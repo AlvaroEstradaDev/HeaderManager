@@ -15,10 +15,10 @@ using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using LicenseHeaderManager.Core;
-using LicenseHeaderManager.Options.Model;
+using HeaderManager.Core;
+using HeaderManager.Options.Model;
 
-namespace LicenseHeaderManager.Options.DialogPageControls
+namespace HeaderManager.Options.DialogPageControls
 {
   public partial class WpfLanguages : UserControl
   {

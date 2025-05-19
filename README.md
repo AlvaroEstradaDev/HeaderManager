@@ -53,13 +53,13 @@ Copyright © 2021
 
 USAGE:
  Add license headers to one file with a custom configuration:
-   HeaderManager.Console.exe --configuration CoreOptions.json --files file.cs --license-header-definition DefinitionFile.licenseheader
+   HeaderManager.Console.exe --configuration CoreOptions.json --files file.cs --license-header-definition DefinitionFile.header
  Remove license headers from multiple files with standard configuration:
-   HeaderManager.Console.exe --files file1.cs,file2.html,file3.xaml --license-header-definition DefinitionFile.licenseheader --mode Remove
+   HeaderManager.Console.exe --files file1.cs,file2.html,file3.xaml --license-header-definition DefinitionFile.header --mode Remove
  Add license headers to all files in a directory, but not its subdirectories, with custom configuration:
-   HeaderManager.Console.exe --configuration CoreOptions.json --directory C:\SomeDirectory --license-header-definition DefinitionFile.licenseheader
+   HeaderManager.Console.exe --configuration CoreOptions.json --directory C:\SomeDirectory --license-header-definition DefinitionFile.header
  Remove license headers from all files in a directory and its subdirectories with standard configuration:
-   HeaderManager.Console.exe --directory C:\SomeDirectory --license-header-definition DefinitionFile.licenseheader --mode Remove --recursive
+   HeaderManager.Console.exe --directory C:\SomeDirectory --license-header-definition DefinitionFile.header --mode Remove --recursive
 ```
 </details>
 

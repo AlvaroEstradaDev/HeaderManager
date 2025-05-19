@@ -17,7 +17,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-namespace LicenseHeaderManager.Core
+namespace HeaderManager.Core
 {
   /// <summary>
   ///   Encapsulates multiple <see cref="DocumentHeaderProperty" /> objects in an enumerable data structure.
@@ -49,7 +49,7 @@ namespace LicenseHeaderManager.Core
 
     /// <summary>
     ///   Creates all properties that are used while inserting/replacing/removing license headers via a
-    ///   <see cref="LicenseHeaderReplacer" /> instance. This also entails predefined properties that can be expanded by the
+    ///   <see cref="HeaderReplacer" /> instance. This also entails predefined properties that can be expanded by the
     ///   Core itself.
     /// </summary>
     /// <param name="additionalProperties">

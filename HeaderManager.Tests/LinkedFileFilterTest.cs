@@ -16,13 +16,13 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using EnvDTE;
-using LicenseHeaderManager.Core;
-using LicenseHeaderManager.Interfaces;
-using LicenseHeaderManager.Utils;
+using HeaderManager.Core;
+using HeaderManager.Interfaces;
+using HeaderManager.Utils;
 using NUnit.Framework;
 using Rhino.Mocks;
 
-namespace LicenseHeaderManager.Tests
+namespace HeaderManager.Tests
 {
   [TestFixture]
   internal class LinkedFileFilterTest
@@ -38,7 +38,7 @@ namespace LicenseHeaderManager.Tests
       linkedFileFilter.Filter (new List<ProjectItem>());
 
       Assert.That (linkedFileFilter.ToBeProgressed, Is.Empty);
-      Assert.That (linkedFileFilter.NoLicenseHeaderFile, Is.Empty);
+      Assert.That (linkedFileFilter.NoHeaderFile, Is.Empty);
       Assert.That (linkedFileFilter.NotInSolution, Is.Empty);
     }
 
@@ -56,16 +56,16 @@ namespace LicenseHeaderManager.Tests
       linkedFileFilter.Filter (new List<ProjectItem> { linkedFile });
 
       Assert.That (linkedFileFilter.ToBeProgressed, Is.Empty);
-      Assert.That (linkedFileFilter.NoLicenseHeaderFile, Is.Empty);
+      Assert.That (linkedFileFilter.NoHeaderFile, Is.Empty);
       Assert.That (linkedFileFilter.NotInSolution, Is.Not.Empty);
     }
 
     [Test]
-    public async Task Filter_GivenLicenseHeaderFile_PopulatesToBeProgressedProperty ()
+    public async Task Filter_GivenHeaderFile_PopulatesToBeProgressedProperty ()
     {
       await VisualStudioTestContext.SwitchToMainThread();
 
-      const string licenseHeaderFileName = "test.licenseheader";
+      const string licenseHeaderFileName = "test.header";
 
       try
       {
@@ -91,16 +91,16 @@ namespace LicenseHeaderManager.Tests
         linkedFile.Expect (x => x.Name).Return ("linkedFile.cs");
         solution.Expect (x => x.FindProjectItem ("linkedFile.cs")).Return (linkedFile);
 
-        // LicenseHeaderFinder is invoked by LinkedFileFilter and uses LicenseHeadersPackage.Instance.LicenseHeaderExtractor.
-        // Since LicenseHeaderExtractor is set during MEF-controlled initialization, set the private-set LicenseHeaderExtractor
+        // HeaderFinder is invoked by LinkedFileFilter and uses HeadersPackage.Instance.HeaderExtractor.
+        // Since HeaderExtractor is set during MEF-controlled initialization, set the private-set HeaderExtractor
         // to make it work via tests as well.
-        VisualStudioTestContext.SetPrivateSetPackageProperty (nameof(ILicenseHeaderExtension.LicenseHeaderExtractor), new LicenseHeaderExtractor());
+        VisualStudioTestContext.SetPrivateSetPackageProperty (nameof(IHeaderExtension.HeaderExtractor), new HeaderExtractor());
 
         var linkedFileFilter = new LinkedFileFilter (solution);
         linkedFileFilter.Filter (new List<ProjectItem> { linkedFile });
 
         Assert.That (linkedFileFilter.ToBeProgressed, Is.Not.Empty);
-        Assert.That (linkedFileFilter.NoLicenseHeaderFile, Is.Empty);
+        Assert.That (linkedFileFilter.NoHeaderFile, Is.Empty);
         Assert.That (linkedFileFilter.NotInSolution, Is.Empty);
       }
       finally
@@ -110,7 +110,7 @@ namespace LicenseHeaderManager.Tests
     }
 
     [Test]
-    public async Task Filter_GivenNonLicenseHeaderFile_PopulatesNoLicenseHeaderFileProperty ()
+    public async Task Filter_GivenNonHeaderFile_PopulatesNoHeaderFileProperty ()
     {
       await VisualStudioTestContext.SwitchToMainThread();
 
@@ -138,7 +138,7 @@ namespace LicenseHeaderManager.Tests
       linkedFileFilter.Filter (new List<ProjectItem> { linkedFile });
 
       Assert.That (linkedFileFilter.ToBeProgressed, Is.Empty);
-      Assert.That (linkedFileFilter.NoLicenseHeaderFile, Is.Not.Empty);
+      Assert.That (linkedFileFilter.NoHeaderFile, Is.Not.Empty);
       Assert.That (linkedFileFilter.NotInSolution, Is.Empty);
     }
   }

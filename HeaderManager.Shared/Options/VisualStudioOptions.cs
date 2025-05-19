@@ -16,15 +16,15 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Threading.Tasks;
-using LicenseHeaderManager.Core.Options;
+using HeaderManager.Core.Options;
 
-namespace LicenseHeaderManager.Options
+namespace HeaderManager.Options
 {
   /// <summary>
   ///   Encapsulates members that represent the configuration affecting the behaviour of the License Header Manager Visual
   ///   Studio HeaderDefinitionExtension.
   /// </summary>
-  [LicenseHeaderManagerOptions]
+  [HeaderManagerOptions]
   internal class VisualStudioOptions
   {
     public const bool DefaultInsertInNewFiles = false;

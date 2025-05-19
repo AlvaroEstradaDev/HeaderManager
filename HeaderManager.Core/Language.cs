@@ -15,7 +15,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace LicenseHeaderManager.Core
+namespace HeaderManager.Core
 {
   /// <summary>
   ///   Provides an abstraction representing a programming language with information necessary to update license headers.

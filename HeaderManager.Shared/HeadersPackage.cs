@@ -20,20 +20,20 @@ using System.Runtime.InteropServices;
 using System.Threading;
 using EnvDTE;
 using EnvDTE80;
-using LicenseHeaderManager.Core;
-using LicenseHeaderManager.Core.Options;
-using LicenseHeaderManager.Headers;
-using LicenseHeaderManager.Interfaces;
-using LicenseHeaderManager.MenuItemCommands.EditorMenu;
-using LicenseHeaderManager.MenuItemCommands.FolderMenu;
-using LicenseHeaderManager.MenuItemCommands.ProjectItemMenu;
-using LicenseHeaderManager.MenuItemCommands.ProjectMenu;
-using LicenseHeaderManager.MenuItemCommands.SolutionMenu;
-using LicenseHeaderManager.Options;
-using LicenseHeaderManager.Options.DialogPages;
-using LicenseHeaderManager.Options.Model;
-using LicenseHeaderManager.PopUp.FeaturesQuestion;
-using LicenseHeaderManager.Utils;
+using HeaderManager.Core;
+using HeaderManager.Core.Options;
+using HeaderManager.Headers;
+using HeaderManager.Interfaces;
+using HeaderManager.MenuItemCommands.EditorMenu;
+using HeaderManager.MenuItemCommands.FolderMenu;
+using HeaderManager.MenuItemCommands.ProjectItemMenu;
+using HeaderManager.MenuItemCommands.ProjectMenu;
+using HeaderManager.MenuItemCommands.SolutionMenu;
+using HeaderManager.Options;
+using HeaderManager.Options.DialogPages;
+using HeaderManager.Options.Model;
+using HeaderManager.PopUp.FeaturesQuestion;
+using HeaderManager.Utils;
 using log4net;
 using log4net.Appender;
 using log4net.Config;
@@ -46,7 +46,7 @@ using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.Threading;
 using Task = System.Threading.Tasks.Task;
 
-namespace LicenseHeaderManager
+namespace HeaderManager
 {
   /// <summary>
   ///   This is the class that implements the package exposed by this assembly.
@@ -63,22 +63,22 @@ namespace LicenseHeaderManager
   [InstalledProductRegistration ("#110", "#112", Version, IconResourceID = 400)] // Help/About dialog of Visual Studio.
   [ProvideMenuResource ("Menus.ctmenu", 1)] // let the shell know that this package exposes some menus.
   [ProvideOptionPage (typeof (OptionsPage), c_licenseHeaders, c_general, 0, 0, true)]
-  [ProvideOptionPage (typeof (DefaultLicenseHeaderPage), c_licenseHeaders, c_defaultLicenseHeader, 0, 0, true)]
+  [ProvideOptionPage (typeof (DefaultHeaderPage), c_licenseHeaders, c_defaultHeader, 0, 0, true)]
   [ProvideOptionPage (typeof (LanguagesPage), c_licenseHeaders, c_languages, 0, 0, true)]
   [ProvideProfile (typeof (OptionsPage), c_licenseHeaders, c_general, 0, 0, true)]
-  [ProvideProfile (typeof (DefaultLicenseHeaderPage), c_licenseHeaders, c_defaultLicenseHeader, 0, 0, true)]
+  [ProvideProfile (typeof (DefaultHeaderPage), c_licenseHeaders, c_defaultHeader, 0, 0, true)]
   [ProvideProfile (typeof (LanguagesPage), c_licenseHeaders, c_languages, 0, 0, true)]
   [ProvideAutoLoad (VSConstants.UICONTEXT.SolutionOpening_string, PackageAutoLoadFlags.BackgroundLoad)]
-  [Guid (c_guidLicenseHeadersPkgString)]
-  public sealed class LicenseHeadersPackage : AsyncPackage, ILicenseHeaderExtension
+  [Guid (c_guidHeadersPkgString)]
+  public sealed class HeadersPackage : AsyncPackage, IHeaderExtension
   {
     public const string Version = "5.0.1";
-    private const string c_guidLicenseHeadersPkgString = "4c570677-8476-4d33-bd0c-da36c89287c8";
+    private const string c_guidHeadersPkgString = "4c570677-8476-4d33-bd0c-da36c89287c8";
 
     private const string c_licenseHeaders = "License Header Manager";
     private const string c_general = "General";
     private const string c_languages = "Languages";
-    private const string c_defaultLicenseHeader = "Default Header";
+    private const string c_defaultHeader = "Default Header";
 
     /// <summary>
     ///   GUID representing the output pane the <see cref="OutputPaneAppender" /> logs to.
@@ -107,28 +107,28 @@ namespace LicenseHeaderManager
     ///   not sited yet inside Visual Studio environment. The place to do all the other
     ///   initialization is the Initialize method.
     /// </summary>
-    public LicenseHeadersPackage ()
+    public HeadersPackage ()
     {
       Instance = this;
       _addedItems = new Stack<ProjectItem>();
     }
 
     /// <summary>
-    ///   Gets the <see cref="ILicenseHeaderExtension" /> instance that was created upon initializing the package.
+    ///   Gets the <see cref="IHeaderExtension" /> instance that was created upon initializing the package.
     /// </summary>
-    /// <remarks>The actual type of this property is <see cref="LicenseHeadersPackage" />.</remarks>
-    public static ILicenseHeaderExtension Instance { get; private set; }
+    /// <remarks>The actual type of this property is <see cref="HeadersPackage" />.</remarks>
+    public static IHeaderExtension Instance { get; private set; }
 
-    public LicenseHeaderReplacer LicenseHeaderReplacer
+    public HeaderReplacer HeaderReplacer
     {
       get
       {
         var keywords = GeneralOptionsPageModel.UseRequiredKeywords ? CoreOptions.RequiredKeywordsAsEnumerable (GeneralOptionsPageModel.RequiredKeywords) : null;
-        return new LicenseHeaderReplacer (LanguagesPageModel.Languages, keywords);
+        return new HeaderReplacer (LanguagesPageModel.Languages, keywords);
       }
     }
 
-    public ILicenseHeaderExtractor LicenseHeaderExtractor { get; private set; }
+    public IHeaderExtractor HeaderExtractor { get; private set; }
 
     public void ShowLanguagesPage ()
     {
@@ -140,7 +140,7 @@ namespace LicenseHeaderManager
       ShowOptionPage (typeof (OptionsPage));
     }
 
-    public IDefaultLicenseHeaderPageModel DefaultLicenseHeaderPageModel => Options.Model.DefaultLicenseHeaderPageModel.Instance;
+    public IDefaultHeaderPageModel DefaultHeaderPageModel => Options.Model.DefaultHeaderPageModel.Instance;
 
     public ILanguagesPageModel LanguagesPageModel => Options.Model.LanguagesPageModel.Instance;
 
@@ -156,7 +156,7 @@ namespace LicenseHeaderManager
     {
       ThreadHelper.ThrowIfNotOnUIThread();
 
-      var solutionHeaderDefinitionFilePath = LicenseHeaderDefinitionFileHelper.GetHeaderDefinitionFilePathForSolution (Dte2.Solution);
+      var solutionHeaderDefinitionFilePath = HeaderDefinitionFileHelper.GetHeaderDefinitionFilePathForSolution (Dte2.Solution);
       return File.Exists (solutionHeaderDefinitionFilePath);
     }
 
@@ -166,7 +166,7 @@ namespace LicenseHeaderManager
 
       var visible = false;
       if (ProjectItemInspection.IsPhysicalFile (item))
-        visible = LicenseHeaderReplacer.IsValidPathInput (item.FileNames[1]) && item.CanBeOpened();
+        visible = HeaderReplacer.IsValidPathInput (item.FileNames[1]) && item.CanBeOpened();
 
       return visible;
     }
@@ -206,7 +206,7 @@ namespace LicenseHeaderManager
     {
       AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_OnAssemblyResolve;
       JoinableTaskFactory = ThreadHelper.JoinableTaskFactory;
-      LicenseHeaderExtractor = new LicenseHeaderExtractor();
+      HeaderExtractor = new HeaderExtractor();
 
       await base.InitializeAsync (cancellationToken, progress);
       await JoinableTaskFactory.SwitchToMainThreadAsync (cancellationToken);
@@ -222,22 +222,22 @@ namespace LicenseHeaderManager
 
       await AddHeaderToProjectItemCommand.InitializeAsync (this);
       await RemoveHeaderFromProjectItemCommand.InitializeAsync (this);
-      await AddLicenseHeaderToAllFilesInSolutionCommand.InitializeAsync (this);
-      await RemoveLicenseHeaderFromAllFilesInSolutionCommand.InitializeAsync (this);
-      await AddNewSolutionLicenseHeaderDefinitionFileCommand.InitializeAsync (this, Dte2?.Solution, () => DefaultLicenseHeaderPageModel.LicenseHeaderFileText);
-      await OpenSolutionLicenseHeaderDefinitionFileCommand.InitializeAsync (this);
-      await RemoveSolutionLicenseHeaderDefinitionFileCommand.InitializeAsync (this);
-      await AddLicenseHeaderToAllFilesInProjectCommand.InitializeAsync (this);
-      await RemoveLicenseHeaderFromAllFilesInProjectCommand.InitializeAsync (this);
-      await AddNewLicenseHeaderDefinitionFileToProjectCommand.InitializeAsync (this);
-      await AddExistingLicenseHeaderDefinitionFileToProjectCommand.InitializeAsync (this);
-      await LicenseHeaderOptionsCommand.InitializeAsync (this);
-      await AddLicenseHeaderToAllFilesInFolderCommand.InitializeAsync (this);
-      await RemoveLicenseHeaderFromAllFilesInFolderCommand.InitializeAsync (this);
-      await AddExistingLicenseHeaderDefinitionFileToFolderCommand.InitializeAsync (this);
-      await AddNewLicenseHeaderDefinitionFileToFolderCommand.InitializeAsync (this);
-      await AddLicenseHeaderEditorAdvancedMenuCommand.InitializeAsync (this);
-      await RemoveLicenseHeaderEditorAdvancedMenuCommand.InitializeAsync (this);
+      await AddHeaderToAllFilesInSolutionCommand.InitializeAsync (this);
+      await RemoveHeaderFromAllFilesInSolutionCommand.InitializeAsync (this);
+      await AddNewSolutionHeaderDefinitionFileCommand.InitializeAsync (this, Dte2?.Solution, () => DefaultHeaderPageModel.HeaderFileText);
+      await OpenSolutionHeaderDefinitionFileCommand.InitializeAsync (this);
+      await RemoveSolutionHeaderDefinitionFileCommand.InitializeAsync (this);
+      await AddHeaderToAllFilesInProjectCommand.InitializeAsync (this);
+      await RemoveHeaderFromAllFilesInProjectCommand.InitializeAsync (this);
+      await AddNewHeaderDefinitionFileToProjectCommand.InitializeAsync (this);
+      await AddExistingHeaderDefinitionFileToProjectCommand.InitializeAsync (this);
+      await HeaderOptionsCommand.InitializeAsync (this);
+      await AddHeaderToAllFilesInFolderCommand.InitializeAsync (this);
+      await RemoveHeaderFromAllFilesInFolderCommand.InitializeAsync (this);
+      await AddExistingHeaderDefinitionFileToFolderCommand.InitializeAsync (this);
+      await AddNewHeaderDefinitionFileToFolderCommand.InitializeAsync (this);
+      await AddHeaderEditorAdvancedMenuCommand.InitializeAsync (this);
+      await RemoveHeaderEditorAdvancedMenuCommand.InitializeAsync (this);
 
       //register ItemAdded event handler
       if (Dte2?.Events is Events2 events)
@@ -316,18 +316,18 @@ namespace LicenseHeaderManager
 
     private void BeforeLinkedCommandExecuted (string guid, int id, object customIn, object customOut, ref bool cancelDefault)
     {
-      InvokeAddLicenseHeaderCommandFromLinkedCmd();
+      InvokeAddHeaderCommandFromLinkedCmd();
     }
 
     private void AfterLinkedCommandExecuted (string guid, int id, object customIn, object customOut)
     {
-      InvokeAddLicenseHeaderCommandFromLinkedCmd();
+      InvokeAddHeaderCommandFromLinkedCmd();
     }
 
-    private void InvokeAddLicenseHeaderCommandFromLinkedCmd ()
+    private void InvokeAddHeaderCommandFromLinkedCmd ()
     {
       IsCalledByLinkedCommand = true;
-      AddLicenseHeaderEditorAdvancedMenuCommand.Instance.Invoke();
+      AddHeaderEditorAdvancedMenuCommand.Instance.Invoke();
       IsCalledByLinkedCommand = false;
     }
 
@@ -408,7 +408,7 @@ namespace LicenseHeaderManager
         if (content == null)
           continue;
 
-        var headers = LicenseHeaderFinder.GetHeaderDefinitionForItem (item);
+        var headers = HeaderFinder.GetHeaderDefinitionForItem (item);
         if (headers == null)
           continue;
 
@@ -425,8 +425,8 @@ namespace LicenseHeaderManager
           ));
         }
 
-        var result = await LicenseHeaderReplacer.RemoveOrReplaceHeader (
-            new LicenseHeaderContentInput (content, fileName, headers, properties));
+        var result = await HeaderReplacer.RemoveOrReplaceHeader (
+            new HeaderContentInput (content, fileName, headers, properties));
         await CoreHelpers.HandleResultAsync (result, this, wasAlreadyOpen, false);
       }
 
@@ -442,7 +442,7 @@ namespace LicenseHeaderManager
                       {
                           Threshold = Level.Debug,
                           AppendToFile = true,
-                          File = Path.Combine (logPath, $"LicenseHeaderManager_{solutionName}_{DateTime.Now:yyyy-MM-dd_HH-mm-ss}.log"),
+                          File = Path.Combine (logPath, $"HeaderManager_{solutionName}_{DateTime.Now:yyyy-MM-dd_HH-mm-ss}.log"),
                           Layout = new PatternLayout ("%date [%-5level] %logger: %message%newline")
                       };
 
@@ -462,7 +462,7 @@ namespace LicenseHeaderManager
         return;
       }
 
-      _outputPane.CreatePane (ref GuidOutputPaneAppender, "LicenseHeaderManager", 1, 1);
+      _outputPane.CreatePane (ref GuidOutputPaneAppender, "HeaderManager", 1, 1);
       _outputPaneAppender = new OutputPaneAppender (_outputPane, Level.Info);
       _outputPaneAppender.ActivateOptions();
 
@@ -474,11 +474,11 @@ namespace LicenseHeaderManager
       if (!File.Exists (OptionsFacade.DefaultCoreOptionsPath) || !File.Exists (OptionsFacade.DefaultVisualStudioOptionsPath))
       {
         var optionsPage = (OptionsPage) GetDialogPage (typeof (OptionsPage));
-        var defaultLicenseHeaderPage = (DefaultLicenseHeaderPage) GetDialogPage (typeof (DefaultLicenseHeaderPage));
+        var defaultHeaderPage = (DefaultHeaderPage) GetDialogPage (typeof (DefaultHeaderPage));
         var languagesPage = (LanguagesPage) GetDialogPage (typeof (LanguagesPage));
 
         optionsPage.MigrateOptions();
-        defaultLicenseHeaderPage.MigrateOptions();
+        defaultHeaderPage.MigrateOptions();
         languagesPage.MigrateOptions();
       }
       else

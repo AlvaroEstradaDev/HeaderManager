@@ -11,15 +11,15 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
 WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 -->
-<platformUi:DialogWindow x:Class="LicenseHeaderManager.UpdateViews.FolderProjectUpdateDialog"
+<platformUi:DialogWindow x:Class="HeaderManager.UpdateViews.FolderProjectUpdateDialog"
                          xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                          xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                          xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                          xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                          xmlns:platformUi="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Shell.15.0"
-                         xmlns:local="clr-namespace:LicenseHeaderManager.UpdateViews"
-                         xmlns:updateViewModels="clr-namespace:LicenseHeaderManager.UpdateViewModels"
-                         mc:Ignorable="d" ShowInTaskbar="False" ResizeMode="NoResize" Title="LicenseHeaderManager" Height="164.308" Width="410.569"
+                         xmlns:local="clr-namespace:HeaderManager.UpdateViews"
+                         xmlns:updateViewModels="clr-namespace:HeaderManager.UpdateViewModels"
+                         mc:Ignorable="d" ShowInTaskbar="False" ResizeMode="NoResize" Title="HeaderManager" Height="164.308" Width="410.569"
                          d:DataContext="{d:DesignInstance updateViewModels:FolderProjectUpdateViewModel}">
 
   <platformUi:DialogWindow.Resources>

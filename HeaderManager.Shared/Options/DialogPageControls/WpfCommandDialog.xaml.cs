@@ -23,7 +23,7 @@ using EnvDTE;
 using Microsoft.VisualStudio.Shell;
 using Window = System.Windows.Window;
 
-namespace LicenseHeaderManager.Options.DialogPageControls
+namespace HeaderManager.Options.DialogPageControls
 {
   public partial class WpfCommandDialog : Window
   {

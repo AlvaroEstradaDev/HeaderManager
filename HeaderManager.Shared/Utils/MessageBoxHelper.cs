@@ -15,7 +15,7 @@ using System;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace LicenseHeaderManager.Utils
+namespace HeaderManager.Utils
 {
   /// <summary>
   ///   Contains utility methods to simplify MessageBox invocations and user interaction using them.
@@ -27,13 +27,13 @@ namespace LicenseHeaderManager.Utils
     /// </summary>
     /// <param name="message">The message to be displayed.</param>
     /// <param name="title">
-    ///   The title of the MessageBox will be '<see cref="Resources.LicenseHeaderManagerName" />: <paramref name="title" />'.
+    ///   The title of the MessageBox will be '<see cref="Resources.HeaderManagerName" />: <paramref name="title" />'.
     ///   If
-    ///   this parameter is <see langword="null" />, the title will be '<see cref="Resources.LicenseHeaderManagerName" />'
+    ///   this parameter is <see langword="null" />, the title will be '<see cref="Resources.HeaderManagerName" />'
     /// </param>
     public static void Show (string message, string title = null)
     {
-      MessageBox.Show (message, $"{Resources.LicenseHeaderManagerName}{(title == null ? string.Empty : ": " + title)}");
+      MessageBox.Show (message, $"{Resources.HeaderManagerName}{(title == null ? string.Empty : ": " + title)}");
     }
 
     /// <summary>
@@ -41,9 +41,9 @@ namespace LicenseHeaderManager.Utils
     /// </summary>
     /// <param name="message">The message to be displayed.</param>
     /// <param name="title">
-    ///   The title of the MessageBox will be '<see cref="Resources.LicenseHeaderManagerName" />: <paramref name="title" />'.
+    ///   The title of the MessageBox will be '<see cref="Resources.HeaderManagerName" />: <paramref name="title" />'.
     ///   If
-    ///   this parameter is <see langword="null" />, the title will be '<see cref="Resources.LicenseHeaderManagerName" />:
+    ///   this parameter is <see langword="null" />, the title will be '<see cref="Resources.HeaderManagerName" />:
     ///   <see cref="Resources.Message" />'
     /// </param>
     /// <param name="warning">
@@ -54,7 +54,7 @@ namespace LicenseHeaderManager.Utils
     {
       MessageBox.Show (
           message,
-          $"{Resources.LicenseHeaderManagerName}: {title ?? Resources.Message}",
+          $"{Resources.HeaderManagerName}: {title ?? Resources.Message}",
           MessageBoxButton.OK,
           warning ? MessageBoxImage.Warning : MessageBoxImage.Information);
     }
@@ -64,14 +64,14 @@ namespace LicenseHeaderManager.Utils
     /// </summary>
     /// <param name="message">The message to be displayed.</param>
     /// <param name="title">
-    ///   The title of the MessageBox will be '<see cref="Resources.LicenseHeaderManagerName" />: <paramref name="title" />'.
+    ///   The title of the MessageBox will be '<see cref="Resources.HeaderManagerName" />: <paramref name="title" />'.
     ///   If
-    ///   this parameter is <see langword="null" />, the title will be '<see cref="Resources.LicenseHeaderManagerName" />:
+    ///   this parameter is <see langword="null" />, the title will be '<see cref="Resources.HeaderManagerName" />:
     ///   <see cref="Resources.Error" />'
     /// </param>
     public static void ShowError (string message, string title = null)
     {
-      MessageBox.Show (message, $"{Resources.LicenseHeaderManagerName}: {title ?? Resources.Error}", MessageBoxButton.OK, MessageBoxImage.Error);
+      MessageBox.Show (message, $"{Resources.HeaderManagerName}: {title ?? Resources.Error}", MessageBoxButton.OK, MessageBoxImage.Error);
     }
 
     /// <summary>
@@ -79,9 +79,9 @@ namespace LicenseHeaderManager.Utils
     /// </summary>
     /// <param name="message">The question to be asked.</param>
     /// <param name="title">
-    ///   The title of the MessageBox will be '<see cref="Resources.LicenseHeaderManagerName" />: <paramref name="title" />'.
+    ///   The title of the MessageBox will be '<see cref="Resources.HeaderManagerName" />: <paramref name="title" />'.
     ///   If
-    ///   this parameter is <see langword="null" />, the title will be '<see cref="Resources.LicenseHeaderManagerName" />:
+    ///   this parameter is <see langword="null" />, the title will be '<see cref="Resources.HeaderManagerName" />:
     ///   <see cref="Resources.Question" />'
     /// </param>
     /// <param name="warning">
@@ -95,7 +95,7 @@ namespace LicenseHeaderManager.Utils
     {
       return MessageBox.Show (
           message,
-          $"{Resources.LicenseHeaderManagerName}: {title ?? Resources.Question}",
+          $"{Resources.HeaderManagerName}: {title ?? Resources.Question}",
           MessageBoxButton.YesNo,
           warning ? MessageBoxImage.Warning : MessageBoxImage.Question,
           MessageBoxResult.No) == MessageBoxResult.Yes;
@@ -110,9 +110,9 @@ namespace LicenseHeaderManager.Utils
     /// <param name="owner">The window on top of which the MessageBox should pop up. Must not be null.</param>
     /// <param name="message">The question to be asked.</param>
     /// <param name="title">
-    ///   The title of the MessageBox will be '<see cref="Resources.LicenseHeaderManagerName" />: <paramref name="title" />'.
+    ///   The title of the MessageBox will be '<see cref="Resources.HeaderManagerName" />: <paramref name="title" />'.
     ///   If
-    ///   this parameter is <see langword="null" />, the title will be '<see cref="Resources.LicenseHeaderManagerName" />:
+    ///   this parameter is <see langword="null" />, the title will be '<see cref="Resources.HeaderManagerName" />:
     ///   <see cref="Resources.Question" />'
     /// </param>
     /// <param name="warning"></param>
@@ -121,12 +121,12 @@ namespace LicenseHeaderManager.Utils
     /// </returns>
     public static async Task<bool> AskYesNoAsync (Window owner, string message, string title = null, bool warning = false)
     {
-      await LicenseHeadersPackage.Instance.JoinableTaskFactory.SwitchToMainThreadAsync();
+      await HeadersPackage.Instance.JoinableTaskFactory.SwitchToMainThreadAsync();
 
       return MessageBox.Show (
           owner,
           message,
-          $"{Resources.LicenseHeaderManagerName}: {title ?? Resources.Question}",
+          $"{Resources.HeaderManagerName}: {title ?? Resources.Question}",
           MessageBoxButton.YesNo,
           warning ? MessageBoxImage.Warning : MessageBoxImage.Question,
           MessageBoxResult.No) == MessageBoxResult.Yes;

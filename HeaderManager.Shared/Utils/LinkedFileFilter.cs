@@ -14,11 +14,11 @@
 using System;
 using System.Collections.Generic;
 using EnvDTE;
-using LicenseHeaderManager.Headers;
-using LicenseHeaderManager.Interfaces;
+using HeaderManager.Headers;
+using HeaderManager.Interfaces;
 using Microsoft.VisualStudio.Shell;
 
-namespace LicenseHeaderManager.Utils
+namespace HeaderManager.Utils
 {
   public class LinkedFileFilter : ILinkedFileFilter
   {
@@ -29,12 +29,12 @@ namespace LicenseHeaderManager.Utils
       _solution = solution;
 
       ToBeProgressed = new List<ProjectItem>();
-      NoLicenseHeaderFile = new List<ProjectItem>();
+      NoHeaderFile = new List<ProjectItem>();
       NotInSolution = new List<ProjectItem>();
     }
 
     public List<ProjectItem> ToBeProgressed { get; }
-    public List<ProjectItem> NoLicenseHeaderFile { get; }
+    public List<ProjectItem> NoHeaderFile { get; }
     public List<ProjectItem> NotInSolution { get; }
 
     public void Filter (IEnumerable<ProjectItem> projectItems)
@@ -46,16 +46,16 @@ namespace LicenseHeaderManager.Utils
         if (foundProjectItem == null)
           NotInSolution.Add (projectItem);
         else
-          CheckForLicenseHeaderFile (foundProjectItem);
+          CheckForHeaderFile (foundProjectItem);
       }
     }
 
-    private void CheckForLicenseHeaderFile (ProjectItem projectItem)
+    private void CheckForHeaderFile (ProjectItem projectItem)
     {
       ThreadHelper.ThrowIfNotOnUIThread();
-      var headers = LicenseHeaderFinder.GetHeaderDefinitionForItem (projectItem);
+      var headers = HeaderFinder.GetHeaderDefinitionForItem (projectItem);
       if (headers == null)
-        NoLicenseHeaderFile.Add (projectItem);
+        NoHeaderFile.Add (projectItem);
       else
         ToBeProgressed.Add (projectItem);
     }

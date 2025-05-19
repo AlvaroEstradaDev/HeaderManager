@@ -20,7 +20,7 @@ using EnvDTE80;
 using log4net;
 using Microsoft.VisualStudio.Shell;
 
-namespace LicenseHeaderManager.Utils
+namespace HeaderManager.Utils
 {
   /// <summary>
   ///   Provides utility methods for Visual Studio Commands

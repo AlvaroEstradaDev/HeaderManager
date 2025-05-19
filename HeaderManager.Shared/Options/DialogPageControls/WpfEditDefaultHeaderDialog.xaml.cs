@@ -14,22 +14,22 @@
 using System;
 using System.Windows;
 using System.Windows.Controls;
-using LicenseHeaderManager.Options.Model;
+using HeaderManager.Options.Model;
 
-namespace LicenseHeaderManager.Options.DialogPageControls
+namespace HeaderManager.Options.DialogPageControls
 {
   /// <summary>
-  ///   Interaction logic for WpfDefaultLicenseHeaderDialog.xaml
+  ///   Interaction logic for WpfDefaultHeaderDialog.xaml
   /// </summary>
-  public partial class WpfEditDefaultLicenseHeaderDialog : Window
+  public partial class WpfEditDefaultHeaderDialog : Window
   {
-    public WpfEditDefaultLicenseHeaderDialog (IDefaultLicenseHeaderPageModel pageModel)
+    public WpfEditDefaultHeaderDialog (IDefaultHeaderPageModel pageModel)
         : this()
     {
       DataContext = pageModel;
     }
 
-    public WpfEditDefaultLicenseHeaderDialog ()
+    public WpfEditDefaultHeaderDialog ()
     {
       InitializeComponent();
     }

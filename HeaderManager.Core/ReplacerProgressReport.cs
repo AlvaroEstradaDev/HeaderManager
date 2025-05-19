@@ -13,7 +13,7 @@
 
 using System;
 
-namespace LicenseHeaderManager.Core
+namespace HeaderManager.Core
 {
   /// <summary>
   ///   Encapsulates information to be passed as argument to a <see cref="IProgress{T}" /> callback.
@@ -40,13 +40,13 @@ namespace LicenseHeaderManager.Core
 
     /// <summary>
     ///   Gets the overall number of files that are to be updated over the course of one invocation of the
-    ///   <see cref="LicenseHeaderReplacer" />.
+    ///   <see cref="HeaderReplacer" />.
     /// </summary>
     public int TotalFileCount { get; }
 
     /// <summary>
     ///   Gets the number of file that have already been processed over the course of one invocation of the
-    ///   <see cref="LicenseHeaderReplacer" />.
+    ///   <see cref="HeaderReplacer" />.
     /// </summary>
     public int ProcessedFileCount { get; }
   }

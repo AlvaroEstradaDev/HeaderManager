@@ -14,12 +14,12 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
-using LicenseHeaderManager.Options;
-using LicenseHeaderManager.Options.Converters;
-using LicenseHeaderManager.Options.Model;
+using HeaderManager.Options;
+using HeaderManager.Options.Converters;
+using HeaderManager.Options.Model;
 using NUnit.Framework;
 
-namespace LicenseHeaderManager.Tests
+namespace HeaderManager.Tests
 {
   [TestFixture]
   public class GeneralOptionsPageModelTest

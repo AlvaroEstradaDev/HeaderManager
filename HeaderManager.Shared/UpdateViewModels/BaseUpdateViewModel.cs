@@ -16,7 +16,7 @@ using System.ComponentModel;
 using System.Windows.Input;
 using Microsoft.VisualStudio.PlatformUI;
 
-namespace LicenseHeaderManager.UpdateViewModels
+namespace HeaderManager.UpdateViewModels
 {
   public class BaseUpdateViewModel : INotifyPropertyChanged
   {

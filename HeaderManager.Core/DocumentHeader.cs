@@ -16,7 +16,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
 
-namespace LicenseHeaderManager.Core
+namespace HeaderManager.Core
 {
   /// <summary>
   ///   Represents the license header of a <see cref="Document" />.

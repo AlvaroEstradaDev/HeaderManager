@@ -16,18 +16,18 @@ using System.ComponentModel.Design;
 using System.IO;
 using System.Text;
 using EnvDTE;
-using LicenseHeaderManager.Headers;
-using LicenseHeaderManager.Interfaces;
-using LicenseHeaderManager.Utils;
+using HeaderManager.Headers;
+using HeaderManager.Interfaces;
+using HeaderManager.Utils;
 using Microsoft.VisualStudio.Shell;
 using Task = System.Threading.Tasks.Task;
 
-namespace LicenseHeaderManager.MenuItemCommands.SolutionMenu
+namespace HeaderManager.MenuItemCommands.SolutionMenu
 {
   /// <summary>
   ///   Command handler
   /// </summary>
-  internal sealed class AddNewSolutionLicenseHeaderDefinitionFileCommand
+  internal sealed class AddNewSolutionHeaderDefinitionFileCommand
   {
     /// <summary>
     ///   Command ID.
@@ -45,7 +45,7 @@ namespace LicenseHeaderManager.MenuItemCommands.SolutionMenu
     private readonly Solution _solution;
 
     /// <summary>
-    ///   Initializes a new instance of the <see cref="AddNewSolutionLicenseHeaderDefinitionFileCommand" /> class.
+    ///   Initializes a new instance of the <see cref="AddNewSolutionHeaderDefinitionFileCommand" /> class.
     ///   Adds our command handlers for menu (commands must exist in the command table file)
     /// </summary>
     /// <param name="package">Owner package, not null.</param>
@@ -55,13 +55,13 @@ namespace LicenseHeaderManager.MenuItemCommands.SolutionMenu
     ///   Function that returns the currently configured default license header
     ///   definition as string
     /// </param>
-    private AddNewSolutionLicenseHeaderDefinitionFileCommand (
+    private AddNewSolutionHeaderDefinitionFileCommand (
         AsyncPackage package,
         OleMenuCommandService commandService,
         Solution solution,
         Func<string> defaultHeaderDefinitionFunc)
     {
-      ServiceProvider = (ILicenseHeaderExtension) package ?? throw new ArgumentNullException (nameof(package));
+      ServiceProvider = (IHeaderExtension) package ?? throw new ArgumentNullException (nameof(package));
       commandService = commandService ?? throw new ArgumentNullException (nameof(commandService));
 
       _solution = solution;
@@ -76,12 +76,12 @@ namespace LicenseHeaderManager.MenuItemCommands.SolutionMenu
     /// <summary>
     ///   Gets the instance of the command.
     /// </summary>
-    public static AddNewSolutionLicenseHeaderDefinitionFileCommand Instance { get; private set; }
+    public static AddNewSolutionHeaderDefinitionFileCommand Instance { get; private set; }
 
     /// <summary>
     ///   Gets the service provider from the owner package.
     /// </summary>
-    private ILicenseHeaderExtension ServiceProvider { get; }
+    private IHeaderExtension ServiceProvider { get; }
 
     private void OnQuerySolutionCommandStatus (object sender, EventArgs e)
     {
@@ -99,12 +99,12 @@ namespace LicenseHeaderManager.MenuItemCommands.SolutionMenu
     /// </param>
     public static async Task InitializeAsync (AsyncPackage package, Solution solution, Func<string> defaultHeaderDefinitionFunc)
     {
-      // Switch to the main thread - the call to AddCommand in AddNewSolutionLicenseHeaderDefinitionFileCommand's constructor requires
+      // Switch to the main thread - the call to AddCommand in AddNewSolutionHeaderDefinitionFileCommand's constructor requires
       // the UI thread.
-      await LicenseHeadersPackage.Instance.JoinableTaskFactory.SwitchToMainThreadAsync (package.DisposalToken);
+      await HeadersPackage.Instance.JoinableTaskFactory.SwitchToMainThreadAsync (package.DisposalToken);
 
       var commandService = await package.GetServiceAsync (typeof (IMenuCommandService)) as OleMenuCommandService;
-      Instance = new AddNewSolutionLicenseHeaderDefinitionFileCommand (package, commandService, solution, defaultHeaderDefinitionFunc);
+      Instance = new AddNewSolutionHeaderDefinitionFileCommand (package, commandService, solution, defaultHeaderDefinitionFunc);
     }
 
     public void Invoke (Solution solution)
@@ -130,10 +130,10 @@ namespace LicenseHeaderManager.MenuItemCommands.SolutionMenu
     {
       await ServiceProvider.JoinableTaskFactory.SwitchToMainThreadAsync();
 
-      var solutionHeaderDefinitionFilePath = LicenseHeaderDefinitionFileHelper.GetHeaderDefinitionFilePathForSolution (solution);
-      var defaultLicenseHeaderFileText = _defaultHeaderDefinitionFunc();
+      var solutionHeaderDefinitionFilePath = HeaderDefinitionFileHelper.GetHeaderDefinitionFilePathForSolution (solution);
+      var defaultHeaderFileText = _defaultHeaderDefinitionFunc();
 
-      File.WriteAllText (solutionHeaderDefinitionFilePath, defaultLicenseHeaderFileText, Encoding.UTF8);
+      File.WriteAllText (solutionHeaderDefinitionFilePath, defaultHeaderFileText, Encoding.UTF8);
       solution.DTE.OpenFile (Constants.vsViewKindTextView, solutionHeaderDefinitionFilePath).Activate();
     }
   }

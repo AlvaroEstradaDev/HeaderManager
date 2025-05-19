@@ -35,8 +35,8 @@
     <Folder Include="NewFolder3\NewFolder1\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="..\TypeScriptHTMLApp1\testFolder\testFolder.licenseheader">
-      <Link>testFolder.licenseheader</Link>
+    <Content Include="..\TypeScriptHTMLApp1\testFolder\testFolder.header">
+      <Link>testFolder.header</Link>
     </Content>
   </ItemGroup>
   <PropertyGroup>

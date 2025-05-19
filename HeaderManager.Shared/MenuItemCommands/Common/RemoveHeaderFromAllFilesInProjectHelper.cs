@@ -16,22 +16,22 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using EnvDTE;
-using LicenseHeaderManager.Core;
-using LicenseHeaderManager.Interfaces;
-using LicenseHeaderManager.UpdateViewModels;
-using LicenseHeaderManager.Utils;
+using HeaderManager.Core;
+using HeaderManager.Interfaces;
+using HeaderManager.UpdateViewModels;
+using HeaderManager.Utils;
 
-namespace LicenseHeaderManager.MenuItemCommands.Common
+namespace HeaderManager.MenuItemCommands.Common
 {
-  public class RemoveLicenseHeaderFromAllFilesInProjectHelper
+  public class RemoveHeaderFromAllFilesInProjectHelper
   {
     private readonly BaseUpdateViewModel _baseUpdateViewModel;
     private readonly CancellationToken _cancellationToken;
-    private readonly ILicenseHeaderExtension _licenseHeaderExtension;
+    private readonly IHeaderExtension _licenseHeaderExtension;
 
-    public RemoveLicenseHeaderFromAllFilesInProjectHelper (
+    public RemoveHeaderFromAllFilesInProjectHelper (
         CancellationToken cancellationToken,
-        ILicenseHeaderExtension licenseHeaderExtension,
+        IHeaderExtension licenseHeaderExtension,
         BaseUpdateViewModel baseUpdateViewModel)
     {
       _cancellationToken = cancellationToken;
@@ -46,7 +46,7 @@ namespace LicenseHeaderManager.MenuItemCommands.Common
       {
         case Project project:
         {
-          var replacerInput = new List<LicenseHeaderContentInput>();
+          var replacerInput = new List<HeaderContentInput>();
           var fileOpenedStatus = new Dictionary<string, bool>();
           foreach (ProjectItem item in project.ProjectItems)
           {
@@ -70,12 +70,12 @@ namespace LicenseHeaderManager.MenuItemCommands.Common
     }
 
     private async Task RemoveOrReplaceHeaderAndHandleResultAsync (
-        ICollection<LicenseHeaderContentInput> replacerInput,
+        ICollection<HeaderContentInput> replacerInput,
         IDictionary<string, bool> fileOpenedStatus,
         string projectName = null)
     {
       replacerInput.IgnoreNonCommentText();
-      var result = await _licenseHeaderExtension.LicenseHeaderReplacer.RemoveOrReplaceHeader (
+      var result = await _licenseHeaderExtension.HeaderReplacer.RemoveOrReplaceHeader (
           replacerInput,
           CoreHelpers.CreateProgress (_baseUpdateViewModel, projectName, fileOpenedStatus, _cancellationToken),
           _cancellationToken);

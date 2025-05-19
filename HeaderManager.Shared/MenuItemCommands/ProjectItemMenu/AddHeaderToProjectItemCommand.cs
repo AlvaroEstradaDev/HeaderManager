@@ -14,12 +14,12 @@
 using System;
 using System.ComponentModel.Design;
 using EnvDTE;
-using LicenseHeaderManager.Interfaces;
-using LicenseHeaderManager.Utils;
+using HeaderManager.Interfaces;
+using HeaderManager.Utils;
 using Microsoft.VisualStudio.Shell;
 using Task = System.Threading.Tasks.Task;
 
-namespace LicenseHeaderManager.MenuItemCommands.ProjectItemMenu
+namespace HeaderManager.MenuItemCommands.ProjectItemMenu
 {
   /// <summary>
   ///   Command handler
@@ -46,7 +46,7 @@ namespace LicenseHeaderManager.MenuItemCommands.ProjectItemMenu
     /// <param name="commandService">Command service to add command to, not null.</param>
     private AddHeaderToProjectItemCommand (AsyncPackage package, OleMenuCommandService commandService)
     {
-      ServiceProvider = (ILicenseHeaderExtension) package ?? throw new ArgumentNullException (nameof(package));
+      ServiceProvider = (IHeaderExtension) package ?? throw new ArgumentNullException (nameof(package));
       commandService = commandService ?? throw new ArgumentNullException (nameof(commandService));
 
       var menuCommandID = new CommandID (s_commandSet, c_commandId);
@@ -63,7 +63,7 @@ namespace LicenseHeaderManager.MenuItemCommands.ProjectItemMenu
     /// <summary>
     ///   Gets the service provider from the owner package.
     /// </summary>
-    private ILicenseHeaderExtension ServiceProvider { get; }
+    private IHeaderExtension ServiceProvider { get; }
 
     private void OnQueryProjectItemCommandStatus (object sender, EventArgs e)
     {
@@ -83,7 +83,7 @@ namespace LicenseHeaderManager.MenuItemCommands.ProjectItemMenu
     {
       // Switch to the main thread - the call to AddCommand in AddHeaderToProjectItemCommand's constructor requires
       // the UI thread.
-      await LicenseHeadersPackage.Instance.JoinableTaskFactory.SwitchToMainThreadAsync (package.DisposalToken);
+      await HeadersPackage.Instance.JoinableTaskFactory.SwitchToMainThreadAsync (package.DisposalToken);
 
       var commandService = await package.GetServiceAsync (typeof (IMenuCommandService)) as OleMenuCommandService;
       Instance = new AddHeaderToProjectItemCommand (package, commandService);
@@ -113,10 +113,10 @@ namespace LicenseHeaderManager.MenuItemCommands.ProjectItemMenu
       if (!(args.InValue is ProjectItem item))
         item = ServiceProvider.GetSolutionExplorerItem() as ProjectItem;
 
-      if (item == null || !ProjectItemInspection.IsPhysicalFile (item) || ProjectItemInspection.IsLicenseHeader (item))
+      if (item == null || !ProjectItemInspection.IsPhysicalFile (item) || ProjectItemInspection.IsHeader (item))
         return;
 
-      await item.AddLicenseHeaderToItemAsync (ServiceProvider, !ServiceProvider.IsCalledByLinkedCommand);
+      await item.AddHeaderToItemAsync (ServiceProvider, !ServiceProvider.IsCalledByLinkedCommand);
     }
   }
 }

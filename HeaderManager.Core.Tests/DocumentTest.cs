@@ -19,7 +19,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using NUnit.Framework;
 
-namespace LicenseHeaderManager.Core.Tests
+namespace HeaderManager.Core.Tests
 {
   [TestFixture]
   public class DocumentTest
@@ -55,7 +55,7 @@ namespace LicenseHeaderManager.Core.Tests
     [Test]
     public async Task ValidateHeader_EmptyHeader_ReturnsTrue ()
     {
-      var document = new Document (new LicenseHeaderPathInput ("", null), new Language(), null);
+      var document = new Document (new HeaderPathInput ("", null), new Language(), null);
       var isValidHeader = await document.ValidateHeader();
 
       Assert.That (isValidHeader, Is.True);
@@ -66,7 +66,7 @@ namespace LicenseHeaderManager.Core.Tests
     {
       var headerLines = new[] { "// Copyright (c) 2011 rubicon IT GmbH" };
 
-      var document = new Document (new LicenseHeaderPathInput (CreateTestFile(), null), _language, headerLines);
+      var document = new Document (new HeaderPathInput (CreateTestFile(), null), _language, headerLines);
       var isValidHeader = await document.ValidateHeader();
 
       Assert.That (isValidHeader, Is.True);
@@ -78,7 +78,7 @@ namespace LicenseHeaderManager.Core.Tests
       var headerLines = new[] { "#endregion" };
       _language.EndRegion = "#endregion";
 
-      var document = new Document (new LicenseHeaderPathInput (CreateTestFile(), null), _language, headerLines);
+      var document = new Document (new HeaderPathInput (CreateTestFile(), null), _language, headerLines);
       var isValidHeader = await document.ValidateHeader();
 
       Assert.That (isValidHeader, Is.False);
@@ -88,7 +88,7 @@ namespace LicenseHeaderManager.Core.Tests
     public async Task ValidateHeader_NonEmptyAndInvalidHeader_ReturnsFalse ()
     {
       var headerLines = new[] { "Invalid header" };
-      var document = new Document (new LicenseHeaderPathInput (CreateTestFile(), null), _language, headerLines);
+      var document = new Document (new HeaderPathInput (CreateTestFile(), null), _language, headerLines);
       var isValidHeader = await document.ValidateHeader();
 
       Assert.That (isValidHeader, Is.False);
@@ -97,7 +97,7 @@ namespace LicenseHeaderManager.Core.Tests
     [Test]
     public void ReplaceHeaderIfNecessaryContent_PathInputMode_ThrowsInvalidOperationException ()
     {
-      var document = new Document (new LicenseHeaderPathInput (CreateTestFile(), null), _language, null);
+      var document = new Document (new HeaderPathInput (CreateTestFile(), null), _language, null);
 
       Assert.That (async () => await document.ReplaceHeaderIfNecessaryContent (new CancellationToken()), Throws.InstanceOf<InvalidOperationException>());
     }
@@ -106,7 +106,7 @@ namespace LicenseHeaderManager.Core.Tests
     public void ReplaceHeaderIfNecessaryContent_ContentInputMode_ReturnsContent ()
     {
       const string testContent = "test content";
-      var document = new Document (new LicenseHeaderContentInput (testContent, CreateTestFile(), _headers), _language, null);
+      var document = new Document (new HeaderContentInput (testContent, CreateTestFile(), _headers), _language, null);
 
       Assert.That (async () => await document.ReplaceHeaderIfNecessaryContent (new CancellationToken()), Is.EqualTo (testContent));
     }
@@ -115,7 +115,7 @@ namespace LicenseHeaderManager.Core.Tests
     public void ReplaceHeaderIfNecessaryPath_ContentInputMode_ThrowsInvalidOperationException ()
     {
       const string testContent = "test content";
-      var document = new Document (new LicenseHeaderContentInput (testContent, CreateTestFile(), _headers), _language, null);
+      var document = new Document (new HeaderContentInput (testContent, CreateTestFile(), _headers), _language, null);
 
       Assert.That (async () => await document.ReplaceHeaderIfNecessaryPath (new CancellationToken()), Throws.InstanceOf<InvalidOperationException>());
     }
@@ -123,7 +123,7 @@ namespace LicenseHeaderManager.Core.Tests
     [Test]
     public void ReplaceHeaderIfNecessaryPath_PathInputMode_DoesNotThrowException ()
     {
-      var document = new Document (new LicenseHeaderPathInput (CreateTestFile(), _headers), _language, null);
+      var document = new Document (new HeaderPathInput (CreateTestFile(), _headers), _language, null);
 
       Assert.That (async () => await document.ReplaceHeaderIfNecessaryPath (new CancellationToken()), Throws.Nothing);
     }
@@ -131,7 +131,7 @@ namespace LicenseHeaderManager.Core.Tests
     [Test]
     public void ReplaceHeaderIfNecessaryPath_PathInputModeWithMatchingSkipExpression_DoesNotThrowException ()
     {
-      var document = new Document (new LicenseHeaderPathInput (CreateTestFile(), _headers), _language, null);
+      var document = new Document (new HeaderPathInput (CreateTestFile(), _headers), _language, null);
       _language.SkipExpression = "@/";
 
       Assert.That (async () => await document.ReplaceHeaderIfNecessaryPath (new CancellationToken()), Throws.Nothing);
@@ -140,7 +140,7 @@ namespace LicenseHeaderManager.Core.Tests
     [Test]
     public void ReplaceHeaderIfNecessaryPath_PathInputModeWithMatchingSkipExpressionAndHeaderLines_DoesNotThrowException ()
     {
-      var document = new Document (new LicenseHeaderPathInput (CreateTestFile(), _headers), _language, new[] { "test" });
+      var document = new Document (new HeaderPathInput (CreateTestFile(), _headers), _language, new[] { "test" });
       _language.SkipExpression = "@/";
 
       Assert.That (async () => await document.ReplaceHeaderIfNecessaryPath (new CancellationToken()), Throws.Nothing);
@@ -150,7 +150,7 @@ namespace LicenseHeaderManager.Core.Tests
     public void ReplaceHeaderIfNecessaryContent_ContentInputModeAndKeywordsNotNullAndContentNotContainingKeyword_ReturnsComment ()
     {
       const string testContent = "//test content";
-      var document = new Document (new LicenseHeaderContentInput (testContent, CreateTestFile(), _headers), _language, null, null, new List<string> { "copyright" });
+      var document = new Document (new HeaderContentInput (testContent, CreateTestFile(), _headers), _language, null, null, new List<string> { "copyright" });
 
       Assert.That (async () => await document.ReplaceHeaderIfNecessaryContent (new CancellationToken()), Is.EqualTo (testContent));
     }
@@ -159,7 +159,7 @@ namespace LicenseHeaderManager.Core.Tests
     public void ReplaceHeaderIfNecessaryContent_ContentInputModeAndKeywordsNotNullAndContentContainsKeyword_ReturnsEmpty ()
     {
       const string testContent = "//test content copyright";
-      var document = new Document (new LicenseHeaderContentInput (testContent, CreateTestFile(), _headers), _language, null, null, new List<string> { "copyright" });
+      var document = new Document (new HeaderContentInput (testContent, CreateTestFile(), _headers), _language, null, null, new List<string> { "copyright" });
 
       Assert.That (async () => await document.ReplaceHeaderIfNecessaryContent (new CancellationToken()), Is.Empty);
     }
@@ -167,7 +167,7 @@ namespace LicenseHeaderManager.Core.Tests
     [Test]
     public void ReplaceHeaderIfNecessaryPath_PathInputModeWithNonMatchingSkipExpressionAndHeaderLines_DoesNotThrowException ()
     {
-      var document = new Document (new LicenseHeaderPathInput (CreateTestFile(), _headers), _language, new[] { "test" });
+      var document = new Document (new HeaderPathInput (CreateTestFile(), _headers), _language, new[] { "test" });
       _language.SkipExpression = "/@";
 
       Assert.That (async () => await document.ReplaceHeaderIfNecessaryPath (new CancellationToken()), Throws.Nothing);
@@ -178,7 +178,7 @@ namespace LicenseHeaderManager.Core.Tests
     {
       const string testContent = "@/ test content";
       _language.SkipExpression = "@/";
-      var document = new Document (new LicenseHeaderContentInput (testContent, CreateTestFile(), _headers), _language, null, null, new List<string>());
+      var document = new Document (new HeaderContentInput (testContent, CreateTestFile(), _headers), _language, null, null, new List<string>());
 
       Assert.That (async () => await document.ReplaceHeaderIfNecessaryContent (new CancellationToken()), Is.EqualTo (testContent));
     }

@@ -19,7 +19,7 @@ using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Threading;
 using NUnit.Framework;
 
-namespace LicenseHeaderManager.Tests
+namespace HeaderManager.Tests
 {
   /// <summary>
   ///   Provides an abstract base test fixture that allows for tests that invoke methods with assertions
@@ -28,7 +28,7 @@ namespace LicenseHeaderManager.Tests
   [SetUpFixture]
   public sealed class VisualStudioTestContext
   {
-    public static LicenseHeadersPackage LicenseHeaderPackage;
+    public static HeadersPackage HeaderPackage;
     private static GlobalServiceProvider s_mockServiceProvider;
 
     [OneTimeSetUp]
@@ -36,9 +36,9 @@ namespace LicenseHeaderManager.Tests
     {
       s_mockServiceProvider = new GlobalServiceProvider();
 
-      // The static Instance is set in the LicenseHeadersPackage constructor. Therefore, set it in the fixture setup
+      // The static Instance is set in the HeadersPackage constructor. Therefore, set it in the fixture setup
       // such that it is accessible during tests.
-      LicenseHeaderPackage = new LicenseHeadersPackage();
+      HeaderPackage = new HeadersPackage();
     }
 
     [OneTimeTearDown]
@@ -48,13 +48,13 @@ namespace LicenseHeaderManager.Tests
     }
 
     /// <summary>
-    ///   Sets the value of a private-set property of the <see cref="LicenseHeadersPackage" /> instance.
+    ///   Sets the value of a private-set property of the <see cref="HeadersPackage" /> instance.
     /// </summary>
     /// <param name="propertyName">The name of the private-set property whose value should be set.</param>
     /// <param name="propertyValue">The value the property determined by <paramref name="propertyName" /> should be set to.</param>
     public static void SetPrivateSetPackageProperty (string propertyName, object propertyValue)
     {
-      typeof (LicenseHeadersPackage).GetProperty (propertyName)?.SetValue (LicenseHeaderPackage, propertyValue);
+      typeof (HeadersPackage).GetProperty (propertyName)?.SetValue (HeaderPackage, propertyValue);
     }
 
     public static JoinableTaskFactory.MainThreadAwaitable SwitchToMainThread ()

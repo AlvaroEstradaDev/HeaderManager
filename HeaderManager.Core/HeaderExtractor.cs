@@ -16,14 +16,14 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-namespace LicenseHeaderManager.Core
+namespace HeaderManager.Core
 {
-  public class LicenseHeaderExtractor : ILicenseHeaderExtractor
+  public class HeaderExtractor : IHeaderExtractor
   {
     /// <summary>
     ///   The file extension of License Header Definition files.
     /// </summary>
-    public const string HeaderDefinitionExtension = ".licenseheader";
+    public const string HeaderDefinitionExtension = ".header";
 
     /// <summary>
     ///   The text representing the start of the listing of extensions belonging to one license header definition within a

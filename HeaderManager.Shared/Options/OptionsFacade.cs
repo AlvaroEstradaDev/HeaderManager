@@ -18,10 +18,10 @@ using System.Collections.Specialized;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using LicenseHeaderManager.Core;
-using LicenseHeaderManager.Core.Options;
+using HeaderManager.Core;
+using HeaderManager.Core.Options;
 
-namespace LicenseHeaderManager.Options
+namespace HeaderManager.Options
 {
   /// <summary>
   ///   Provides a facade around an <see cref="CoreOptions" /> and a <see cref="VisualStudioOptions" /> instance for unified
@@ -54,13 +54,13 @@ namespace LicenseHeaderManager.Options
     }
 
     public static string DefaultCoreOptionsPath =>
-        Environment.ExpandEnvironmentVariables ($@"%APPDATA%\rubicon\LicenseHeaderManager\{LicenseHeadersPackage.Instance.Dte2.Version}\CoreOptions.json");
+        Environment.ExpandEnvironmentVariables ($@"%APPDATA%\rubicon\HeaderManager\{HeadersPackage.Instance.Dte2.Version}\CoreOptions.json");
 
     public static string DefaultVisualStudioOptionsPath =>
-        Environment.ExpandEnvironmentVariables ($@"%APPDATA%\rubicon\LicenseHeaderManager\{LicenseHeadersPackage.Instance.Dte2.Version}\VisualStudioOptions.json");
+        Environment.ExpandEnvironmentVariables ($@"%APPDATA%\rubicon\HeaderManager\{HeadersPackage.Instance.Dte2.Version}\VisualStudioOptions.json");
 
     public static string DefaultLogPath =>
-        Environment.ExpandEnvironmentVariables ($@"%APPDATA%\rubicon\LicenseHeaderManager\{LicenseHeadersPackage.Instance.Dte2.Version}\logs_lhm");
+        Environment.ExpandEnvironmentVariables ($@"%APPDATA%\rubicon\HeaderManager\{HeadersPackage.Instance.Dte2.Version}\logs_lhm");
 
     /// <summary>
     ///   Gets or sets the currently up-to-date configuration of the License Header Manager HeaderDefinitionExtension, along
@@ -91,15 +91,15 @@ namespace LicenseHeaderManager.Options
     /// <summary>
     ///   Gets or sets the text for new license header definition files.
     /// </summary>
-    public virtual string LicenseHeaderFileText
+    public virtual string HeaderFileText
     {
-      get => _coreOptions.LicenseHeaderFileText;
-      set => _coreOptions.LicenseHeaderFileText = value;
+      get => _coreOptions.HeaderFileText;
+      set => _coreOptions.HeaderFileText = value;
     }
 
     /// <summary>
     ///   Gets or sets a list of <see cref="Core.Language" /> objects that represents the
-    ///   languages for which the <see cref="Core.LicenseHeaderReplacer" /> is configured to use.
+    ///   languages for which the <see cref="Core.HeaderReplacer" /> is configured to use.
     /// </summary>
     public virtual ObservableCollection<Language> Languages
     {
@@ -207,7 +207,7 @@ namespace LicenseHeaderManager.Options
                          {
                              UseRequiredKeywords = UseRequiredKeywords,
                              RequiredKeywords = RequiredKeywords,
-                             LicenseHeaderFileText = LicenseHeaderFileText,
+                             HeaderFileText = HeaderFileText,
                              Languages = new ObservableCollection<Language> (Languages.Select (x => x.Clone())),
                              InsertInNewFiles = InsertInNewFiles,
                              LinkedCommands = new ObservableCollection<LinkedCommand> (LinkedCommands.Select (x => x.Clone()))

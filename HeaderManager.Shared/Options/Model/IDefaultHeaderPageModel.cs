@@ -13,17 +13,17 @@
 
 using System;
 
-namespace LicenseHeaderManager.Options.Model
+namespace HeaderManager.Options.Model
 {
   /// <summary>
   ///   Provides options for the options page regarding License Header File text.
   /// </summary>
-  public interface IDefaultLicenseHeaderPageModel
+  public interface IDefaultHeaderPageModel
   {
     /// <summary>
     ///   Gets or sets the text for new license header definition files.
     /// </summary>
-    string LicenseHeaderFileText { get; set; }
+    string HeaderFileText { get; set; }
 
     /// <summary>
     ///   Resets the options on this page to the default values.

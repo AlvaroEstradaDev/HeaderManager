@@ -7,8 +7,8 @@
     <ProjectGuid>{B8D94ED6-4B73-443E-ABA0-2C373B9E6735}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>LicenseHeaderManager.Core</RootNamespace>
-    <AssemblyName>LicenseHeaderManager.Core</AssemblyName>
+    <RootNamespace>HeaderManager.Core</RootNamespace>
+    <AssemblyName>HeaderManager.Core</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -62,25 +62,25 @@
     <Compile Include="DocumentHeaderProperties.cs" />
     <Compile Include="DocumentHeaderProperty.cs" />
     <Compile Include="IDocumentHeader.cs" />
-    <Compile Include="ILicenseHeaderExtractor.cs" />
-    <Compile Include="ILicenseHeaderReplacer.cs" />
-    <Compile Include="LicenseHeaderExtractor.cs" />
-    <Compile Include="LicenseHeaderInput.cs" />
-    <Compile Include="LicenseHeaderContentInput.cs" />
-    <Compile Include="LicenseHeaderInputMode.cs" />
+    <Compile Include="IHeaderExtractor.cs" />
+    <Compile Include="IHeaderReplacer.cs" />
+    <Compile Include="HeaderExtractor.cs" />
+    <Compile Include="HeaderInput.cs" />
+    <Compile Include="HeaderContentInput.cs" />
+    <Compile Include="HeaderInputMode.cs" />
     <Compile Include="Options\CoreOptionsRepository.cs" />
     <Compile Include="ReplacerErrorType.cs" />
     <Compile Include="ICommentParser.cs" />
     <Compile Include="Language.cs" />
-    <Compile Include="LicenseHeaderPathInput.cs" />
-    <Compile Include="LicenseHeaderPreparer.cs" />
-    <Compile Include="LicenseHeaderReplacer.cs" />
+    <Compile Include="HeaderPathInput.cs" />
+    <Compile Include="HeaderPreparer.cs" />
+    <Compile Include="HeaderReplacer.cs" />
     <Compile Include="LineEndInformation.cs" />
     <Compile Include="NewLineConst.cs" />
     <Compile Include="NewLineManager.cs" />
     <Compile Include="Options\CoreOptions.cs" />
     <Compile Include="Options\JsonOptionsManager.cs" />
-    <Compile Include="Options\LicenseHeaderManagerOptionsAttribute.cs" />
+    <Compile Include="Options\HeaderManagerOptionsAttribute.cs" />
     <Compile Include="ParseException.cs" />
     <Compile Include="PathUtility.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -105,8 +105,8 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\LicenseHeaderManager.sln.licenseheader">
-      <Link>LicenseHeaderManager.sln.licenseheader</Link>
+    <None Include="..\HeaderManager.sln.header">
+      <Link>HeaderManager.sln.header</Link>
     </None>
     <None Include="app.config" />
   </ItemGroup>

@@ -17,14 +17,14 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using EnvDTE;
-using LicenseHeaderManager.Core;
-using LicenseHeaderManager.Headers;
-using LicenseHeaderManager.Interfaces;
+using HeaderManager.Core;
+using HeaderManager.Headers;
+using HeaderManager.Interfaces;
 using log4net;
 using Microsoft.VisualStudio.Shell;
 using Task = System.Threading.Tasks.Task;
 
-namespace LicenseHeaderManager.Utils
+namespace HeaderManager.Utils
 {
   /// <summary>
   ///   This class provides methods regarding the license header extensions.
@@ -34,19 +34,19 @@ namespace LicenseHeaderManager.Utils
     private static readonly ILog s_log = LogManager.GetLogger (MethodBase.GetCurrentMethod().DeclaringType);
 
     /// <summary>
-    ///   Sets the <see cref="LicenseHeaderPathInput.IgnoreNonCommentText" /> property to <see langword="true" /> for all
+    ///   Sets the <see cref="HeaderPathInput.IgnoreNonCommentText" /> property to <see langword="true" /> for all
     ///   element of the enumerable.
     /// </summary>
     /// <param name="inputs">
     ///   The <see cref="IEnumerable{T}" /> whose generic type parameter is
-    ///   <see cref="LicenseHeaderPathInput" /> whose items should be mutated.
+    ///   <see cref="HeaderPathInput" /> whose items should be mutated.
     /// </param>
     /// <remarks>
     ///   This operation might be useful if the license header input represented by <paramref name="inputs" /> is used only for
     ///   remove operations. In that case,
     ///   no confirmations regarding non-comment text are needed.
     /// </remarks>
-    public static void IgnoreNonCommentText (this IEnumerable<LicenseHeaderContentInput> inputs)
+    public static void IgnoreNonCommentText (this IEnumerable<HeaderContentInput> inputs)
     {
       foreach (var licenseHeaderInput in inputs)
         licenseHeaderInput.IgnoreNonCommentText = true;
@@ -129,30 +129,30 @@ namespace LicenseHeaderManager.Utils
     /// <param name="extension">Specifies the extension of the language whose content should be added to the project item.</param>
     /// <param name="calledByUser">Specifies whether this method was called explicitly by the user or by the program.</param>
     /// <returns></returns>
-    public static async Task AddLicenseHeaderToItemAsync (
+    public static async Task AddHeaderToItemAsync (
         this ProjectItem item,
-        ILicenseHeaderExtension extension,
+        IHeaderExtension extension,
         bool calledByUser)
     {
-      if (item == null || ProjectItemInspection.IsLicenseHeader (item))
+      if (item == null || ProjectItemInspection.IsHeader (item))
         return;
 
       await extension.JoinableTaskFactory.SwitchToMainThreadAsync();
-      var headers = LicenseHeaderFinder.GetHeaderDefinitionForItem (item);
+      var headers = HeaderFinder.GetHeaderDefinitionForItem (item);
       if (headers != null)
       {
         var content = item.GetContent (out var wasAlreadyOpen, extension);
         if (content == null)
           return;
 
-        var result = await extension.LicenseHeaderReplacer.RemoveOrReplaceHeader (
-            new LicenseHeaderContentInput (content, item.FileNames[1], headers, item.GetAdditionalProperties()));
+        var result = await extension.HeaderReplacer.RemoveOrReplaceHeader (
+            new HeaderContentInput (content, item.FileNames[1], headers, item.GetAdditionalProperties()));
         await CoreHelpers.HandleResultAsync (result, extension, wasAlreadyOpen, calledByUser);
         return;
       }
 
-      if (calledByUser && LicenseHeaderDefinitionFileHelper.ShowQuestionForAddingLicenseHeaderFile (item.ContainingProject, extension.DefaultLicenseHeaderPageModel))
-        await AddLicenseHeaderToItemAsync (item, extension, true);
+      if (calledByUser && HeaderDefinitionFileHelper.ShowQuestionForAddingHeaderFile (item.ContainingProject, extension.DefaultHeaderPageModel))
+        await AddHeaderToItemAsync (item, extension, true);
     }
 
     /// <summary>
@@ -163,7 +163,7 @@ namespace LicenseHeaderManager.Utils
     /// <param name="wasAlreadyOpen">Specifies whether the project item was already open before this method was called.</param>
     /// <param name="extension">Specifies the extension of the language whose content should be returned.</param>
     /// <returns></returns>
-    public static string GetContent (this ProjectItem item, out bool wasAlreadyOpen, ILicenseHeaderExtension extension)
+    public static string GetContent (this ProjectItem item, out bool wasAlreadyOpen, IHeaderExtension extension)
     {
       ThreadHelper.ThrowIfNotOnUIThread();
 
@@ -176,7 +176,7 @@ namespace LicenseHeaderManager.Utils
       // Core - with empty content, though, as the Core will return ReplacerErrorType.LanguageNotFound anyway (i. e. content is not relevant, only the extension)
       // (returning false from TryOpenDocument or null from this method would mean skipping the file entirely, which we do not want since we want to be able to
       // react to a ReplacerErrorType.LanguageNotFound)
-      var languageForExtension = extension.LicenseHeaderReplacer.GetLanguageFromExtension (Path.GetExtension (item.FileNames[1]));
+      var languageForExtension = extension.HeaderReplacer.GetLanguageFromExtension (Path.GetExtension (item.FileNames[1]));
       if (languageForExtension == null)
         return "";
 

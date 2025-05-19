@@ -17,14 +17,14 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
-using LicenseHeaderManager.Options.Converters;
-using LicenseHeaderManager.Options.Model;
-using LicenseHeaderManager.Utils;
+using HeaderManager.Options.Converters;
+using HeaderManager.Options.Model;
+using HeaderManager.Utils;
 using log4net;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.Win32;
 
-namespace LicenseHeaderManager.Options.DialogPages
+namespace HeaderManager.Options.DialogPages
 {
   /// <summary>
   ///   A base class for a DialogPage to show in Tools -> Options.
@@ -41,7 +41,7 @@ namespace LicenseHeaderManager.Options.DialogPages
     public BaseOptionPage ()
     {
 #pragma warning disable VSTHRD104 // Offer async methods
-      Model = LicenseHeadersPackage.Instance.JoinableTaskFactory.Run (BaseOptionModel<T>.CreateAsync);
+      Model = HeadersPackage.Instance.JoinableTaskFactory.Run (BaseOptionModel<T>.CreateAsync);
 #pragma warning restore VSTHRD104 // Offer async methods
     }
 
@@ -62,7 +62,7 @@ namespace LicenseHeaderManager.Options.DialogPages
     /// </summary>
     public void MigrateOptions ()
     {
-      //Could happen if you install a LicenseHeaderManager (LHM) version which is older than the ever installed highest version
+      //Could happen if you install a HeaderManager (LHM) version which is older than the ever installed highest version
       //Should only happen to developers of LHM, but could theoretically also happen if someone downgrades LHM.
 
       var parsedVersion = GetParsedVersion();
@@ -74,17 +74,17 @@ namespace LicenseHeaderManager.Options.DialogPages
         if (s_firstDialogPageLoaded)
         {
           MessageBoxHelper.ShowMessage (
-              "We detected that you are downgrading LicenseHeaderManager from a higher version." + Environment.NewLine +
+              "We detected that you are downgrading HeaderManager from a higher version." + Environment.NewLine +
               "As we don't know what you did to get to that state, it is possible that you missed an update for the Language Settings."
               + Environment.NewLine +
-              "If some of your license headers do not update, check if your Language Settings (Options -> LicenseHeaderManager -> Languages) "
+              "If some of your license headers do not update, check if your Language Settings (Options -> HeaderManager -> Languages) "
               + Environment.NewLine +
               "contain all the extensions you require.");
 
           s_firstDialogPageLoaded = false;
         }
 
-        Version = LicenseHeadersPackage.Version;
+        Version = HeadersPackage.Version;
         Model.Save();
       }
       else
@@ -94,7 +94,7 @@ namespace LicenseHeaderManager.Options.DialogPages
         foreach (var updateStep in GetVersionUpdateSteps())
           saveRequired |= Update (updateStep);
 
-        if (Version != LicenseHeadersPackage.Version)
+        if (Version != HeadersPackage.Version)
           saveRequired |= Update (new UpdateStep (currentlyInstalledVersion));
 
         if (saveRequired)
@@ -139,7 +139,7 @@ namespace LicenseHeaderManager.Options.DialogPages
       switch (s_optionsStoreMode)
       {
         case OptionsStoreMode.RegistryStore_3_0_3:
-          var key = GetRegistryKey (@$"ApplicationPrivateSettings\LicenseHeaderManager\Options\{GetType().Name}");
+          var key = GetRegistryKey (@$"ApplicationPrivateSettings\HeaderManager\Options\{GetType().Name}");
           if (key != null)
           {
             s_log.Debug ($"Retrieved registry version key: {key.Name}");
@@ -166,7 +166,7 @@ namespace LicenseHeaderManager.Options.DialogPages
 
     private Version GetCurrentlyInstalledVersion ()
     {
-      return System.Version.Parse (LicenseHeadersPackage.Version);
+      return System.Version.Parse (HeadersPackage.Version);
     }
 
     #region migration to 4.0.0
@@ -177,7 +177,7 @@ namespace LicenseHeaderManager.Options.DialogPages
     /// <param name="dialogPage">Specifies the dialog page to which the deserialized values belong.</param>
     protected void LoadCurrentRegistryValues_3_0_3 (BaseOptionModel<T> dialogPage = null)
     {
-      using var currentRegistryKey = GetRegistryKey (@$"ApplicationPrivateSettings\LicenseHeaderManager\Options\{GetType().Name}");
+      using var currentRegistryKey = GetRegistryKey (@$"ApplicationPrivateSettings\HeaderManager\Options\{GetType().Name}");
 
       if (currentRegistryKey != null)
       {

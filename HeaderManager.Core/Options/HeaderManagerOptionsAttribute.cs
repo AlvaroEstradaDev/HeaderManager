@@ -13,7 +13,7 @@
 
 using System;
 
-namespace LicenseHeaderManager.Core.Options
+namespace HeaderManager.Core.Options
 {
   /// <summary>
   ///   Represents an attribute discerning types eligible for serialization and deserialization via
@@ -21,7 +21,7 @@ namespace LicenseHeaderManager.Core.Options
   /// </summary>
   /// <seealso cref="JsonOptionsManager" />
   [AttributeUsage (AttributeTargets.Class | AttributeTargets.Struct)]
-  public class LicenseHeaderManagerOptionsAttribute : Attribute
+  public class HeaderManagerOptionsAttribute : Attribute
   {
   }
 }

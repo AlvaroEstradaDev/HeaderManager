@@ -13,11 +13,11 @@
 
 using System;
 
-namespace LicenseHeaderManager.Core
+namespace HeaderManager.Core
 {
   /// <summary>
   ///   Encapsulates information to be passed as argument to a <see cref="IProgress{T}" /> callback, specifically for when
-  ///   the <see cref="LicenseHeaderReplacer" /> was invoked with file contents.
+  ///   the <see cref="HeaderReplacer" /> was invoked with file contents.
   /// </summary>
   public class ReplacerProgressContentReport : ReplacerProgressReport
   {

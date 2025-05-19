@@ -16,8 +16,8 @@
     <ProjectTypeGuids>{82b43b9b-a64c-4715-b499-d71e9ca2bd60};{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>LicenseHeaderManager</RootNamespace>
-    <AssemblyName>LicenseHeaderManager</AssemblyName>
+    <RootNamespace>HeaderManager</RootNamespace>
+    <AssemblyName>HeaderManager</AssemblyName>
     <Prefer32Bit>false</Prefer32Bit>
     <CreateVsixContainer>True</CreateVsixContainer>
     <IncludeAssemblyInVSIXContainer>true</IncludeAssemblyInVSIXContainer>
@@ -53,7 +53,7 @@
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <TargetVsixContainerName>LicenseHeaderManager.2019.vsix</TargetVsixContainerName>
+    <TargetVsixContainerName>HeaderManager.2019.vsix</TargetVsixContainerName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DebugWithoutDeploy|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
@@ -158,13 +158,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\LicenseHeaderManager.sln.licenseheader">
-      <Link>LicenseHeaderManager.sln.licenseheader</Link>
+    <None Include="..\HeaderManager.sln.header">
+      <Link>HeaderManager.sln.header</Link>
     </None>
     <None Include="app.config" />
   </ItemGroup>
   <ItemGroup>
-    <VSCTCompile Include="LicenseHeaders.vsct">
+    <VSCTCompile Include="Headers.vsct">
       <ResourceName>Menus.ctmenu</ResourceName>
       <SubType>Designer</SubType>
     </VSCTCompile>
@@ -199,9 +199,9 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\LicenseHeaderManager.Core\LicenseHeaderManager.Core.csproj">
+    <ProjectReference Include="..\HeaderManager.Core\HeaderManager.Core.csproj">
       <Project>{b8d94ed6-4b73-443e-aba0-2c373b9e6735}</Project>
-      <Name>LicenseHeaderManager.Core</Name>
+      <Name>HeaderManager.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -214,7 +214,7 @@
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
   </ItemGroup>
-  <Import Project="..\LicenseHeaderManager.Shared\LicenseHeaderManager.Shared.projitems" Label="Shared" />
+  <Import Project="..\HeaderManager.Shared\HeaderManager.Shared.projitems" Label="Shared" />
   <PropertyGroup>
     <UseCodebase>true</UseCodebase>
   </PropertyGroup>

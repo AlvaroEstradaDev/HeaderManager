@@ -15,7 +15,7 @@ using System;
 using System.Globalization;
 using System.Windows.Data;
 
-namespace LicenseHeaderManager.UpdateViews
+namespace HeaderManager.UpdateViews
 {
   /// <summary>
   ///   This class is used to convert the values of a progress bar.

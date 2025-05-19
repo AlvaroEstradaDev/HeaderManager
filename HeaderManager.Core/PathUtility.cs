@@ -14,7 +14,7 @@
 using System;
 using System.IO;
 
-namespace LicenseHeaderManager.Core
+namespace HeaderManager.Core
 {
   /// <summary>
   ///   Provides static helper function regarding file paths.

@@ -13,7 +13,7 @@
 
 using System;
 
-namespace LicenseHeaderManager.Core
+namespace HeaderManager.Core
 {
   /// <summary>
   ///   Represents an property that can be expanded while updating license headers.

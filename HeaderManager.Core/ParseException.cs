@@ -12,9 +12,9 @@
  */
 
 using System;
-using LicenseHeaderManager.Core.Properties;
+using HeaderManager.Core.Properties;
 
-namespace LicenseHeaderManager.Core
+namespace HeaderManager.Core
 {
   /// <summary>
   ///   An <see cref="Exception" /> used to denote errors while parsing comments.
@@ -24,7 +24,7 @@ namespace LicenseHeaderManager.Core
   {
     /// <inheritdoc />
     public ParseException ()
-        : base (string.Format (Resources.Error_InvalidLicenseHeader, string.Empty))
+        : base (string.Format (Resources.Error_InvalidHeader, string.Empty))
     {
     }
   }

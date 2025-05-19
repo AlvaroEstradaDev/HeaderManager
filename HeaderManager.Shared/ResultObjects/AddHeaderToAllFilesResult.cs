@@ -15,31 +15,31 @@ using System;
 using System.Collections.Generic;
 using EnvDTE;
 
-namespace LicenseHeaderManager.ResultObjects
+namespace HeaderManager.ResultObjects
 {
   /// <summary>
-  ///   Represents result information of a folder and project wide invocation of "AddLicenseHeadersToAllFiles".
+  ///   Represents result information of a folder and project wide invocation of "AddHeadersToAllFiles".
   /// </summary>
-  public class AddLicenseHeaderToAllFilesResult
+  public class AddHeaderToAllFilesResult
   {
     /// <summary>
     /// </summary>
-    /// <param name="countSubLicenseHeadersFound"></param>
+    /// <param name="countSubHeadersFound"></param>
     /// <param name="baseHeaderFound"></param>
     /// <param name="linkedItems"></param>
-    public AddLicenseHeaderToAllFilesResult (int countSubLicenseHeadersFound, bool baseHeaderFound, List<ProjectItem> linkedItems)
+    public AddHeaderToAllFilesResult (int countSubHeadersFound, bool baseHeaderFound, List<ProjectItem> linkedItems)
     {
-      CountSubLicenseHeadersFound = countSubLicenseHeadersFound;
+      CountSubHeadersFound = countSubHeadersFound;
       BaseHeaderFound = baseHeaderFound;
       LinkedItems = linkedItems;
     }
 
-    public int CountSubLicenseHeadersFound { get; set; }
+    public int CountSubHeadersFound { get; set; }
 
     public bool BaseHeaderFound { get; set; }
 
     public List<ProjectItem> LinkedItems { get; set; }
 
-    public bool NoHeaderFound => BaseHeaderFound && CountSubLicenseHeadersFound == 0;
+    public bool NoHeaderFound => BaseHeaderFound && CountSubHeadersFound == 0;
   }
 }

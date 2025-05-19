@@ -13,7 +13,7 @@
 
 using System;
 
-namespace LicenseHeaderManager.Core
+namespace HeaderManager.Core
 {
   /// <summary>
   ///   Class for summarizing the information about the line end, where is it (index) and what character is it (CR, LR,

@@ -15,20 +15,20 @@ using System;
 using System.Collections.Generic;
 using NUnit.Framework;
 
-namespace LicenseHeaderManager.Core.Tests
+namespace HeaderManager.Core.Tests
 {
   [TestFixture]
-  public class LicenseHeaderPathInputTest : LicenseHeaderInputBaseTest
+  public class HeaderPathInputTest : HeaderInputBaseTest
   {
     [Test]
-    public void LicenseHeaderPathInput_ValidInput_ReturnsCorrectProperties ()
+    public void HeaderPathInput_ValidInput_ReturnsCorrectProperties ()
     {
       var headers = new Dictionary<string, string[]>();
       var additionalProperties = new List<AdditionalProperty> { new AdditionalProperty ("%Prop%", "Value") };
       const string extension = ".cs";
       var documentPath = CreateTestFile();
 
-      var licenseHeaderContentInput = new LicenseHeaderPathInput (documentPath, headers, additionalProperties);
+      var licenseHeaderContentInput = new HeaderPathInput (documentPath, headers, additionalProperties);
 
       var actualHeaders = licenseHeaderContentInput.Headers;
       var actualAdditionalProperties = licenseHeaderContentInput.AdditionalProperties;
@@ -42,7 +42,7 @@ namespace LicenseHeaderManager.Core.Tests
       Assert.That (actualIgnoreNonCommentText, Is.False);
       Assert.That (actualDocumentPath, Is.EqualTo (documentPath));
       Assert.That (actualExtension, Is.EqualTo (extension));
-      Assert.That (actualInputMode, Is.EqualTo (LicenseHeaderInputMode.FilePath));
+      Assert.That (actualInputMode, Is.EqualTo (HeaderInputMode.FilePath));
     }
   }
 }

@@ -14,7 +14,7 @@
 using System;
 using NUnit.Framework;
 
-namespace LicenseHeaderManager.Core.Tests
+namespace HeaderManager.Core.Tests
 {
   [TestFixture]
   public class ReplacerResultTest
@@ -22,8 +22,8 @@ namespace LicenseHeaderManager.Core.Tests
     [Test]
     public void ReplacerResult_SuccessAndErrorInput_ReturnsError ()
     {
-      var result = new ReplacerResult<ReplacerSuccess, ReplacerError<LicenseHeaderContentInput>> (
-          new ReplacerError<LicenseHeaderContentInput> (null, ReplacerErrorType.Miscellaneous, "message"));
+      var result = new ReplacerResult<ReplacerSuccess, ReplacerError<HeaderContentInput>> (
+          new ReplacerError<HeaderContentInput> (null, ReplacerErrorType.Miscellaneous, "message"));
 
       Assert.That (result.IsSuccess, Is.False);
       Assert.That (result.Success, Is.Null);
@@ -36,7 +36,7 @@ namespace LicenseHeaderManager.Core.Tests
       const string filePath = @"C:\";
       const string newContent = "new content";
 
-      var result = new ReplacerResult<ReplacerSuccess, ReplacerError<LicenseHeaderContentInput>> (
+      var result = new ReplacerResult<ReplacerSuccess, ReplacerError<HeaderContentInput>> (
           new ReplacerSuccess (filePath, newContent));
 
       Assert.That (result.Success.FilePath, Is.EqualTo (filePath));
@@ -48,7 +48,7 @@ namespace LicenseHeaderManager.Core.Tests
     [Test]
     public void ReplacerResult_NoErrorInput_ReturnsSuccess ()
     {
-      var result = new ReplacerResult<ReplacerError<LicenseHeaderContentInput>>();
+      var result = new ReplacerResult<ReplacerError<HeaderContentInput>>();
 
       Assert.That (result.IsSuccess, Is.True);
       Assert.That (result.Error, Is.Null);
@@ -57,8 +57,8 @@ namespace LicenseHeaderManager.Core.Tests
     [Test]
     public void ReplacerResult_ErrorInput_ReturnsError ()
     {
-      var result = new ReplacerResult<ReplacerError<LicenseHeaderContentInput>> (
-          new ReplacerError<LicenseHeaderContentInput> (null, ReplacerErrorType.Miscellaneous, "message"));
+      var result = new ReplacerResult<ReplacerError<HeaderContentInput>> (
+          new ReplacerError<HeaderContentInput> (null, ReplacerErrorType.Miscellaneous, "message"));
 
       Assert.That (result.IsSuccess, Is.False);
       Assert.That (result.Error.Type, Is.EqualTo (ReplacerErrorType.Miscellaneous));

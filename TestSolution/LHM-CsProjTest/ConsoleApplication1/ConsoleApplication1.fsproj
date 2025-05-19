@@ -51,7 +51,7 @@
     <Compile Include="newfolder1\\NewFolder2\\File2.fs" />
     <Compile Include="Program.fs" />
     <None Include="App.config" />
-    <None Include="ConsoleApplication1.licenseheader" />
+    <None Include="ConsoleApplication1.header" />
   </ItemGroup>
   <PropertyGroup>
     <MinimumVisualStudioVersion Condition="'$(MinimumVisualStudioVersion)' == ''">11</MinimumVisualStudioVersion>

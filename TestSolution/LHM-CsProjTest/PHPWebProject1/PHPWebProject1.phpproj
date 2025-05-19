@@ -22,11 +22,11 @@
     <Compile Include="NewFolder1\NewFolder1\Class1.php" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="..\TypeScriptHTMLApp1\testFolder\testFolder.licenseheader">
-      <Link>NewFolder1\testFolder.licenseheader</Link>
+    <Content Include="..\TypeScriptHTMLApp1\testFolder\testFolder.header">
+      <Link>NewFolder1\testFolder.header</Link>
     </Content>
-    <Content Include="..\TypeScriptHTMLApp1\TypeScriptHTMLApp1.licenseheader">
-      <Link>TypeScriptHTMLApp1.licenseheader</Link>
+    <Content Include="..\TypeScriptHTMLApp1\TypeScriptHTMLApp1.header">
+      <Link>TypeScriptHTMLApp1.header</Link>
     </Content>
   </ItemGroup>
   <ItemGroup>

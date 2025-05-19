@@ -58,8 +58,8 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="..\TypeScriptHTMLApp1\TypeScriptHTMLApp1.licenseheader">
-      <Link>NewFolder1\TypeScriptHTMLApp1.licenseheader</Link>
+    <Content Include="..\TypeScriptHTMLApp1\TypeScriptHTMLApp1.header">
+      <Link>NewFolder1\TypeScriptHTMLApp1.header</Link>
     </Content>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -79,10 +79,10 @@
     <Content Include="NewFolder1\NewFolder1\HtmlPage1.html" />
     <Content Include="NewFolder1\StyleSheet1.css" />
     <Content Include="packages.config" />
-    <Content Include="..\App1\App1.licenseheader">
-      <Link>App1.licenseheader</Link>
+    <Content Include="..\App1\App1.header">
+      <Link>App1.header</Link>
     </Content>
-    <Content Include="OfficeApp1Web.licenseheader" />
+    <Content Include="OfficeApp1Web.header" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\jquery-1.9.1.js" />
     <Content Include="Scripts\jquery-1.9.1.min.js" />

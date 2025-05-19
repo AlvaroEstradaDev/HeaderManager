@@ -16,17 +16,17 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace LicenseHeaderManager.Core
+namespace HeaderManager.Core
 {
-  public interface ILicenseHeaderReplacer
+  public interface IHeaderReplacer
   {
     Language GetLanguageFromExtension (string extension);
 
     /// <summary>
     ///   Determines whether a file is a generally valid input file for
-    ///   <see cref="RemoveOrReplaceHeader(LicenseHeaderPathInput)" /> or
+    ///   <see cref="RemoveOrReplaceHeader(HeaderPathInput)" /> or
     ///   <see
-    ///     cref="RemoveOrReplaceHeader(System.Collections.Generic.ICollection{Core.LicenseHeaderPathInput},IProgress{ReplacerProgressReport},CancellationToken)" />
+    ///     cref="RemoveOrReplaceHeader(System.Collections.Generic.ICollection{Core.HeaderPathInput},IProgress{ReplacerProgressReport},CancellationToken)" />
     ///   .
     /// </summary>
     /// <param name="path">The path to the file to be examined.</param>
@@ -36,12 +36,12 @@ namespace LicenseHeaderManager.Core
     /// </returns>
     /// <remarks>
     ///   A return value of <see langword="true" /> does not necessarily mean that an invocation of
-    ///   <see cref="RemoveOrReplaceHeader(LicenseHeaderPathInput)" /> or
+    ///   <see cref="RemoveOrReplaceHeader(HeaderPathInput)" /> or
     ///   <see
-    ///     cref="RemoveOrReplaceHeader(System.Collections.Generic.ICollection{LicenseHeaderManager.Core.LicenseHeaderPathInput},IProgress{ReplacerProgressReport},CancellationToken)" />
+    ///     cref="RemoveOrReplaceHeader(System.Collections.Generic.ICollection{HeaderManager.Core.HeaderPathInput},IProgress{ReplacerProgressReport},CancellationToken)" />
     ///   would not yield a <see cref="ReplacerErrorType.NonCommentText" /> or <see cref="ReplacerErrorType.ParsingError" />
     ///   error, but only that is a fundamentally valid input - i. e. the file exists and this
-    ///   <see cref="LicenseHeaderReplacer" /> instance is able to interpret it in the way required.
+    ///   <see cref="HeaderReplacer" /> instance is able to interpret it in the way required.
     /// </remarks>
     bool IsValidPathInput (string path);
 
@@ -49,21 +49,21 @@ namespace LicenseHeaderManager.Core
     ///   Updates license headers in a file based on its path, i. e. the new content is written directly to the file.
     /// </summary>
     /// <param name="licenseHeaderInput">
-    ///   An <see cref="LicenseHeaderContentInput" /> instance representing the file whose
+    ///   An <see cref="HeaderContentInput" /> instance representing the file whose
     ///   license headers are to be updated.
     /// </param>
     /// <returns>
     ///   Returns a <see cref="ReplacerResult{TSuccess,TError}" /> instance containing information about the success or
     ///   error of the operation.
     /// </returns>
-    Task<ReplacerResult<ReplacerError<LicenseHeaderPathInput>>> RemoveOrReplaceHeader (LicenseHeaderPathInput licenseHeaderInput);
+    Task<ReplacerResult<ReplacerError<HeaderPathInput>>> RemoveOrReplaceHeader (HeaderPathInput licenseHeaderInput);
 
     /// <summary>
     ///   Updates license headers of files based on their contents, i. e. the new contents are returned. Setting the new
     ///   contents is the caller's responsibility.
     /// </summary>
     /// <param name="licenseHeaderInputs">
-    ///   An range of <see cref="LicenseHeaderContentInput" /> instances representing the files
+    ///   An range of <see cref="HeaderContentInput" /> instances representing the files
     ///   whose license headers are to be updated.
     /// </param>
     /// <param name="progress">
@@ -75,8 +75,8 @@ namespace LicenseHeaderManager.Core
     ///   Returns a range of <see cref="ReplacerResult{TSuccess,TError}" /> instances containing information about the
     ///   success or error of the operations.
     /// </returns>
-    Task<IEnumerable<ReplacerResult<ReplacerSuccess, ReplacerError<LicenseHeaderContentInput>>>> RemoveOrReplaceHeader (
-        ICollection<LicenseHeaderContentInput> licenseHeaderInputs,
+    Task<IEnumerable<ReplacerResult<ReplacerSuccess, ReplacerError<HeaderContentInput>>>> RemoveOrReplaceHeader (
+        ICollection<HeaderContentInput> licenseHeaderInputs,
         IProgress<ReplacerProgressContentReport> progress,
         CancellationToken cancellationToken);
 
@@ -84,7 +84,7 @@ namespace LicenseHeaderManager.Core
     ///   Updates license headers of files based on their paths, i. e. the new contents written directly to the files.
     /// </summary>
     /// <param name="licenseHeaderInputs">
-    ///   An range of <see cref="LicenseHeaderPathInput" /> instances representing the files
+    ///   An range of <see cref="HeaderPathInput" /> instances representing the files
     ///   whose license headers are to be updated.
     /// </param>
     /// <param name="progress">
@@ -96,8 +96,8 @@ namespace LicenseHeaderManager.Core
     ///   Returns a <see cref="ReplacerResult{TSuccess,TError}" /> instance containing information about errors that
     ///   have potentially occurred during the update operations.
     /// </returns>
-    Task<ReplacerResult<IEnumerable<ReplacerError<LicenseHeaderPathInput>>>> RemoveOrReplaceHeader (
-        ICollection<LicenseHeaderPathInput> licenseHeaderInputs,
+    Task<ReplacerResult<IEnumerable<ReplacerError<HeaderPathInput>>>> RemoveOrReplaceHeader (
+        ICollection<HeaderPathInput> licenseHeaderInputs,
         IProgress<ReplacerProgressReport> progress,
         CancellationToken cancellationToken);
   }

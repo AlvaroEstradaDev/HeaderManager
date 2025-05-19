@@ -5,8 +5,8 @@ VisualStudioVersion = 17.0.32002.185
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D3308A06-7879-4144-B50B-E476C11F5801}"
 	ProjectSection(SolutionItems) = preProject
+		HeaderManager.sln.header = HeaderManager.sln.header
 		Key.snk = Key.snk
-		HeaderManager.sln.licenseheader = HeaderManager.sln.licenseheader
 		README.md = README.md
 		teamcity.properties = teamcity.properties
 	EndProjectSection
@@ -26,11 +26,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HeaderManager.2019", "HeaderManager.2019\HeaderManager.2019.csproj", "{8C317BCC-1B07-4E84-9ECA-B522CB53FC6B}"
 EndProject
 Global
-	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		HeaderManager.Shared\HeaderManager.Shared.projitems*{4f20ba37-5942-466d-b51f-85105cb74277}*SharedItemsImports = 13
-		HeaderManager.Shared\HeaderManager.Shared.projitems*{8c317bcc-1b07-4e84-9eca-b522cb53fc6b}*SharedItemsImports = 4
-		HeaderManager.Shared\HeaderManager.Shared.projitems*{8e234f35-cabf-48bf-b747-3dc0ec2776c9}*SharedItemsImports = 4
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Debug|x86 = Debug|x86
@@ -144,5 +139,10 @@ Global
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {24035125-1FC1-43B4-BCEB-173753A2EE9C}
+	EndGlobalSection
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		HeaderManager.Shared\HeaderManager.Shared.projitems*{4f20ba37-5942-466d-b51f-85105cb74277}*SharedItemsImports = 13
+		HeaderManager.Shared\HeaderManager.Shared.projitems*{8c317bcc-1b07-4e84-9eca-b522cb53fc6b}*SharedItemsImports = 4
+		HeaderManager.Shared\HeaderManager.Shared.projitems*{8e234f35-cabf-48bf-b747-3dc0ec2776c9}*SharedItemsImports = 4
 	EndGlobalSection
 EndGlobal

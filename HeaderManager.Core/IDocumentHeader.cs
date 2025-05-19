@@ -14,7 +14,7 @@
 using System;
 using System.IO;
 
-namespace LicenseHeaderManager.Core
+namespace HeaderManager.Core
 {
   public interface IDocumentHeader
   {

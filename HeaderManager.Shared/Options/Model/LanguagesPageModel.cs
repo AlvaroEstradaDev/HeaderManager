@@ -13,10 +13,10 @@
 
 using System;
 using System.Collections.ObjectModel;
-using LicenseHeaderManager.Core;
-using LicenseHeaderManager.Core.Options;
+using HeaderManager.Core;
+using HeaderManager.Core.Options;
 
-namespace LicenseHeaderManager.Options.Model
+namespace HeaderManager.Options.Model
 {
   public class LanguagesPageModel : BaseOptionModel<LanguagesPageModel>, ILanguagesPageModel
   {

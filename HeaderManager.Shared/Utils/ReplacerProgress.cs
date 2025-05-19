@@ -13,7 +13,7 @@
 
 using System;
 
-namespace LicenseHeaderManager.Utils
+namespace HeaderManager.Utils
 {
   /// <summary>
   ///   This class ensures that the files are processed and displayed in the correct order in the progress bar.

@@ -13,13 +13,13 @@
 
 using System;
 
-namespace LicenseHeaderManager.Core
+namespace HeaderManager.Core
 {
   /// <summary>
-  ///   Identifies different kinds of input supported by the <see cref="LicenseHeaderReplacer" />.
+  ///   Identifies different kinds of input supported by the <see cref="HeaderReplacer" />.
   /// </summary>
-  /// <seealso cref="LicenseHeaderReplacer" />
-  internal enum LicenseHeaderInputMode
+  /// <seealso cref="HeaderReplacer" />
+  internal enum HeaderInputMode
   {
     /// <summary>
     ///   License Headers are updated solely based on the input files' paths. Reading and writing files is done by the Core.

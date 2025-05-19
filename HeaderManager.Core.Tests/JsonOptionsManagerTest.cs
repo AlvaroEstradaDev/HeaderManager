@@ -17,10 +17,10 @@ using System.IO;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
-using LicenseHeaderManager.Core.Options;
+using HeaderManager.Core.Options;
 using NUnit.Framework;
 
-namespace LicenseHeaderManager.Core.Tests
+namespace HeaderManager.Core.Tests
 {
   [TestFixture]
   public class JsonOptionsManagerTest

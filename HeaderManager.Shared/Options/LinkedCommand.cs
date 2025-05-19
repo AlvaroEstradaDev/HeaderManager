@@ -17,7 +17,7 @@ using System.Runtime.CompilerServices;
 using System.Text.Json.Serialization;
 using EnvDTE;
 
-namespace LicenseHeaderManager.Options
+namespace HeaderManager.Options
 {
   /// <summary>
   ///   Provides members that define the point in time a <see cref="LinkedCommand" /> is executed.

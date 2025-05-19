@@ -14,7 +14,7 @@
 using System;
 using NUnit.Framework;
 
-namespace LicenseHeaderManager.Core.Tests
+namespace HeaderManager.Core.Tests
 {
   [TestFixture]
   public class ReplacerSuccessTest

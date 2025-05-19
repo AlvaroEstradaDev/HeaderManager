@@ -13,7 +13,7 @@
 
 using System;
 
-namespace LicenseHeaderManager.Console
+namespace HeaderManager.Console
 {
   /// <summary>
   ///   This class ensures that the files are processed and printed in the correct order to the console.

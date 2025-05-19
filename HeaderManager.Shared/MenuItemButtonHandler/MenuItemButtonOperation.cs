@@ -13,7 +13,7 @@
 
 using System;
 
-namespace LicenseHeaderManager.MenuItemButtonHandler
+namespace HeaderManager.MenuItemButtonHandler
 {
   /// <summary>
   ///   Specifies different types of operations the click of a menu item button may invoke

@@ -14,7 +14,7 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 
-namespace LicenseHeaderManager.Core
+namespace HeaderManager.Core
 {
   /// <summary>
   ///   Contains new line constants.

@@ -13,7 +13,7 @@
 
 using System;
 
-namespace LicenseHeaderManager.UpdateViewModels
+namespace HeaderManager.UpdateViewModels
 {
   public class FolderProjectUpdateViewModel : BaseUpdateViewModel
   {

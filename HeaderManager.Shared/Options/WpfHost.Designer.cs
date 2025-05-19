@@ -13,7 +13,7 @@
 
 using System.Windows.Controls;
 
-namespace LicenseHeaderManager.Options
+namespace HeaderManager.Options
 {
   partial class WpfHost
   {

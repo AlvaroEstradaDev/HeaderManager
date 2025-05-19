@@ -16,7 +16,7 @@ using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Interop;
 
-namespace LicenseHeaderManager.Options
+namespace HeaderManager.Options
 {
   public partial class WpfHost : UserControl
   {

@@ -41,10 +41,10 @@
     <UseVSHostingProcess>false</UseVSHostingProcess>
   </PropertyGroup>
   <ItemGroup>
-    <None Include="..\TypeScriptHTMLApp1\testFolder\testFolder.licenseheader">
-      <Link>OfficeApp1Manifest\testFolder.licenseheader</Link>
+    <None Include="..\TypeScriptHTMLApp1\testFolder\testFolder.header">
+      <Link>OfficeApp1Manifest\testFolder.header</Link>
     </None>
-    <None Include="OfficeApp1.licenseheader" />
+    <None Include="OfficeApp1.header" />
     <None Include="OfficeApp1Manifest\SharePointProjectItem.spdata">
       <SharePointProjectItemId>{4cbc0d44-318d-4c17-8229-972df3e590c0}</SharePointProjectItemId>
     </None>

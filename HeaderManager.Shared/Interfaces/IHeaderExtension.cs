@@ -14,34 +14,34 @@
 using System;
 using EnvDTE;
 using EnvDTE80;
-using LicenseHeaderManager.Core;
-using LicenseHeaderManager.Options.Model;
+using HeaderManager.Core;
+using HeaderManager.Options.Model;
 using Microsoft.VisualStudio.Threading;
 
-namespace LicenseHeaderManager.Interfaces
+namespace HeaderManager.Interfaces
 {
   /// <summary>
   ///   Provides members contained within the package representing the LHM Visual Studio extension that might need to be
   ///   accessed from other classes.
   /// </summary>
-  public interface ILicenseHeaderExtension
+  public interface IHeaderExtension
   {
     /// <summary>
-    ///   Gets a <see cref="Core.LicenseHeaderReplacer" /> instance used by the package to update license headers.
+    ///   Gets a <see cref="Core.HeaderReplacer" /> instance used by the package to update license headers.
     /// </summary>
-    LicenseHeaderReplacer LicenseHeaderReplacer { get; }
+    HeaderReplacer HeaderReplacer { get; }
 
     /// <summary>
-    ///   Gets a <see cref="Core.LicenseHeaderExtractor" /> instance used by the package to extract license header definition
+    ///   Gets a <see cref="Core.HeaderExtractor" /> instance used by the package to extract license header definition
     ///   from a license header definiton file.
     /// </summary>
-    ILicenseHeaderExtractor LicenseHeaderExtractor { get; }
+    IHeaderExtractor HeaderExtractor { get; }
 
     /// <summary>
-    ///   Gets the <see cref="IDefaultLicenseHeaderPageModel" /> instance representing the current options regarding the
+    ///   Gets the <see cref="IDefaultHeaderPageModel" /> instance representing the current options regarding the
     ///   default text for license header definition files.
     /// </summary>
-    IDefaultLicenseHeaderPageModel DefaultLicenseHeaderPageModel { get; }
+    IDefaultHeaderPageModel DefaultHeaderPageModel { get; }
 
     /// <summary>
     ///   Gets the <see cref="ILanguagesPageModel" /> instance representing the current options regarding languages, their

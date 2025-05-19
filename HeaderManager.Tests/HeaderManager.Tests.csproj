@@ -8,8 +8,8 @@
     <ProjectGuid>{F224872B-FDB9-4DA1-BEA4-0FA4F1BA3E82}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>LicenseHeaderManager.Tests</RootNamespace>
-    <AssemblyName>LicenseHeaderManager.Tests</AssemblyName>
+    <RootNamespace>HeaderManager.Tests</RootNamespace>
+    <AssemblyName>HeaderManager.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -85,18 +85,18 @@
     <Compile Include="VisualStudioTestContext.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\LicenseHeaderManager.Core\LicenseHeaderManager.Core.csproj">
+    <ProjectReference Include="..\HeaderManager.Core\HeaderManager.Core.csproj">
       <Project>{b8d94ed6-4b73-443e-aba0-2c373b9e6735}</Project>
-      <Name>LicenseHeaderManager.Core</Name>
+      <Name>HeaderManager.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\LicenseHeaderManager\LicenseHeaderManager.csproj">
+    <ProjectReference Include="..\HeaderManager\HeaderManager.csproj">
       <Project>{8E234F35-CABF-48BF-B747-3DC0EC2776C9}</Project>
-      <Name>LicenseHeaderManager</Name>
+      <Name>HeaderManager</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\LicenseHeaderManager.sln.licenseheader">
-      <Link>LicenseHeaderManager.sln.licenseheader</Link>
+    <None Include="..\HeaderManager.sln.header">
+      <Link>HeaderManager.sln.header</Link>
     </None>
   </ItemGroup>
   <ItemGroup>

@@ -12,10 +12,10 @@
  */
 
 using System;
-using LicenseHeaderManager.Interfaces;
-using LicenseHeaderManager.MenuItemButtonHandler.Implementations;
+using HeaderManager.Interfaces;
+using HeaderManager.MenuItemButtonHandler.Implementations;
 
-namespace LicenseHeaderManager.MenuItemButtonHandler
+namespace HeaderManager.MenuItemButtonHandler
 {
   /// <summary>
   ///   Represents static factory class providing static methods facilitating the instantiation of types implementing the
@@ -33,14 +33,14 @@ namespace LicenseHeaderManager.MenuItemButtonHandler
     ///   to be created.
     /// </param>
     /// <param name="licenseHeadersPackage">
-    ///   The <see cref="ILicenseHeaderExtension" /> instance the
+    ///   The <see cref="IHeaderExtension" /> instance the
     ///   <see cref="IMenuItemButtonHandler" /> instance to be created may use for its operations.
     /// </param>
     /// <returns>
     ///   Returns a´n <see cref="IMenuItemButtonHandler" /> instance operating on the level specified by
     ///   <paramref name="level" /> and executing operations of the mode specified by <paramref name="mode" />.
     /// </returns>
-    public static IMenuItemButtonHandler CreateHandler (MenuItemButtonLevel level, MenuItemButtonOperation mode, ILicenseHeaderExtension licenseHeadersPackage)
+    public static IMenuItemButtonHandler CreateHandler (MenuItemButtonLevel level, MenuItemButtonOperation mode, IHeaderExtension licenseHeadersPackage)
     {
       return level switch
       {
@@ -51,36 +51,36 @@ namespace LicenseHeaderManager.MenuItemButtonHandler
       };
     }
 
-    private static SolutionMenuItemButtonHandler CreateSolutionHandler (ILicenseHeaderExtension licenseHeadersPackage, MenuItemButtonOperation mode)
+    private static SolutionMenuItemButtonHandler CreateSolutionHandler (IHeaderExtension licenseHeadersPackage, MenuItemButtonOperation mode)
     {
       MenuItemButtonHandlerImplementation implementation = mode switch
       {
-          MenuItemButtonOperation.Add => new AddLicenseHeaderToAllFilesInSolutionImplementation (licenseHeadersPackage),
-          MenuItemButtonOperation.Remove => new RemoveLicenseHeaderFromAllFilesInSolutionImplementation (licenseHeadersPackage),
+          MenuItemButtonOperation.Add => new AddHeaderToAllFilesInSolutionImplementation (licenseHeadersPackage),
+          MenuItemButtonOperation.Remove => new RemoveHeaderFromAllFilesInSolutionImplementation (licenseHeadersPackage),
           _ => throw new ArgumentOutOfRangeException (nameof(mode), mode, null)
       };
 
       return new SolutionMenuItemButtonHandler (licenseHeadersPackage.Dte2, mode, implementation);
     }
 
-    private static FolderProjectMenuItemButtonHandler CreateFolderHandler (ILicenseHeaderExtension licenseHeadersPackage, MenuItemButtonOperation mode)
+    private static FolderProjectMenuItemButtonHandler CreateFolderHandler (IHeaderExtension licenseHeadersPackage, MenuItemButtonOperation mode)
     {
       MenuItemButtonHandlerImplementation implementation = mode switch
       {
-          MenuItemButtonOperation.Add => new AddLicenseHeaderToAllFilesInFolderProjectImplementation (licenseHeadersPackage),
-          MenuItemButtonOperation.Remove => new RemoveLicenseHeaderToAllFilesInFolderProjectImplementation (licenseHeadersPackage),
+          MenuItemButtonOperation.Add => new AddHeaderToAllFilesInFolderProjectImplementation (licenseHeadersPackage),
+          MenuItemButtonOperation.Remove => new RemoveHeaderToAllFilesInFolderProjectImplementation (licenseHeadersPackage),
           _ => throw new ArgumentOutOfRangeException (nameof(mode), mode, null)
       };
 
       return new FolderProjectMenuItemButtonHandler (mode, MenuItemButtonLevel.Folder, implementation);
     }
 
-    private static FolderProjectMenuItemButtonHandler CreateProjectHandler (ILicenseHeaderExtension licenseHeadersPackage, MenuItemButtonOperation mode)
+    private static FolderProjectMenuItemButtonHandler CreateProjectHandler (IHeaderExtension licenseHeadersPackage, MenuItemButtonOperation mode)
     {
       MenuItemButtonHandlerImplementation implementation = mode switch
       {
-          MenuItemButtonOperation.Add => new AddLicenseHeaderToAllFilesInFolderProjectImplementation (licenseHeadersPackage),
-          MenuItemButtonOperation.Remove => new RemoveLicenseHeaderToAllFilesInFolderProjectImplementation (licenseHeadersPackage),
+          MenuItemButtonOperation.Add => new AddHeaderToAllFilesInFolderProjectImplementation (licenseHeadersPackage),
+          MenuItemButtonOperation.Remove => new RemoveHeaderToAllFilesInFolderProjectImplementation (licenseHeadersPackage),
           _ => throw new ArgumentOutOfRangeException (nameof(mode), mode, null)
       };
 

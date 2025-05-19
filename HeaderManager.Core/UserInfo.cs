@@ -13,9 +13,9 @@
 
 using System;
 using System.DirectoryServices.AccountManagement;
-using LicenseHeaderManager.Core.Properties;
+using HeaderManager.Core.Properties;
 
-namespace LicenseHeaderManager.Core
+namespace HeaderManager.Core
 {
   /// <summary>
   ///   Represents general information about the current user, e.g. login or display name.

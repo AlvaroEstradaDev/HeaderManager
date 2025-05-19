@@ -13,7 +13,7 @@
 
 using System;
 
-namespace LicenseHeaderManager.Options
+namespace HeaderManager.Options
 {
   /// <summary>
   ///   Encapsulates logic to be executed when upgrading from an earlier LHM version to a newer one.

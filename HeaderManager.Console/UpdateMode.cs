@@ -1,6 +1,6 @@
 using System;
 
-namespace LicenseHeaderManager.Console
+namespace HeaderManager.Console
 {
   /// <summary>
   ///   Specifies if the license headers should be inserted or removed from the files.

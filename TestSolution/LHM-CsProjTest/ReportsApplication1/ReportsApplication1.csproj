@@ -62,8 +62,8 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <None Include="..\TypeScriptHTMLApp1\TypeScriptHTMLApp1.licenseheader">
-      <Link>NewFolder1\TypeScriptHTMLApp1.licenseheader</Link>
+    <None Include="..\TypeScriptHTMLApp1\TypeScriptHTMLApp1.header">
+      <Link>NewFolder1\TypeScriptHTMLApp1.header</Link>
     </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -74,7 +74,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <None Include="ReportsApplication1.licenseheader" />
+    <None Include="ReportsApplication1.header" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -19,15 +19,15 @@ using System.Windows;
 using System.Windows.Input;
 using EnvDTE;
 using EnvDTE80;
-using LicenseHeaderManager.Interfaces;
-using LicenseHeaderManager.UpdateViewModels;
-using LicenseHeaderManager.UpdateViews;
-using LicenseHeaderManager.Utils;
+using HeaderManager.Interfaces;
+using HeaderManager.UpdateViewModels;
+using HeaderManager.UpdateViews;
+using HeaderManager.Utils;
 using log4net;
 using Microsoft.VisualStudio.Shell;
 using Task = System.Threading.Tasks.Task;
 
-namespace LicenseHeaderManager.MenuItemButtonHandler
+namespace HeaderManager.MenuItemButtonHandler
 {
   internal class SolutionMenuItemButtonHandler : IMenuItemButtonHandler
   {
@@ -67,7 +67,7 @@ namespace LicenseHeaderManager.MenuItemButtonHandler
 
     private async Task HandleButtonInternalAsync (object solutionObject, MenuItemButtonHandlerImplementation handler, BaseUpdateViewModel solutionUpdateViewModel)
     {
-      await LicenseHeadersPackage.Instance.JoinableTaskFactory.SwitchToMainThreadAsync();
+      await HeadersPackage.Instance.JoinableTaskFactory.SwitchToMainThreadAsync();
 
       if (!(solutionObject is Solution solution))
         return;
@@ -79,7 +79,7 @@ namespace LicenseHeaderManager.MenuItemButtonHandler
       }
       catch (OperationCanceledException)
       {
-        await LicenseHeadersPackage.Instance.JoinableTaskFactory.SwitchToMainThreadAsync();
+        await HeadersPackage.Instance.JoinableTaskFactory.SwitchToMainThreadAsync();
         _dialog.Close();
       }
       catch (Exception ex)
@@ -89,7 +89,7 @@ namespace LicenseHeaderManager.MenuItemButtonHandler
         s_log.Error ($"The operation '{handler.Description}' failed.", ex);
       }
 
-      await LicenseHeadersPackage.Instance.JoinableTaskFactory.SwitchToMainThreadAsync();
+      await HeadersPackage.Instance.JoinableTaskFactory.SwitchToMainThreadAsync();
       _dialog.Close();
     }
 

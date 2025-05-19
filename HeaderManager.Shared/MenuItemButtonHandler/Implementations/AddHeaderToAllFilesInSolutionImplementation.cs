@@ -17,25 +17,25 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using EnvDTE;
-using LicenseHeaderManager.Headers;
-using LicenseHeaderManager.Interfaces;
-using LicenseHeaderManager.MenuItemCommands.Common;
-using LicenseHeaderManager.MenuItemCommands.SolutionMenu;
-using LicenseHeaderManager.UpdateViewModels;
-using LicenseHeaderManager.Utils;
+using HeaderManager.Headers;
+using HeaderManager.Interfaces;
+using HeaderManager.MenuItemCommands.Common;
+using HeaderManager.MenuItemCommands.SolutionMenu;
+using HeaderManager.UpdateViewModels;
+using HeaderManager.Utils;
 using Microsoft.VisualStudio.Shell;
 using Task = System.Threading.Tasks.Task;
 using Window = System.Windows.Window;
 
-namespace LicenseHeaderManager.MenuItemButtonHandler.Implementations
+namespace HeaderManager.MenuItemButtonHandler.Implementations
 {
-  public class AddLicenseHeaderToAllFilesInSolutionImplementation : MenuItemButtonHandlerImplementation
+  public class AddHeaderToAllFilesInSolutionImplementation : MenuItemButtonHandlerImplementation
   {
-    private const string c_commandName = "Add LicenseHeader to all files in Solution";
+    private const string c_commandName = "Add Header to all files in Solution";
     private const int c_maxProjectsWithoutDefinitionFileShownInMessage = 5;
-    private readonly ILicenseHeaderExtension _licenseHeaderExtension;
+    private readonly IHeaderExtension _licenseHeaderExtension;
 
-    public AddLicenseHeaderToAllFilesInSolutionImplementation (ILicenseHeaderExtension licenseHeaderExtension)
+    public AddHeaderToAllFilesInSolutionImplementation (IHeaderExtension licenseHeaderExtension)
     {
       _licenseHeaderExtension = licenseHeaderExtension;
     }
@@ -51,47 +51,47 @@ namespace LicenseHeaderManager.MenuItemButtonHandler.Implementations
         throw new ArgumentException ($"Argument {nameof(viewModel)} must be of type {nameof(SolutionUpdateViewModel)}");
 
       await _licenseHeaderExtension.JoinableTaskFactory.SwitchToMainThreadAsync();
-      var solutionHeaderDefinitions = LicenseHeaderFinder.GetHeaderDefinitionForSolution (solution);
+      var solutionHeaderDefinitions = HeaderFinder.GetHeaderDefinitionForSolution (solution);
 
       var allSolutionProjectsSearcher = new AllSolutionProjectsSearcher();
       var projectsInSolution = allSolutionProjectsSearcher.GetAllProjects (solution);
 
-      var projectsWithoutLicenseHeaderFile = projectsInSolution
-          .Where (project => LicenseHeaderFinder.GetHeaderDefinitionForProjectWithoutFallback (project) == null)
+      var projectsWithoutHeaderFile = projectsInSolution
+          .Where (project => HeaderFinder.GetHeaderDefinitionForProjectWithoutFallback (project) == null)
           .ToList();
 
-      var projectsWithLicenseHeaderFile = projectsInSolution
-          .Where (project => LicenseHeaderFinder.GetHeaderDefinitionForProjectWithoutFallback (project) != null)
+      var projectsWithHeaderFile = projectsInSolution
+          .Where (project => HeaderFinder.GetHeaderDefinitionForProjectWithoutFallback (project) != null)
           .ToList();
 
-      if (solutionHeaderDefinitions != null || !projectsWithoutLicenseHeaderFile.Any())
+      if (solutionHeaderDefinitions != null || !projectsWithoutHeaderFile.Any())
       {
         // Every project is covered either by a solution or project level license header definition, go ahead and add them.
-        await AddLicenseHeaderToProjectsAsync (cancellationToken, projectsInSolution, updateViewModel);
+        await AddHeaderToProjectsAsync (cancellationToken, projectsInSolution, updateViewModel);
       }
       else
       {
         // Some projects are not covered by a header.
 
-        var someProjectsHaveDefinition = projectsWithLicenseHeaderFile.Count > 0;
+        var someProjectsHaveDefinition = projectsWithHeaderFile.Count > 0;
         if (someProjectsHaveDefinition)
         {
           // Some projects have a header. Ask the user if they want to add an existing header to the uncovered projects.
-          if (await DefinitionFilesShouldBeAddedAsync (projectsWithoutLicenseHeaderFile, window))
-            ExistingLicenseHeaderDefinitionFileAdder.AddDefinitionFileToMultipleProjects (projectsWithoutLicenseHeaderFile);
+          if (await DefinitionFilesShouldBeAddedAsync (projectsWithoutHeaderFile, window))
+            ExistingHeaderDefinitionFileAdder.AddDefinitionFileToMultipleProjects (projectsWithoutHeaderFile);
 
-          await AddLicenseHeaderToProjectsAsync (cancellationToken, projectsInSolution, updateViewModel);
+          await AddHeaderToProjectsAsync (cancellationToken, projectsInSolution, updateViewModel);
         }
         else
         {
           // No projects have definition. Ask the user if they want to add a solution level header definition.
-          if (await MessageBoxHelper.AskYesNoAsync (window, Resources.Question_AddNewLicenseHeaderDefinitionForSolution.ReplaceNewLines()).ConfigureAwait (true))
+          if (await MessageBoxHelper.AskYesNoAsync (window, Resources.Question_AddNewHeaderDefinitionForSolution.ReplaceNewLines()).ConfigureAwait (true))
           {
-            AddNewSolutionLicenseHeaderDefinitionFileCommand.Instance.Invoke (solution);
+            AddNewSolutionHeaderDefinitionFileCommand.Instance.Invoke (solution);
 
             // They want to go ahead and apply without editing.
             if (!await MessageBoxHelper.AskYesNoAsync (window, Resources.Question_StopForConfiguringDefinitionFilesSingleFile).ConfigureAwait (true))
-              await AddLicenseHeaderToProjectsAsync (cancellationToken, projectsInSolution, updateViewModel);
+              await AddHeaderToProjectsAsync (cancellationToken, projectsInSolution, updateViewModel);
           }
         }
       }
@@ -107,18 +107,18 @@ namespace LicenseHeaderManager.MenuItemButtonHandler.Implementations
       throw new NotSupportedException (UnsupportedOverload);
     }
 
-    private async Task<bool> DefinitionFilesShouldBeAddedAsync (ICollection<Project> projectsWithoutLicenseHeaderFile, Window window)
+    private async Task<bool> DefinitionFilesShouldBeAddedAsync (ICollection<Project> projectsWithoutHeaderFile, Window window)
     {
-      if (!projectsWithoutLicenseHeaderFile.Any()) return false;
+      if (!projectsWithoutHeaderFile.Any()) return false;
 
-      var errorResourceString = Resources.Error_MultipleProjectsNoLicenseHeaderFile;
+      var errorResourceString = Resources.Error_MultipleProjectsNoHeaderFile;
       string projects;
 
-      if (projectsWithoutLicenseHeaderFile.Count > c_maxProjectsWithoutDefinitionFileShownInMessage)
+      if (projectsWithoutHeaderFile.Count > c_maxProjectsWithoutDefinitionFileShownInMessage)
       {
         projects = string.Join (
             "\n",
-            projectsWithoutLicenseHeaderFile.Select (
+            projectsWithoutHeaderFile.Select (
                 x =>
                 {
                   ThreadHelper.ThrowIfNotOnUIThread();
@@ -130,7 +130,7 @@ namespace LicenseHeaderManager.MenuItemButtonHandler.Implementations
       {
         projects = string.Join (
             "\n",
-            projectsWithoutLicenseHeaderFile.Select (
+            projectsWithoutHeaderFile.Select (
                 x =>
                 {
                   ThreadHelper.ThrowIfNotOnUIThread();
@@ -142,15 +142,15 @@ namespace LicenseHeaderManager.MenuItemButtonHandler.Implementations
       return await MessageBoxHelper.AskYesNoAsync (window, message).ConfigureAwait (true);
     }
 
-    private async Task AddLicenseHeaderToProjectsAsync (CancellationToken cancellationToken, ICollection<Project> projectsInSolution, SolutionUpdateViewModel viewModel)
+    private async Task AddHeaderToProjectsAsync (CancellationToken cancellationToken, ICollection<Project> projectsInSolution, SolutionUpdateViewModel viewModel)
     {
       viewModel.ProcessedProjectCount = 0;
       viewModel.ProjectCount = projectsInSolution.Count;
-      var addAllLicenseHeadersCommand = new AddLicenseHeaderToAllFilesInProjectHelper (cancellationToken, _licenseHeaderExtension, viewModel);
+      var addAllHeadersCommand = new AddHeaderToAllFilesInProjectHelper (cancellationToken, _licenseHeaderExtension, viewModel);
 
       foreach (var project in projectsInSolution)
       {
-        await addAllLicenseHeadersCommand.RemoveOrReplaceHeadersAsync (project);
+        await addAllHeadersCommand.RemoveOrReplaceHeadersAsync (project);
         await IncrementProjectCountAsync (viewModel).ConfigureAwait (true);
       }
     }

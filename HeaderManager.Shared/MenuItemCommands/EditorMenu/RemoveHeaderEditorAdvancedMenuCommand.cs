@@ -14,18 +14,18 @@
 using System;
 using System.ComponentModel.Design;
 using EnvDTE;
-using LicenseHeaderManager.Core;
-using LicenseHeaderManager.Interfaces;
-using LicenseHeaderManager.Utils;
+using HeaderManager.Core;
+using HeaderManager.Interfaces;
+using HeaderManager.Utils;
 using Microsoft.VisualStudio.Shell;
 using Task = System.Threading.Tasks.Task;
 
-namespace LicenseHeaderManager.MenuItemCommands.EditorMenu
+namespace HeaderManager.MenuItemCommands.EditorMenu
 {
   /// <summary>
   ///   Command handler
   /// </summary>
-  internal sealed class RemoveLicenseHeaderEditorAdvancedMenuCommand
+  internal sealed class RemoveHeaderEditorAdvancedMenuCommand
   {
     /// <summary>
     ///   Command ID.
@@ -40,14 +40,14 @@ namespace LicenseHeaderManager.MenuItemCommands.EditorMenu
     private readonly OleMenuCommand _menuItem;
 
     /// <summary>
-    ///   Initializes a new instance of the <see cref="RemoveLicenseHeaderEditorAdvancedMenuCommand" /> class.
+    ///   Initializes a new instance of the <see cref="RemoveHeaderEditorAdvancedMenuCommand" /> class.
     ///   Adds our command handlers for menu (commands must exist in the command table file)
     /// </summary>
     /// <param name="package">Owner package, not null.</param>
     /// <param name="commandService">Command service to add command to, not null.</param>
-    private RemoveLicenseHeaderEditorAdvancedMenuCommand (AsyncPackage package, OleMenuCommandService commandService)
+    private RemoveHeaderEditorAdvancedMenuCommand (AsyncPackage package, OleMenuCommandService commandService)
     {
-      ServiceProvider = (ILicenseHeaderExtension) package ?? throw new ArgumentNullException (nameof(package));
+      ServiceProvider = (IHeaderExtension) package ?? throw new ArgumentNullException (nameof(package));
       commandService = commandService ?? throw new ArgumentNullException (nameof(commandService));
 
       var menuCommandID = new CommandID (s_commandSet, c_commandId);
@@ -59,12 +59,12 @@ namespace LicenseHeaderManager.MenuItemCommands.EditorMenu
     /// <summary>
     ///   Gets the instance of the command.
     /// </summary>
-    public static RemoveLicenseHeaderEditorAdvancedMenuCommand Instance { get; private set; }
+    public static RemoveHeaderEditorAdvancedMenuCommand Instance { get; private set; }
 
     /// <summary>
     ///   Gets the service provider from the owner package.
     /// </summary>
-    private ILicenseHeaderExtension ServiceProvider { get; }
+    private IHeaderExtension ServiceProvider { get; }
 
     private void OnQueryEditCommandStatus (object sender, EventArgs e)
     {
@@ -83,12 +83,12 @@ namespace LicenseHeaderManager.MenuItemCommands.EditorMenu
     /// <param name="package">Owner package, not null.</param>
     public static async Task InitializeAsync (AsyncPackage package)
     {
-      // Switch to the main thread - the call to AddCommand in RemoveLicenseHeaderEditorAdvancedMenuCommand's constructor requires
+      // Switch to the main thread - the call to AddCommand in RemoveHeaderEditorAdvancedMenuCommand's constructor requires
       // the UI thread.
-      await LicenseHeadersPackage.Instance.JoinableTaskFactory.SwitchToMainThreadAsync (package.DisposalToken);
+      await HeadersPackage.Instance.JoinableTaskFactory.SwitchToMainThreadAsync (package.DisposalToken);
 
       var commandService = await package.GetServiceAsync (typeof (IMenuCommandService)) as OleMenuCommandService;
-      Instance = new RemoveLicenseHeaderEditorAdvancedMenuCommand (package, commandService);
+      Instance = new RemoveHeaderEditorAdvancedMenuCommand (package, commandService);
     }
 
     /// <summary>
@@ -116,7 +116,7 @@ namespace LicenseHeaderManager.MenuItemCommands.EditorMenu
         return;
 
       await ServiceProvider.JoinableTaskFactory.SwitchToMainThreadAsync();
-      var result = await ServiceProvider.LicenseHeaderReplacer.RemoveOrReplaceHeader (new LicenseHeaderContentInput (content, item.FileNames[1], null));
+      var result = await ServiceProvider.HeaderReplacer.RemoveOrReplaceHeader (new HeaderContentInput (content, item.FileNames[1], null));
       await CoreHelpers.HandleResultAsync (result, ServiceProvider, wasAlreadyOpen, true);
     }
   }

@@ -16,7 +16,7 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Xml.Linq;
 
-namespace LicenseHeaderManager.Options.Converters
+namespace HeaderManager.Options.Converters
 {
   /// <summary>
   ///   Provides a <see cref="TypeConverter" /> subtype that converts instances of the type of its generic type parameter

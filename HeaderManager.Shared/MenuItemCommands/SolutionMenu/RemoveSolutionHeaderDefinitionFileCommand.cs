@@ -15,17 +15,17 @@ using System;
 using System.ComponentModel.Design;
 using System.IO;
 using EnvDTE;
-using LicenseHeaderManager.Headers;
-using LicenseHeaderManager.Interfaces;
+using HeaderManager.Headers;
+using HeaderManager.Interfaces;
 using Microsoft.VisualStudio.Shell;
 using Task = System.Threading.Tasks.Task;
 
-namespace LicenseHeaderManager.MenuItemCommands.SolutionMenu
+namespace HeaderManager.MenuItemCommands.SolutionMenu
 {
   /// <summary>
   ///   Command handler
   /// </summary>
-  internal sealed class RemoveSolutionLicenseHeaderDefinitionFileCommand
+  internal sealed class RemoveSolutionHeaderDefinitionFileCommand
   {
     /// <summary>
     ///   Command ID.
@@ -40,14 +40,14 @@ namespace LicenseHeaderManager.MenuItemCommands.SolutionMenu
     private readonly OleMenuCommand _menuItem;
 
     /// <summary>
-    ///   Initializes a new instance of the <see cref="RemoveSolutionLicenseHeaderDefinitionFileCommand" /> class.
+    ///   Initializes a new instance of the <see cref="RemoveSolutionHeaderDefinitionFileCommand" /> class.
     ///   Adds our command handlers for menu (commands must exist in the command table file)
     /// </summary>
     /// <param name="package">Owner package, not null.</param>
     /// <param name="commandService">Command service to add command to, not null.</param>
-    private RemoveSolutionLicenseHeaderDefinitionFileCommand (AsyncPackage package, OleMenuCommandService commandService)
+    private RemoveSolutionHeaderDefinitionFileCommand (AsyncPackage package, OleMenuCommandService commandService)
     {
-      ServiceProvider = (ILicenseHeaderExtension) package ?? throw new ArgumentNullException (nameof(package));
+      ServiceProvider = (IHeaderExtension) package ?? throw new ArgumentNullException (nameof(package));
       commandService = commandService ?? throw new ArgumentNullException (nameof(commandService));
 
       var menuCommandID = new CommandID (s_commandSet, c_commandId);
@@ -59,12 +59,12 @@ namespace LicenseHeaderManager.MenuItemCommands.SolutionMenu
     /// <summary>
     ///   Gets the instance of the command.
     /// </summary>
-    public static RemoveSolutionLicenseHeaderDefinitionFileCommand Instance { get; private set; }
+    public static RemoveSolutionHeaderDefinitionFileCommand Instance { get; private set; }
 
     /// <summary>
     ///   Gets the service provider from the owner package.
     /// </summary>
-    private ILicenseHeaderExtension ServiceProvider { get; }
+    private IHeaderExtension ServiceProvider { get; }
 
     private void OnQuerySolutionCommandStatus (object sender, EventArgs e)
     {
@@ -77,12 +77,12 @@ namespace LicenseHeaderManager.MenuItemCommands.SolutionMenu
     /// <param name="package">Owner package, not null.</param>
     public static async Task InitializeAsync (AsyncPackage package)
     {
-      // Switch to the main thread - the call to AddCommand in RemoveSolutionLicenseHeaderDefinitionFileCommand's constructor requires
+      // Switch to the main thread - the call to AddCommand in RemoveSolutionHeaderDefinitionFileCommand's constructor requires
       // the UI thread.
-      await LicenseHeadersPackage.Instance.JoinableTaskFactory.SwitchToMainThreadAsync (package.DisposalToken);
+      await HeadersPackage.Instance.JoinableTaskFactory.SwitchToMainThreadAsync (package.DisposalToken);
 
       var commandService = await package.GetServiceAsync (typeof (IMenuCommandService)) as OleMenuCommandService;
-      Instance = new RemoveSolutionLicenseHeaderDefinitionFileCommand (package, commandService);
+      Instance = new RemoveSolutionHeaderDefinitionFileCommand (package, commandService);
     }
 
     /// <summary>
@@ -96,7 +96,7 @@ namespace LicenseHeaderManager.MenuItemCommands.SolutionMenu
     {
       ThreadHelper.ThrowIfNotOnUIThread();
 
-      var solutionHeaderDefinitionFilePath = LicenseHeaderDefinitionFileHelper.GetHeaderDefinitionFilePathForSolution (ServiceProvider.Dte2.Solution);
+      var solutionHeaderDefinitionFilePath = HeaderDefinitionFileHelper.GetHeaderDefinitionFilePathForSolution (ServiceProvider.Dte2.Solution);
 
       // Look for and close the document representing the license header definition file if it exists
       foreach (Document document in ServiceProvider.Dte2.Solution.DTE.Documents)

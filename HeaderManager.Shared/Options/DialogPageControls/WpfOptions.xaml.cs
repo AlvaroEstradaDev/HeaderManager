@@ -15,9 +15,9 @@ using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using LicenseHeaderManager.Options.Model;
+using HeaderManager.Options.Model;
 
-namespace LicenseHeaderManager.Options.DialogPageControls
+namespace HeaderManager.Options.DialogPageControls
 {
   public partial class WpfOptions : UserControl
   {

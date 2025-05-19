@@ -15,12 +15,12 @@ using System;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace LicenseHeaderManager.Core
+namespace HeaderManager.Core
 {
   /// <summary>
   ///   Provides utility functions that manipulate a new license header text before effectively replacing the old one by it.
   /// </summary>
-  internal static class LicenseHeaderPreparer
+  internal static class HeaderPreparer
   {
     /// <summary>
     ///   Prepares an updated license header before effectively replacing the old one based on the following rules:
@@ -43,17 +43,17 @@ namespace LicenseHeaderManager.Core
         // Check if the header text already contains the date placeholders
         if (!headerText.Contains("Created on:"))
         {
-          headerText += $"\n// Created on: %CreationTime%";
+          headerText += "\n// Created on: %CreationTime%";
         }
         
         if (!headerText.Contains("Last Modified on:"))
         {
-          headerText += $"\n// Last Modified on: %CurrentTime%";
+          headerText += "\n// Last Modified on: %CurrentTime%";
         }
 
         if (!headerText.Contains("Features:"))
         {
-          headerText += $"\n// Features: %Features%";
+          headerText += "\n// Features: %Features%";
         }
 
       }

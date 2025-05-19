@@ -16,7 +16,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Windows.Data;
 
-namespace LicenseHeaderManager.Options.Converters
+namespace HeaderManager.Options.Converters
 {
   /// <summary>
   ///   Joins an enumerable range of <see cref="string" /> instances using a predefined separator and converts such a joined

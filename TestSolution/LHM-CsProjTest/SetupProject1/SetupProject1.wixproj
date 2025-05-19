@@ -26,7 +26,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="NewFolder1\NewFolder1\Include1.wxi" />
-    <Content Include="SetupProject1.licenseheader" />
+    <Content Include="SetupProject1.header" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="NewFolder1\" />

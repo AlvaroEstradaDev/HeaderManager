@@ -16,20 +16,20 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 
-namespace LicenseHeaderManager.Core.Options
+namespace HeaderManager.Core.Options
 {
   /// <summary>
   ///   Encapsulates members that represent the configuration affecting the behaviour of a
-  ///   <see cref="LicenseHeaderReplacer" /> instance.
+  ///   <see cref="HeaderReplacer" /> instance.
   /// </summary>
-  /// <seealso cref="LicenseHeaderReplacer" />
-  [LicenseHeaderManagerOptions]
+  /// <seealso cref="HeaderReplacer" />
+  [HeaderManagerOptions]
   public class CoreOptions
   {
     public const bool DefaultUseRequiredKeywords = true;
     public const string DefaultRequiredKeywords = "license, copyright, (c), ©";
 
-    public static readonly string DefaultLicenseHeaderFileText = new[]
+    public static readonly string DefaultHeaderFileText = new[]
                                                                  {
                                                                      "extensions: designer.cs generated.cs",
                                                                      "extensions: .cs .cpp .h",
@@ -157,9 +157,9 @@ namespace LicenseHeaderManager.Core.Options
     /// <summary>
     ///   Gets or sets the text to be used for newly created license header definition files.
     /// </summary>
-    public virtual string LicenseHeaderFileText { get; set; }
+    public virtual string HeaderFileText { get; set; }
 
-    //public virtual string DefaultLicenseHeaderFileText { get; } = CoreOptionsRepository.GetDefaultLicenseHeader();
+    //public virtual string DefaultHeaderFileText { get; } = CoreOptionsRepository.GetDefaultHeader();
 
     /// <summary>
     ///   Gets or sets whether license headers are automatically inserted into new files.
@@ -192,7 +192,7 @@ namespace LicenseHeaderManager.Core.Options
                          {
                              UseRequiredKeywords = UseRequiredKeywords,
                              RequiredKeywords = RequiredKeywords,
-                             LicenseHeaderFileText = LicenseHeaderFileText,
+                             HeaderFileText = HeaderFileText,
                              Languages = new ObservableCollection<Language> (Languages.Select (x => x.Clone()).ToList())
                          };
 
@@ -207,7 +207,7 @@ namespace LicenseHeaderManager.Core.Options
     {
       UseRequiredKeywords = DefaultUseRequiredKeywords;
       RequiredKeywords = DefaultRequiredKeywords;
-      LicenseHeaderFileText = DefaultLicenseHeaderFileText;
+      HeaderFileText = DefaultHeaderFileText;
       Languages = new ObservableCollection<Language> (DefaultLanguages);
     }
 

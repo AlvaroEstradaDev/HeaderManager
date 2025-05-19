@@ -19,13 +19,13 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace LicenseHeaderManager.Core.Options
+namespace HeaderManager.Core.Options
 {
   /// <summary>
-  ///   Provides methods for serializing and deserializing types with the <see cref="LicenseHeaderManagerOptionsAttribute" />
+  ///   Provides methods for serializing and deserializing types with the <see cref="HeaderManagerOptionsAttribute" />
   ///   from and to JSON.
   /// </summary>
-  /// <seealso cref="LicenseHeaderManagerOptionsAttribute" />
+  /// <seealso cref="HeaderManagerOptionsAttribute" />
   public static class JsonOptionsManager
   {
     private const string c_fileStreamNotPresent = "File stream for deserializing configuration was not present";
@@ -47,7 +47,7 @@ namespace LicenseHeaderManager.Core.Options
         };
 
     /// <summary>
-    ///   Deserializes an instance of a type with the <seealso cref="LicenseHeaderManagerOptionsAttribute" /> from JSON.
+    ///   Deserializes an instance of a type with the <seealso cref="HeaderManagerOptionsAttribute" /> from JSON.
     /// </summary>
     /// <typeparam name="T">The type of the instance to be serialized from <paramref name="filePath" />.</typeparam>
     /// <param name="filePath">
@@ -63,7 +63,7 @@ namespace LicenseHeaderManager.Core.Options
     ///   Thrown if an error occurs while deserializing. See the
     ///   <see cref="Exception.InnerException" /> property for further details.
     /// </exception>
-    /// <seealso cref="LicenseHeaderManagerOptionsAttribute" />
+    /// <seealso cref="HeaderManagerOptionsAttribute" />
     public static async Task<T> DeserializeAsync<T> (string filePath, JsonSerializerOptions serializerOptions = null)
     {
 
@@ -99,7 +99,7 @@ namespace LicenseHeaderManager.Core.Options
     }
 
     /// <summary>
-    ///   Serializes an instance of a type with the <seealso cref="LicenseHeaderManagerOptionsAttribute" /> to JSON.
+    ///   Serializes an instance of a type with the <seealso cref="HeaderManagerOptionsAttribute" /> to JSON.
     /// </summary>
     /// <typeparam name="T">The type of the instance to be serialized to <paramref name="filePath" />.</typeparam>
     /// <param name="options">The instance of type <typeparamref name="T" /> to be serialized.</param>
@@ -112,7 +112,7 @@ namespace LicenseHeaderManager.Core.Options
     ///   Thrown if an error occurs while serializing. See the
     ///   <see cref="Exception.InnerException" /> property for further details.
     /// </exception>
-    /// <seealso cref="LicenseHeaderManagerOptionsAttribute" />
+    /// <seealso cref="HeaderManagerOptionsAttribute" />
     public static async Task SerializeAsync<T> (T options, string filePath, JsonSerializerOptions serializerOptions = null)
     {
       ValidateTypeParameter (typeof (T));
@@ -135,8 +135,8 @@ namespace LicenseHeaderManager.Core.Options
 
     private static void ValidateTypeParameter (Type type)
     {
-      if (!Attribute.IsDefined (type, typeof (LicenseHeaderManagerOptionsAttribute)))
-        throw new ArgumentException ($"Type parameter {nameof(type)} must have attribute {nameof(LicenseHeaderManagerOptionsAttribute)}.");
+      if (!Attribute.IsDefined (type, typeof (HeaderManagerOptionsAttribute)))
+        throw new ArgumentException ($"Type parameter {nameof(type)} must have attribute {nameof(HeaderManagerOptionsAttribute)}.");
     }
   }
 }

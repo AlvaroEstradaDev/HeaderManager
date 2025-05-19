@@ -15,12 +15,12 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Windows.Forms;
-using LicenseHeaderManager.Core.Options;
-using LicenseHeaderManager.Options.DialogPageControls;
-using LicenseHeaderManager.Options.Model;
+using HeaderManager.Core.Options;
+using HeaderManager.Options.DialogPageControls;
+using HeaderManager.Options.Model;
 using log4net;
 
-namespace LicenseHeaderManager.Options.DialogPages
+namespace HeaderManager.Options.DialogPages
 {
   public class OptionsPage : BaseOptionPage<GeneralOptionsPageModel>
   {

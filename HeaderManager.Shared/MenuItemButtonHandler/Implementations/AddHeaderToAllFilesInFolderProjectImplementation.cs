@@ -15,19 +15,19 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using EnvDTE;
-using LicenseHeaderManager.Interfaces;
-using LicenseHeaderManager.MenuItemCommands.Common;
-using LicenseHeaderManager.UpdateViewModels;
+using HeaderManager.Interfaces;
+using HeaderManager.MenuItemCommands.Common;
+using HeaderManager.UpdateViewModels;
 using Window = System.Windows.Window;
 
-namespace LicenseHeaderManager.MenuItemButtonHandler.Implementations
+namespace HeaderManager.MenuItemButtonHandler.Implementations
 {
-  internal class AddLicenseHeaderToAllFilesInFolderProjectImplementation : MenuItemButtonHandlerImplementation
+  internal class AddHeaderToAllFilesInFolderProjectImplementation : MenuItemButtonHandlerImplementation
   {
-    private const string c_commandName = "Add LicenseHeader to all files in folder or project";
-    private readonly ILicenseHeaderExtension _licenseHeaderExtension;
+    private const string c_commandName = "Add Header to all files in folder or project";
+    private readonly IHeaderExtension _licenseHeaderExtension;
 
-    public AddLicenseHeaderToAllFilesInFolderProjectImplementation (ILicenseHeaderExtension licenseHeaderExtension)
+    public AddHeaderToAllFilesInFolderProjectImplementation (IHeaderExtension licenseHeaderExtension)
     {
       _licenseHeaderExtension = licenseHeaderExtension;
     }
@@ -46,7 +46,7 @@ namespace LicenseHeaderManager.MenuItemButtonHandler.Implementations
 
     public override async Task DoWorkAsync (CancellationToken cancellationToken, BaseUpdateViewModel viewModel)
     {
-      await FolderProjectMenuHelper.AddLicenseHeaderToAllFilesAsync (cancellationToken, _licenseHeaderExtension, viewModel);
+      await FolderProjectMenuHelper.AddHeaderToAllFilesAsync (cancellationToken, _licenseHeaderExtension, viewModel);
     }
   }
 }

@@ -17,15 +17,15 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using EnvDTE;
-using LicenseHeaderManager.Core;
-using LicenseHeaderManager.Utils;
+using HeaderManager.Core;
+using HeaderManager.Utils;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.Win32;
 using Thread = System.Threading.Thread;
 
-namespace LicenseHeaderManager.MenuItemCommands.Common
+namespace HeaderManager.MenuItemCommands.Common
 {
-  public static class ExistingLicenseHeaderDefinitionFileAdder
+  public static class ExistingHeaderDefinitionFileAdder
   {
     public static ProjectItem AddDefinitionFileToOneProject (string fileName, ProjectItems projectItems)
     {
@@ -66,9 +66,9 @@ namespace LicenseHeaderManager.MenuItemCommands.Common
                           {
                               CheckFileExists = true,
                               CheckPathExists = true,
-                              DefaultExt = LicenseHeaderExtractor.HeaderDefinitionExtension,
+                              DefaultExt = HeaderExtractor.HeaderDefinitionExtension,
                               DereferenceLinks = true,
-                              Filter = "License Header Definitions|*" + LicenseHeaderExtractor.HeaderDefinitionExtension,
+                              Filter = "License Header Definitions|*" + HeaderExtractor.HeaderDefinitionExtension,
                               InitialDirectory = Path.GetDirectoryName (fileName)
                           };
       var result = dialog.ShowDialog();

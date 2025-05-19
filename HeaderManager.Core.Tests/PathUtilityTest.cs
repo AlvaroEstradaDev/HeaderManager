@@ -17,7 +17,7 @@ using System.IO;
 using System.Text;
 using NUnit.Framework;
 
-namespace LicenseHeaderManager.Core.Tests
+namespace HeaderManager.Core.Tests
 {
   [TestFixture]
   public class PathUtilityTest

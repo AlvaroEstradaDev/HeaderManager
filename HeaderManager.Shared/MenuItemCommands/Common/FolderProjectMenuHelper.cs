@@ -16,20 +16,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using EnvDTE;
-using LicenseHeaderManager.Headers;
-using LicenseHeaderManager.Interfaces;
-using LicenseHeaderManager.MenuItemCommands.SolutionMenu;
-using LicenseHeaderManager.ResultObjects;
-using LicenseHeaderManager.UpdateViewModels;
-using LicenseHeaderManager.Utils;
+using HeaderManager.Headers;
+using HeaderManager.Interfaces;
+using HeaderManager.MenuItemCommands.SolutionMenu;
+using HeaderManager.ResultObjects;
+using HeaderManager.UpdateViewModels;
+using HeaderManager.Utils;
 using Microsoft.VisualStudio.Shell;
 using Task = System.Threading.Tasks.Task;
 
-namespace LicenseHeaderManager.MenuItemCommands.Common
+namespace HeaderManager.MenuItemCommands.Common
 {
   internal static class FolderProjectMenuHelper
   {
-    public static void AddExistingLicenseHeaderDefinitionFile (ILicenseHeaderExtension serviceProvider)
+    public static void AddExistingHeaderDefinitionFile (IHeaderExtension serviceProvider)
     {
       ThreadHelper.ThrowIfNotOnUIThread();
 
@@ -50,55 +50,55 @@ namespace LicenseHeaderManager.MenuItemCommands.Common
       else if (projectItem != null)
         projectItems = projectItem.ProjectItems;
 
-      ExistingLicenseHeaderDefinitionFileAdder.AddDefinitionFileToOneProject (fileName, projectItems);
+      ExistingHeaderDefinitionFileAdder.AddDefinitionFileToOneProject (fileName, projectItems);
     }
 
-    public static async Task AddLicenseHeaderToAllFilesAsync (
+    public static async Task AddHeaderToAllFilesAsync (
         CancellationToken cancellationToken,
-        ILicenseHeaderExtension serviceProvider,
+        IHeaderExtension serviceProvider,
         BaseUpdateViewModel folderProjectUpdateViewModel)
     {
       await serviceProvider.JoinableTaskFactory.SwitchToMainThreadAsync();
       var obj = serviceProvider.GetSolutionExplorerItem();
-      var addLicenseHeaderToAllFilesCommand = new AddLicenseHeaderToAllFilesInProjectHelper (
+      var addHeaderToAllFilesCommand = new AddHeaderToAllFilesInProjectHelper (
           cancellationToken,
           serviceProvider,
           folderProjectUpdateViewModel);
 
-      var addLicenseHeaderToAllFilesResult = await addLicenseHeaderToAllFilesCommand.RemoveOrReplaceHeadersAsync (obj);
+      var addHeaderToAllFilesResult = await addHeaderToAllFilesCommand.RemoveOrReplaceHeadersAsync (obj);
 
-      await HandleLinkedFilesAndShowMessageBoxAsync (serviceProvider, addLicenseHeaderToAllFilesResult.LinkedItems);
-      await HandleAddLicenseHeaderToAllFilesInProjectResultAsync (
+      await HandleLinkedFilesAndShowMessageBoxAsync (serviceProvider, addHeaderToAllFilesResult.LinkedItems);
+      await HandleAddHeaderToAllFilesInProjectResultAsync (
           cancellationToken,
           serviceProvider,
           obj,
-          addLicenseHeaderToAllFilesResult,
+          addHeaderToAllFilesResult,
           folderProjectUpdateViewModel);
     }
 
-    public static void AddNewLicenseHeaderDefinitionFile (ILicenseHeaderExtension serviceProvider)
+    public static void AddNewHeaderDefinitionFile (IHeaderExtension serviceProvider)
     {
       ThreadHelper.ThrowIfNotOnUIThread();
 
-      var page = serviceProvider.DefaultLicenseHeaderPageModel;
+      var page = serviceProvider.DefaultHeaderPageModel;
       var solutionItem = serviceProvider.GetSolutionExplorerItem();
       var project = solutionItem as Project;
       if (project == null)
         if (solutionItem is ProjectItem projectItem)
-          LicenseHeaderDefinitionFileHelper.AddLicenseHeaderDefinitionFile (projectItem, page);
+          HeaderDefinitionFileHelper.AddHeaderDefinitionFile (projectItem, page);
 
       if (project == null)
         return;
 
-      var licenseHeaderDefinitionFile = LicenseHeaderDefinitionFileHelper.AddHeaderDefinitionFile (project, page);
+      var licenseHeaderDefinitionFile = HeaderDefinitionFileHelper.AddHeaderDefinitionFile (project, page);
       licenseHeaderDefinitionFile.Open (Constants.vsViewKindCode).Activate();
     }
 
-    private static async Task HandleAddLicenseHeaderToAllFilesInProjectResultAsync (
+    private static async Task HandleAddHeaderToAllFilesInProjectResultAsync (
         CancellationToken cancellationToken,
-        ILicenseHeaderExtension serviceProvider,
+        IHeaderExtension serviceProvider,
         object obj,
-        AddLicenseHeaderToAllFilesResult addResult,
+        AddHeaderToAllFilesResult addResult,
         BaseUpdateViewModel baseUpdateViewModel)
     {
       await serviceProvider.JoinableTaskFactory.SwitchToMainThreadAsync();
@@ -117,26 +117,26 @@ namespace LicenseHeaderManager.MenuItemCommands.Common
         var solutionSearcher = new AllSolutionProjectsSearcher();
         var projects = solutionSearcher.GetAllProjects (serviceProvider.Dte2.Solution);
 
-        if (projects.Any (projectInSolution => LicenseHeaderFinder.GetHeaderDefinitionForProjectWithoutFallback (projectInSolution) != null))
+        if (projects.Any (projectInSolution => HeaderFinder.GetHeaderDefinitionForProjectWithoutFallback (projectInSolution) != null))
         {
           baseUpdateViewModel.ProcessedFilesCountCurrentProject = 0;
           // If another project has a license header, offer to add a link to the existing one.
           if (MessageBoxHelper.AskYesNo (Resources.Question_AddExistingDefinitionFileToProject.ReplaceNewLines()))
           {
-            ExistingLicenseHeaderDefinitionFileAdder.AddDefinitionFileToOneProject (currentProject.FileName, currentProject.ProjectItems);
-            await AddLicenseHeaderToAllFilesAsync (cancellationToken, serviceProvider, baseUpdateViewModel);
+            ExistingHeaderDefinitionFileAdder.AddDefinitionFileToOneProject (currentProject.FileName, currentProject.ProjectItems);
+            await AddHeaderToAllFilesAsync (cancellationToken, serviceProvider, baseUpdateViewModel);
           }
         }
         else
         {
           // If no project has a license header, offer to add one for the solution.
-          if (MessageBoxHelper.AskYesNo (Resources.Question_AddNewLicenseHeaderDefinitionForSolution.ReplaceNewLines()))
-            AddNewSolutionLicenseHeaderDefinitionFileCommand.Instance.Invoke (serviceProvider.Dte2.Solution);
+          if (MessageBoxHelper.AskYesNo (Resources.Question_AddNewHeaderDefinitionForSolution.ReplaceNewLines()))
+            AddNewSolutionHeaderDefinitionFileCommand.Instance.Invoke (serviceProvider.Dte2.Solution);
         }
       }
     }
 
-    private static async Task HandleLinkedFilesAndShowMessageBoxAsync (ILicenseHeaderExtension serviceProvider, IEnumerable<ProjectItem> linkedItems)
+    private static async Task HandleLinkedFilesAndShowMessageBoxAsync (IHeaderExtension serviceProvider, IEnumerable<ProjectItem> linkedItems)
     {
       ILinkedFileFilter linkedFileFilter = new LinkedFileFilter (serviceProvider.Dte2.Solution);
       linkedFileFilter.Filter (linkedItems);

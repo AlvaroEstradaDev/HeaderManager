@@ -124,7 +124,7 @@
   <data name="Error_FileNotFound" xml:space="preserve">
     <value>The specified file ({0}) could not be found.</value>
   </data>
-  <data name="Error_InvalidLicenseHeader" xml:space="preserve">
+  <data name="Error_InvalidHeader" xml:space="preserve">
     <value>An error occurred while parsing the file {0}.\nMake sure the comment syntax is correct.</value>
   </data>
   <data name="Error_LanguageNotFound" xml:space="preserve">
@@ -136,13 +136,13 @@
   <data name="Error_HeaderNullOrEmpty" xml:space="preserve">
     <value>The header definition for the extension {0} is null or empty.</value>
   </data>
-  <data name="Error_LicenseHeaderDefinition_InvalidTarget" xml:space="preserve">
+  <data name="Error_HeaderDefinition_InvalidTarget" xml:space="preserve">
     <value>Inserting license headers into the license header definition file (extension: {0}) is not allowed.</value>
   </data>
   <data name="UserInfo_UnknownDisplayNameString" xml:space="preserve">
     <value>&lt;Unknown&gt;</value>
   </data>
-  <data name="Warning_InvalidLicenseHeader" xml:space="preserve">
+  <data name="Warning_InvalidHeader" xml:space="preserve">
     <value>HeaderDefinitionExtension: {0}\n\nThe header definition for {0} files contains non-comment text.\nIf you insert this header, you will not be able to remove or replace the header automatically!\n\nDo you really want to add this header to the file?</value>
   </data>
 </root>

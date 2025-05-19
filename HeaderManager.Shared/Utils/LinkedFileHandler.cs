@@ -13,19 +13,19 @@
 
 using System;
 using System.Linq;
-using LicenseHeaderManager.Core;
-using LicenseHeaderManager.Headers;
-using LicenseHeaderManager.Interfaces;
+using HeaderManager.Core;
+using HeaderManager.Headers;
+using HeaderManager.Interfaces;
 using Microsoft.VisualStudio.Shell;
 using Task = System.Threading.Tasks.Task;
 
-namespace LicenseHeaderManager.Utils
+namespace HeaderManager.Utils
 {
   public class LinkedFileHandler
   {
-    private readonly ILicenseHeaderExtension _licenseHeaderExtension;
+    private readonly IHeaderExtension _licenseHeaderExtension;
 
-    public LinkedFileHandler (ILicenseHeaderExtension licenseHeaderExtension)
+    public LinkedFileHandler (IHeaderExtension licenseHeaderExtension)
     {
       _licenseHeaderExtension = licenseHeaderExtension;
       Message = string.Empty;
@@ -40,7 +40,7 @@ namespace LicenseHeaderManager.Utils
     /// <returns></returns>
     public async Task HandleAsync (ILinkedFileFilter linkedFileFilter)
     {
-      await LicenseHeadersPackage.Instance.JoinableTaskFactory.SwitchToMainThreadAsync();
+      await HeadersPackage.Instance.JoinableTaskFactory.SwitchToMainThreadAsync();
 
       foreach (var projectItem in linkedFileFilter.ToBeProgressed)
       {
@@ -48,15 +48,15 @@ namespace LicenseHeaderManager.Utils
         if (content == null)
           continue;
 
-        var headers = LicenseHeaderFinder.GetHeaderDefinitionForItem (projectItem);
-        var result = await _licenseHeaderExtension.LicenseHeaderReplacer.RemoveOrReplaceHeader (
-            new LicenseHeaderContentInput (content, projectItem.FileNames[1], headers, projectItem.GetAdditionalProperties()));
+        var headers = HeaderFinder.GetHeaderDefinitionForItem (projectItem);
+        var result = await _licenseHeaderExtension.HeaderReplacer.RemoveOrReplaceHeader (
+            new HeaderContentInput (content, projectItem.FileNames[1], headers, projectItem.GetAdditionalProperties()));
         await CoreHelpers.HandleResultAsync (result, _licenseHeaderExtension, wasAlreadyOpen, true);
       }
 
-      if (linkedFileFilter.NoLicenseHeaderFile.Any() || linkedFileFilter.NotInSolution.Any())
+      if (linkedFileFilter.NoHeaderFile.Any() || linkedFileFilter.NotInSolution.Any())
       {
-        var notProgressedItems = linkedFileFilter.NoLicenseHeaderFile.Concat (linkedFileFilter.NotInSolution).ToList();
+        var notProgressedItems = linkedFileFilter.NoHeaderFile.Concat (linkedFileFilter.NotInSolution).ToList();
         var notProgressedNames = notProgressedItems.Select (
             x =>
             {

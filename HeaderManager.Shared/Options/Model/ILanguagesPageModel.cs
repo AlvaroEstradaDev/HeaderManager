@@ -13,9 +13,9 @@
 
 using System;
 using System.Collections.ObjectModel;
-using LicenseHeaderManager.Core;
+using HeaderManager.Core;
 
-namespace LicenseHeaderManager.Options.Model
+namespace HeaderManager.Options.Model
 {
   /// <summary>
   ///   Provides options for the options page regarding Languages.
@@ -24,7 +24,7 @@ namespace LicenseHeaderManager.Options.Model
   {
     /// <summary>
     ///   Gets or sets a list of <see cref="Core.Language" /> objects that represents the
-    ///   languages for which the <see cref="Core.LicenseHeaderReplacer" /> is configured to use.
+    ///   languages for which the <see cref="Core.HeaderReplacer" /> is configured to use.
     /// </summary>
     ObservableCollection<Language> Languages { get; set; }
 

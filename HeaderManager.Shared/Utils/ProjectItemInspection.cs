@@ -14,10 +14,10 @@
 using System;
 using System.Linq;
 using EnvDTE;
-using LicenseHeaderManager.Core;
+using HeaderManager.Core;
 using Microsoft.VisualStudio.Shell;
 
-namespace LicenseHeaderManager.Utils
+namespace HeaderManager.Utils
 {
   /// <summary>
   ///   This class provides methods to check if a given project item is of type "physical file", "license header", "link" or
@@ -39,14 +39,14 @@ namespace LicenseHeaderManager.Utils
     }
 
     /// <summary>
-    ///   Checks whether the given project item is a license header definition file and has the <see cref="LicenseHeaderExtractor.HeaderDefinitionExtension" /> extension.
+    ///   Checks whether the given project item is a license header definition file and has the <see cref="HeaderExtractor.HeaderDefinitionExtension" /> extension.
     /// </summary>
     /// <param name="projectItem">Specifies the project item to be checked if it is a license header definition file.</param>
     /// <returns></returns>
-    public static bool IsLicenseHeader (ProjectItem projectItem)
+    public static bool IsHeader (ProjectItem projectItem)
     {
       ThreadHelper.ThrowIfNotOnUIThread();
-      return projectItem.Name.Contains (LicenseHeaderExtractor.HeaderDefinitionExtension);
+      return projectItem.Name.Contains (HeaderExtractor.HeaderDefinitionExtension);
     }
 
     /// <summary>

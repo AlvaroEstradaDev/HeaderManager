@@ -6,49 +6,49 @@
     <SharedGUID>A1A851B2-F77D-468E-ABD9-DB13F21929FA</SharedGUID>
   </PropertyGroup>
   <PropertyGroup Label="Configuration">
-    <Import_RootNamespace>LicenseHeaderManager.Shared</Import_RootNamespace>
+    <Import_RootNamespace>HeaderManager.Shared</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)GlobalSuppressions.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Headers\LicenseHeaderDefinitionFileHelper.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Headers\LicenseHeaderFinder.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Headers\HeaderDefinitionFileHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Headers\HeaderFinder.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Headers\NewLineConst.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Interfaces\ILicenseHeaderExtension.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interfaces\IHeaderExtension.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interfaces\ILinkedFileFilter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interfaces\IMenuItemButtonHandler.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)LicenseHeadersPackage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)HeadersPackage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MenuItemButtonHandler\FolderProjectMenuItemButtonHandler.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)MenuItemButtonHandler\Implementations\AddLicenseHeaderToAllFilesInFolderProjectImplementation.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)MenuItemButtonHandler\Implementations\AddLicenseHeaderToAllFilesInSolutionImplementation.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)MenuItemButtonHandler\Implementations\RemoveLicenseHeaderFromAllFilesInSolutionImplementation.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)MenuItemButtonHandler\Implementations\RemoveLicenseHeaderToAllFilesInFolderProjectImplementation.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MenuItemButtonHandler\Implementations\AddHeaderToAllFilesInFolderProjectImplementation.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MenuItemButtonHandler\Implementations\AddHeaderToAllFilesInSolutionImplementation.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MenuItemButtonHandler\Implementations\RemoveHeaderFromAllFilesInSolutionImplementation.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MenuItemButtonHandler\Implementations\RemoveHeaderToAllFilesInFolderProjectImplementation.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MenuItemButtonHandler\MenuItemButtonHandlerFactory.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MenuItemButtonHandler\MenuItemButtonHandlerImplementation.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MenuItemButtonHandler\MenuItemButtonLevel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MenuItemButtonHandler\MenuItemButtonOperation.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MenuItemButtonHandler\SolutionMenuItemButtonHandler.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)MenuItemCommands\Common\AddLicenseHeaderToAllFilesInProjectHelper.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)MenuItemCommands\Common\ExistingLicenseHeaderDefinitionFileAdder.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MenuItemCommands\Common\AddHeaderToAllFilesInProjectHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MenuItemCommands\Common\ExistingHeaderDefinitionFileAdder.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MenuItemCommands\Common\FolderProjectMenuHelper.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)MenuItemCommands\Common\RemoveLicenseHeaderFromAllFilesInProjectHelper.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)MenuItemCommands\EditorMenu\AddLicenseHeaderEditorAdvancedMenuCommand.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)MenuItemCommands\EditorMenu\RemoveLicenseHeaderEditorAdvancedMenuCommand.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)MenuItemCommands\FolderMenu\AddExistingLicenseHeaderDefinitionFileToFolderCommand.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)MenuItemCommands\FolderMenu\AddLicenseHeaderToAllFilesInFolderCommand.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)MenuItemCommands\FolderMenu\AddNewLicenseHeaderDefinitionFileToFolderCommand.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)MenuItemCommands\FolderMenu\RemoveLicenseHeaderFromAllFilesInFolderCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MenuItemCommands\Common\RemoveHeaderFromAllFilesInProjectHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MenuItemCommands\EditorMenu\AddHeaderEditorAdvancedMenuCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MenuItemCommands\EditorMenu\RemoveHeaderEditorAdvancedMenuCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MenuItemCommands\FolderMenu\AddExistingHeaderDefinitionFileToFolderCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MenuItemCommands\FolderMenu\AddHeaderToAllFilesInFolderCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MenuItemCommands\FolderMenu\AddNewHeaderDefinitionFileToFolderCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MenuItemCommands\FolderMenu\RemoveHeaderFromAllFilesInFolderCommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MenuItemCommands\ProjectItemMenu\AddHeaderToProjectItemCommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MenuItemCommands\ProjectItemMenu\RemoveHeaderFromProjectItemCommand.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)MenuItemCommands\ProjectMenu\AddExistingLicenseHeaderDefinitionFileToProjectCommand.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)MenuItemCommands\ProjectMenu\AddLicenseHeaderToAllFilesInProjectCommand.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)MenuItemCommands\ProjectMenu\AddNewLicenseHeaderDefinitionFileToProjectCommand.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)MenuItemCommands\ProjectMenu\LicenseHeaderOptionsCommand.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)MenuItemCommands\ProjectMenu\RemoveLicenseHeaderFromAllFilesInProjectCommand.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)MenuItemCommands\SolutionMenu\AddLicenseHeaderToAllFilesInSolutionCommand.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)MenuItemCommands\SolutionMenu\AddNewSolutionLicenseHeaderDefinitionFileCommand.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)MenuItemCommands\SolutionMenu\OpenSolutionLicenseHeaderDefinitionFileCommand.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)MenuItemCommands\SolutionMenu\RemoveLicenseHeaderFromAllFilesInSolutionCommand.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)MenuItemCommands\SolutionMenu\RemoveSolutionLicenseHeaderDefinitionFileCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MenuItemCommands\ProjectMenu\AddExistingHeaderDefinitionFileToProjectCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MenuItemCommands\ProjectMenu\AddHeaderToAllFilesInProjectCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MenuItemCommands\ProjectMenu\AddNewHeaderDefinitionFileToProjectCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MenuItemCommands\ProjectMenu\HeaderOptionsCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MenuItemCommands\ProjectMenu\RemoveHeaderFromAllFilesInProjectCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MenuItemCommands\SolutionMenu\AddHeaderToAllFilesInSolutionCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MenuItemCommands\SolutionMenu\AddNewSolutionHeaderDefinitionFileCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MenuItemCommands\SolutionMenu\OpenSolutionHeaderDefinitionFileCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MenuItemCommands\SolutionMenu\RemoveHeaderFromAllFilesInSolutionCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MenuItemCommands\SolutionMenu\RemoveSolutionHeaderDefinitionFileCommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Options\Converters\ExtensionConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Options\Converters\LanguageConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Options\Converters\LinkedCommandConverter.cs" />
@@ -56,11 +56,11 @@
     <Compile Include="$(MSBuildThisFileDirectory)Options\DialogPageControls\WpfCommandDialog.xaml.cs">
       <DependentUpon>WpfCommandDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Options\DialogPageControls\WpfDefaultLicenseHeader.xaml.cs">
-      <DependentUpon>WpfDefaultLicenseHeader.xaml</DependentUpon>
+    <Compile Include="$(MSBuildThisFileDirectory)Options\DialogPageControls\WpfDefaultHeader.xaml.cs">
+      <DependentUpon>WpfDefaultHeader.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Options\DialogPageControls\WpfEditDefaultLicenseHeaderDialog.xaml.cs">
-      <DependentUpon>WpfEditDefaultLicenseHeaderDialog.xaml</DependentUpon>
+    <Compile Include="$(MSBuildThisFileDirectory)Options\DialogPageControls\WpfEditDefaultHeaderDialog.xaml.cs">
+      <DependentUpon>WpfEditDefaultHeaderDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Options\DialogPageControls\WpfLanguageDialog.xaml.cs">
       <DependentUpon>WpfLanguageDialog.xaml</DependentUpon>
@@ -74,7 +74,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Options\DialogPages\BaseOptionPage.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Options\DialogPages\DefaultLicenseHeaderPage.cs">
+    <Compile Include="$(MSBuildThisFileDirectory)Options\DialogPages\DefaultHeaderPage.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Options\DialogPages\LanguagesPage.cs">
@@ -86,9 +86,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)Options\DialogPages\OptionsStoreMode.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Options\LinkedCommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Options\Model\BaseOptionPageModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Options\Model\DefaultLicenseHeaderPageModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Options\Model\DefaultHeaderPageModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Options\Model\GeneralOptionsPageModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Options\Model\IDefaultLicenseHeaderPageModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Options\Model\IDefaultHeaderPageModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Options\Model\IGeneralOptionsPageModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Options\Model\ILanguagesPageModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Options\Model\LanguagesPageModel.cs" />
@@ -108,7 +108,7 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)ResultObjects\AddLicenseHeaderToAllFilesResult.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ResultObjects\AddHeaderToAllFilesResult.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UpdateViewModels\BaseUpdateViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UpdateViewModels\FolderProjectUpdateViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UpdateViewModels\RelayCommand.cs" />
@@ -137,11 +137,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Options\DialogPageControls\WpfDefaultLicenseHeader.xaml">
+    <Page Include="$(MSBuildThisFileDirectory)Options\DialogPageControls\WpfDefaultHeader.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Options\DialogPageControls\WpfEditDefaultLicenseHeaderDialog.xaml">
+    <Page Include="$(MSBuildThisFileDirectory)Options\DialogPageControls\WpfEditDefaultHeaderDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

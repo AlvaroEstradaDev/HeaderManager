@@ -14,17 +14,17 @@
 using System;
 using System.Collections.Generic;
 
-namespace LicenseHeaderManager.Core
+namespace HeaderManager.Core
 {
   /// <summary>
-  ///   Encapsulates the information required for the <see cref="LicenseHeaderReplacer" /> when updating license headers
+  ///   Encapsulates the information required for the <see cref="HeaderReplacer" /> when updating license headers
   ///   based on the paths of input files.
   /// </summary>
-  /// <seealso cref="LicenseHeaderReplacer" />
-  public class LicenseHeaderPathInput : LicenseHeaderInput
+  /// <seealso cref="HeaderReplacer" />
+  public class HeaderPathInput : HeaderInput
   {
     /// <summary>
-    ///   Initializes a new <see cref="LicenseHeaderContentInput" /> instance.
+    ///   Initializes a new <see cref="HeaderContentInput" /> instance.
     /// </summary>
     /// <param name="documentPath">The path of the file whose headers are to be modified.</param>
     /// <param name="headers">
@@ -36,7 +36,7 @@ namespace LicenseHeaderManager.Core
     ///   Additional properties that cannot be expanded by the Core whose tokens should be
     ///   replaced by their values.
     /// </param>
-    public LicenseHeaderPathInput (
+    public HeaderPathInput (
         string documentPath,
         IDictionary<string, string[]> headers,
         IEnumerable<AdditionalProperty> additionalProperties = null)
@@ -44,6 +44,6 @@ namespace LicenseHeaderManager.Core
     {
     }
 
-    internal override LicenseHeaderInputMode InputMode => LicenseHeaderInputMode.FilePath;
+    internal override HeaderInputMode InputMode => HeaderInputMode.FilePath;
   }
 }

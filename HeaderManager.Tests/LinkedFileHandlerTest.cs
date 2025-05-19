@@ -15,14 +15,14 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using EnvDTE;
-using LicenseHeaderManager.Core;
-using LicenseHeaderManager.Interfaces;
-using LicenseHeaderManager.Utils;
+using HeaderManager.Core;
+using HeaderManager.Interfaces;
+using HeaderManager.Utils;
 using Microsoft.VisualStudio.Threading;
 using NUnit.Framework;
 using Rhino.Mocks;
 
-namespace LicenseHeaderManager.Tests
+namespace HeaderManager.Tests
 {
   [TestFixture]
   internal class LinkedFileHandlerTest
@@ -30,32 +30,32 @@ namespace LicenseHeaderManager.Tests
     [SetUp]
     public void SetUp ()
     {
-      // In order to make the "await LicenseHeadersPackage.Instance.JoinableTaskFactory.SwitchToMainThreadAsync();" call in
+      // In order to make the "await HeadersPackage.Instance.JoinableTaskFactory.SwitchToMainThreadAsync();" call in
       // LinkedFileHandler.HandleAsync work, we need to set the private JoinableTaskFactory property accordingly.
       // Source: https://github.com/microsoft/vs-threading/blob/main/doc/testing_vs.md
 #pragma warning disable VSSDK005
       var jtc = new JoinableTaskContext();
 #pragma warning restore VSSDK005
-      VisualStudioTestContext.SetPrivateSetPackageProperty (nameof(ILicenseHeaderExtension.JoinableTaskFactory), jtc.Factory);
+      VisualStudioTestContext.SetPrivateSetPackageProperty (nameof(IHeaderExtension.JoinableTaskFactory), jtc.Factory);
     }
 
     [Test]
-    public async Task HandleAsync_NoLicenseHeaderFileGiven_MessageInformsAboutFilesThatCouldNotBeProcessed ()
+    public async Task HandleAsync_NoHeaderFileGiven_MessageInformsAboutFilesThatCouldNotBeProcessed ()
     {
       await VisualStudioTestContext.SwitchToMainThread();
 
-      var extension = MockRepository.GenerateStub<ILicenseHeaderExtension>();
-      var licenseHeaderReplacer = MockRepository.GenerateStrictMock<LicenseHeaderReplacer>();
-      extension.Expect (x => x.LicenseHeaderReplacer).Return (licenseHeaderReplacer);
+      var extension = MockRepository.GenerateStub<IHeaderExtension>();
+      var licenseHeaderReplacer = MockRepository.GenerateStrictMock<HeaderReplacer>();
+      extension.Expect (x => x.HeaderReplacer).Return (licenseHeaderReplacer);
 
-      var noLicenseHeaderFile = MockRepository.GenerateMock<ProjectItem>();
-      noLicenseHeaderFile.Expect (x => x.Name).Return ("projectItem1.cs");
+      var noHeaderFile = MockRepository.GenerateMock<ProjectItem>();
+      noHeaderFile.Expect (x => x.Name).Return ("projectItem1.cs");
 
       var notInSolution = MockRepository.GenerateMock<ProjectItem>();
       notInSolution.Expect (x => x.Name).Return ("projectItem2.cs");
 
       var linkedFileFilter = MockRepository.GenerateMock<ILinkedFileFilter>();
-      linkedFileFilter.Expect (x => x.NoLicenseHeaderFile).Return (new List<ProjectItem> { noLicenseHeaderFile });
+      linkedFileFilter.Expect (x => x.NoHeaderFile).Return (new List<ProjectItem> { noHeaderFile });
       linkedFileFilter.Expect (x => x.ToBeProgressed).Return (new List<ProjectItem>());
       linkedFileFilter.Expect (x => x.NotInSolution).Return (new List<ProjectItem> { notInSolution });
 
@@ -73,11 +73,11 @@ namespace LicenseHeaderManager.Tests
       await VisualStudioTestContext.SwitchToMainThread();
 
       var solution = MockRepository.GenerateStub<Solution>();
-      var extension = MockRepository.GenerateStub<ILicenseHeaderExtension>();
+      var extension = MockRepository.GenerateStub<IHeaderExtension>();
       var linkedFileFilter = MockRepository.GenerateStrictMock<LinkedFileFilter> (solution);
-      var licenseHeaderReplacer = MockRepository.GenerateStrictMock<LicenseHeaderReplacer>();
+      var licenseHeaderReplacer = MockRepository.GenerateStrictMock<HeaderReplacer>();
 
-      extension.Expect (x => x.LicenseHeaderReplacer).Return (licenseHeaderReplacer);
+      extension.Expect (x => x.HeaderReplacer).Return (licenseHeaderReplacer);
 
       var linkedFileHandler = new LinkedFileHandler (extension);
       await linkedFileHandler.HandleAsync (linkedFileFilter);

@@ -13,7 +13,7 @@
 
 using System;
 
-namespace LicenseHeaderManager.MenuItemButtonHandler
+namespace HeaderManager.MenuItemButtonHandler
 {
   /// <summary>
   ///   Provides different levels/scopes menu item buttons may reside in.

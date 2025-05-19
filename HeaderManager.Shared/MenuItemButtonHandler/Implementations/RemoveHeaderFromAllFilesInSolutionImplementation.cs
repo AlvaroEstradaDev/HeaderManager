@@ -15,20 +15,20 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using EnvDTE;
-using LicenseHeaderManager.Interfaces;
-using LicenseHeaderManager.MenuItemCommands.Common;
-using LicenseHeaderManager.UpdateViewModels;
-using LicenseHeaderManager.Utils;
+using HeaderManager.Interfaces;
+using HeaderManager.MenuItemCommands.Common;
+using HeaderManager.UpdateViewModels;
+using HeaderManager.Utils;
 using Window = System.Windows.Window;
 
-namespace LicenseHeaderManager.MenuItemButtonHandler.Implementations
+namespace HeaderManager.MenuItemButtonHandler.Implementations
 {
-  public class RemoveLicenseHeaderFromAllFilesInSolutionImplementation : MenuItemButtonHandlerImplementation
+  public class RemoveHeaderFromAllFilesInSolutionImplementation : MenuItemButtonHandlerImplementation
   {
-    private const string c_commandName = "Remove LicenseHeader from all files in Solution";
-    private readonly ILicenseHeaderExtension _licenseHeaderExtension;
+    private const string c_commandName = "Remove Header from all files in Solution";
+    private readonly IHeaderExtension _licenseHeaderExtension;
 
-    public RemoveLicenseHeaderFromAllFilesInSolutionImplementation (ILicenseHeaderExtension licenseHeaderExtension)
+    public RemoveHeaderFromAllFilesInSolutionImplementation (IHeaderExtension licenseHeaderExtension)
     {
       _licenseHeaderExtension = licenseHeaderExtension;
     }
@@ -54,11 +54,11 @@ namespace LicenseHeaderManager.MenuItemButtonHandler.Implementations
 
       updateViewModel.ProcessedProjectCount = 0;
       updateViewModel.ProjectCount = projectsInSolution.Count;
-      var removeAllLicenseHeadersCommand = new RemoveLicenseHeaderFromAllFilesInProjectHelper (cancellationToken, _licenseHeaderExtension, updateViewModel);
+      var removeAllHeadersCommand = new RemoveHeaderFromAllFilesInProjectHelper (cancellationToken, _licenseHeaderExtension, updateViewModel);
 
       foreach (var project in projectsInSolution)
       {
-        await removeAllLicenseHeadersCommand.ExecuteAsync (project);
+        await removeAllHeadersCommand.ExecuteAsync (project);
         await IncrementProjectCountAsync (updateViewModel).ConfigureAwait (true);
       }
     }

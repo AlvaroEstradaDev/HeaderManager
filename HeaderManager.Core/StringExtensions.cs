@@ -13,7 +13,7 @@
 
 using System;
 
-namespace LicenseHeaderManager.Core
+namespace HeaderManager.Core
 {
   internal static class StringExtensions
   {

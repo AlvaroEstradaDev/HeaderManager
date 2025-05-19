@@ -16,16 +16,16 @@ using System.Collections.Generic;
 using System.IO;
 using System.Runtime.InteropServices;
 using EnvDTE;
-using LicenseHeaderManager.Core;
-using LicenseHeaderManager.Utils;
+using HeaderManager.Core;
+using HeaderManager.Utils;
 using Microsoft.VisualStudio.Shell;
 
-namespace LicenseHeaderManager.Headers
+namespace HeaderManager.Headers
 {
   /// <summary>
   ///   Class for finding the nearest license header file for a ProjectItem or a Project
   /// </summary>
-  public static class LicenseHeaderFinder
+  public static class HeaderFinder
   {
     /// <summary>
     ///   Gets the license header file definition to use on the given project item.
@@ -52,7 +52,7 @@ namespace LicenseHeaderManager.Headers
       // Check for License-file within this level
       var headerFileName = SearchItemsDirectlyGetHeaderDefinitionFileName (projectItems);
       if (!string.IsNullOrEmpty (headerFileName))
-        return LicenseHeadersPackage.Instance.LicenseHeaderExtractor.ExtractHeaderDefinitions (headerFileName); // Found a License header file on this level
+        return HeadersPackage.Instance.HeaderExtractor.ExtractHeaderDefinitions (headerFileName); // Found a License header file on this level
       return null;
     }
 
@@ -80,7 +80,7 @@ namespace LicenseHeaderManager.Headers
       ThreadHelper.ThrowIfNotOnUIThread();
 
       var headerFile = SearchItemsDirectlyGetHeaderDefinitionFileName (project.ProjectItems);
-      return LicenseHeadersPackage.Instance.LicenseHeaderExtractor.ExtractHeaderDefinitions (headerFile);
+      return HeadersPackage.Instance.HeaderExtractor.ExtractHeaderDefinitions (headerFile);
     }
 
     /// <summary>
@@ -95,8 +95,8 @@ namespace LicenseHeaderManager.Headers
       var solutionDirectory = Path.GetDirectoryName (solution.FullName);
       var solutionFileName = Path.GetFileName (solution.FullName);
 
-      var solutionHeaderFilePath = Path.Combine (solutionDirectory, solutionFileName + LicenseHeaderExtractor.HeaderDefinitionExtension);
-      return File.Exists (solutionHeaderFilePath) ? LicenseHeadersPackage.Instance.LicenseHeaderExtractor.ExtractHeaderDefinitions (solutionHeaderFilePath) : null;
+      var solutionHeaderFilePath = Path.Combine (solutionDirectory, solutionFileName + HeaderExtractor.HeaderDefinitionExtension);
+      return File.Exists (solutionHeaderFilePath) ? HeadersPackage.Instance.HeaderExtractor.ExtractHeaderDefinitions (solutionHeaderFilePath) : null;
     }
 
     /// <summary>
@@ -117,7 +117,7 @@ namespace LicenseHeaderManager.Headers
         return new Dictionary<string, string[]>();
       }
 
-      var definition = LicenseHeadersPackage.Instance.LicenseHeaderExtractor.ExtractHeaderDefinitions (headerFile);
+      var definition = HeadersPackage.Instance.HeaderExtractor.ExtractHeaderDefinitions (headerFile);
       return definition;
     }
 
@@ -142,7 +142,7 @@ namespace LicenseHeaderManager.Headers
       }
 
       if (!string.IsNullOrEmpty (headerFile))
-        return LicenseHeadersPackage.Instance.LicenseHeaderExtractor.ExtractHeaderDefinitions (headerFile); //Found a License header file on this level
+        return HeadersPackage.Instance.HeaderExtractor.ExtractHeaderDefinitions (headerFile); //Found a License header file on this level
 
       var projectItemParent = ProjectItemParentFinder.GetProjectItemParent (projectItem);
 
@@ -194,7 +194,7 @@ namespace LicenseHeaderManager.Headers
             // ignored
           }
 
-          if (fileName != null && Path.GetExtension (fileName).ToLowerInvariant() == LicenseHeaderExtractor.HeaderDefinitionExtension)
+          if (fileName != null && Path.GetExtension (fileName).ToLowerInvariant() == HeaderExtractor.HeaderDefinitionExtension)
             return fileName;
         }
 

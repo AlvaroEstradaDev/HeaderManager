@@ -16,8 +16,8 @@
     <Content Include="vslogo.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\TypeScriptHTMLApp1\TypeScriptHTMLApp1.licenseheader">
-      <Link>NewFolder1\TypeScriptHTMLApp1.licenseheader</Link>
+    <None Include="..\TypeScriptHTMLApp1\TypeScriptHTMLApp1.header">
+      <Link>NewFolder1\TypeScriptHTMLApp1.header</Link>
     </None>
   </ItemGroup>
   <ItemGroup>

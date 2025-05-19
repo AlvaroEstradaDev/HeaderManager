@@ -12,17 +12,17 @@
  */
 
 using System;
-using LicenseHeaderManager.Core.Options;
+using HeaderManager.Core.Options;
 
-namespace LicenseHeaderManager.Options.Model
+namespace HeaderManager.Options.Model
 {
-  public class DefaultLicenseHeaderPageModel : BaseOptionModel<DefaultLicenseHeaderPageModel>, IDefaultLicenseHeaderPageModel
+  public class DefaultHeaderPageModel : BaseOptionModel<DefaultHeaderPageModel>, IDefaultHeaderPageModel
   {
-    public string LicenseHeaderFileText { get; set; }
+    public string HeaderFileText { get; set; }
 
     public void Reset ()
     {
-      LicenseHeaderFileText = CoreOptions.DefaultLicenseHeaderFileText;
+      HeaderFileText = CoreOptions.DefaultHeaderFileText;
     }
   }
 }

@@ -16,24 +16,24 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using EnvDTE;
-using LicenseHeaderManager.Core;
-using LicenseHeaderManager.Headers;
-using LicenseHeaderManager.Interfaces;
-using LicenseHeaderManager.ResultObjects;
-using LicenseHeaderManager.UpdateViewModels;
-using LicenseHeaderManager.Utils;
+using HeaderManager.Core;
+using HeaderManager.Headers;
+using HeaderManager.Interfaces;
+using HeaderManager.ResultObjects;
+using HeaderManager.UpdateViewModels;
+using HeaderManager.Utils;
 
-namespace LicenseHeaderManager.MenuItemCommands.Common
+namespace HeaderManager.MenuItemCommands.Common
 {
-  internal class AddLicenseHeaderToAllFilesInProjectHelper
+  internal class AddHeaderToAllFilesInProjectHelper
   {
     private readonly BaseUpdateViewModel _baseUpdateViewModel;
     private readonly CancellationToken _cancellationToken;
-    private readonly ILicenseHeaderExtension _licenseHeaderExtension;
+    private readonly IHeaderExtension _licenseHeaderExtension;
 
-    public AddLicenseHeaderToAllFilesInProjectHelper (
+    public AddHeaderToAllFilesInProjectHelper (
         CancellationToken cancellationToken,
-        ILicenseHeaderExtension licenseHeaderExtension,
+        IHeaderExtension licenseHeaderExtension,
         BaseUpdateViewModel baseUpdateViewModel)
     {
       _cancellationToken = cancellationToken;
@@ -41,30 +41,30 @@ namespace LicenseHeaderManager.MenuItemCommands.Common
       _baseUpdateViewModel = baseUpdateViewModel;
     }
 
-    public async Task<AddLicenseHeaderToAllFilesResult> RemoveOrReplaceHeadersAsync (object projectOrProjectItem)
+    public async Task<AddHeaderToAllFilesResult> RemoveOrReplaceHeadersAsync (object projectOrProjectItem)
     {
       await _licenseHeaderExtension.JoinableTaskFactory.SwitchToMainThreadAsync();
       var project = projectOrProjectItem as Project;
       var projectItem = projectOrProjectItem as ProjectItem;
-      var replacerInput = new List<LicenseHeaderContentInput>();
+      var replacerInput = new List<HeaderContentInput>();
 
-      var countSubLicenseHeadersFound = 0;
+      var countSubHeadersFound = 0;
       IDictionary<string, string[]> headers;
       var linkedItems = new List<ProjectItem>();
 
       if (project == null && projectItem == null)
-        return new AddLicenseHeaderToAllFilesResult (countSubLicenseHeadersFound, true, linkedItems);
+        return new AddHeaderToAllFilesResult (countSubHeadersFound, true, linkedItems);
 
       ProjectItems projectItems;
       var fileOpenedStatus = new Dictionary<string, bool>();
       if (project != null)
       {
-        headers = LicenseHeaderFinder.GetHeaderDefinitionForProjectWithFallback (project);
+        headers = HeaderFinder.GetHeaderDefinitionForProjectWithFallback (project);
         projectItems = project.ProjectItems;
       }
       else
       {
-        headers = LicenseHeaderFinder.GetHeaderDefinitionForItem (projectItem);
+        headers = HeaderFinder.GetHeaderDefinitionForItem (projectItem);
         projectItems = projectItem.ProjectItems;
       }
 
@@ -75,21 +75,21 @@ namespace LicenseHeaderManager.MenuItemCommands.Common
         }
         else
         {
-          var inputFiles = CoreHelpers.GetFilesToProcess (item, headers, out var subLicenseHeaders, out var subFileOpenedStatus);
+          var inputFiles = CoreHelpers.GetFilesToProcess (item, headers, out var subHeaders, out var subFileOpenedStatus);
           replacerInput.AddRange (inputFiles);
           foreach (var status in subFileOpenedStatus)
             fileOpenedStatus[status.Key] = status.Value;
 
-          countSubLicenseHeadersFound = subLicenseHeaders;
+          countSubHeadersFound = subHeaders;
         }
 
-      var result = await _licenseHeaderExtension.LicenseHeaderReplacer.RemoveOrReplaceHeader (
+      var result = await _licenseHeaderExtension.HeaderReplacer.RemoveOrReplaceHeader (
           replacerInput,
           CoreHelpers.CreateProgress (_baseUpdateViewModel, project?.Name, fileOpenedStatus, _cancellationToken),
           _cancellationToken);
       await CoreHelpers.HandleResultAsync (result, _licenseHeaderExtension, _baseUpdateViewModel, project?.Name, fileOpenedStatus, _cancellationToken);
 
-      return new AddLicenseHeaderToAllFilesResult (countSubLicenseHeadersFound, headers == null, linkedItems);
+      return new AddHeaderToAllFilesResult (countSubHeadersFound, headers == null, linkedItems);
     }
   }
 }

@@ -6,7 +6,7 @@ using System.Text;
 using CommandLine;
 using CommandLine.Text;
 
-namespace LicenseHeaderManager.Console
+namespace HeaderManager.Console
 {
   public class Options
   {
@@ -14,7 +14,7 @@ namespace LicenseHeaderManager.Console
     public Options (UpdateMode mode, FileInfo licenseHeaderDefinitionFile, FileInfo configuration, IEnumerable<FileInfo> files, DirectoryInfo directory, bool recursive)
     {
       Mode = mode;
-      LicenseHeaderDefinitionFile = licenseHeaderDefinitionFile;
+      HeaderDefinitionFile = licenseHeaderDefinitionFile;
       Configuration = configuration;
       Files = files;
       Directory = directory;
@@ -33,7 +33,7 @@ namespace LicenseHeaderManager.Console
         "license-header-definition",
         Required = true,
         HelpText = "The path to the license header definition file to be used for the update operations.")]
-    public FileInfo LicenseHeaderDefinitionFile { get; }
+    public FileInfo HeaderDefinitionFile { get; }
 
     [Option (
         'c',
@@ -67,7 +67,7 @@ namespace LicenseHeaderManager.Console
 
     public UpdateTarget Target => IsNullOrEmpty (Files) && Directory != null ? UpdateTarget.Directory : UpdateTarget.Files;
 
-    [Usage (ApplicationAlias = " LicenseHeaderManager.Console.exe")]
+    [Usage (ApplicationAlias = " HeaderManager.Console.exe")]
     // ReSharper disable once UnusedMember.Global
     public static IEnumerable<Example> Examples
     {
@@ -77,7 +77,7 @@ namespace LicenseHeaderManager.Console
             " Add license headers to one file with a custom configuration",
             new Options (
                 UpdateMode.Add,
-                new FileInfo ("DefinitionFile.licenseheader"),
+                new FileInfo ("DefinitionFile.header"),
                 new FileInfo ("CoreOptions.json"),
                 new[] { new FileInfo ("file.cs") },
                 null,
@@ -86,7 +86,7 @@ namespace LicenseHeaderManager.Console
             " Remove license headers from multiple files with standard configuration",
             new Options (
                 UpdateMode.Remove,
-                new FileInfo ("DefinitionFile.licenseheader"),
+                new FileInfo ("DefinitionFile.header"),
                 null,
                 new[] { new FileInfo ("file1.cs"), new FileInfo ("file2.html"), new FileInfo ("file3.xaml") },
                 null,
@@ -95,7 +95,7 @@ namespace LicenseHeaderManager.Console
             " Add license headers to all files in a directory, but not its subdirectories, with custom configuration",
             new Options (
                 UpdateMode.Add,
-                new FileInfo ("DefinitionFile.licenseheader"),
+                new FileInfo ("DefinitionFile.header"),
                 new FileInfo ("CoreOptions.json"),
                 null,
                 new DirectoryInfo (@"C:\SomeDirectory"),
@@ -104,7 +104,7 @@ namespace LicenseHeaderManager.Console
             " Remove license headers from all files in a directory and its subdirectories with standard configuration",
             new Options (
                 UpdateMode.Remove,
-                new FileInfo ("DefinitionFile.licenseheader"),
+                new FileInfo ("DefinitionFile.header"),
                 null,
                 null,
                 new DirectoryInfo (@"C:\SomeDirectory"),
@@ -131,7 +131,7 @@ namespace LicenseHeaderManager.Console
       if (!ValidateFileInfoExists (Directory, "d, directory", out var directoryError))
         builder.AppendLine (directoryError);
 
-      if (!ValidateFileInfoExists (LicenseHeaderDefinitionFile, "l, license-header-definition", out var licenseHeaderDefinitionFileError))
+      if (!ValidateFileInfoExists (HeaderDefinitionFile, "l, license-header-definition", out var licenseHeaderDefinitionFileError))
         builder.AppendLine (licenseHeaderDefinitionFileError);
 
       if (Configuration != null && !ValidateFileInfoExists (Configuration, "c, configuration", out var configurationError))

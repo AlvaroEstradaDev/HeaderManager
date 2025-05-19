@@ -20,7 +20,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace LicenseHeaderManager.Core
+namespace HeaderManager.Core
 {
   /// <summary>
   ///   Represents the abstraction for documents (being represented by physical files or their content) providing members to
@@ -33,7 +33,7 @@ namespace LicenseHeaderManager.Core
     private readonly string[] _headerLines;
     private readonly IEnumerable<string> _keywords;
     private readonly Language _language;
-    private readonly LicenseHeaderInput _licenseHeaderInput;
+    private readonly HeaderInput _licenseHeaderInput;
     private string _documentTextCache;
     private DocumentHeader _headerCache;
     private string _lineEndingInDocumentCache;
@@ -62,7 +62,7 @@ namespace LicenseHeaderManager.Core
     ///   keyword of this <see cref="IEnumerable{T}" />.
     /// </param>
     public Document (
-        LicenseHeaderInput licenseHeaderInput,
+        HeaderInput licenseHeaderInput,
         Language language,
         string[] headerLines,
         IEnumerable<AdditionalProperty> additionalProperties = null,
@@ -91,7 +91,7 @@ namespace LicenseHeaderManager.Core
 
     /// <summary>
     ///   Replaces the license header of the current document if necessary, if this <see cref="Document" /> instance was
-    ///   initialized with a <see cref="LicenseHeaderContentInput" /> instance.
+    ///   initialized with a <see cref="HeaderContentInput" /> instance.
     /// </summary>
     /// <param name="cancellationToken">Denotes whether the replacement operation has been cancelled.</param>
     /// <returns>
@@ -100,12 +100,12 @@ namespace LicenseHeaderManager.Core
     /// </returns>
     /// <exception cref="InvalidOperationException">
     ///   If this <see cref="Document" /> instance was not initialized with a
-    ///   <see cref="LicenseHeaderContentInput" /> instance.
+    ///   <see cref="HeaderContentInput" /> instance.
     /// </exception>
     public async Task<string> ReplaceHeaderIfNecessaryContent (CancellationToken cancellationToken)
     {
-      if (_licenseHeaderInput.InputMode != LicenseHeaderInputMode.Content)
-        throw new InvalidOperationException ($"LicenseHeaderInput Mode must be {nameof(LicenseHeaderInputMode.Content)}");
+      if (_licenseHeaderInput.InputMode != HeaderInputMode.Content)
+        throw new InvalidOperationException ($"HeaderInput Mode must be {nameof(HeaderInputMode.Content)}");
 
       await ReplaceHeaderIfNecessary (cancellationToken);
       return _documentTextCache;
@@ -113,17 +113,17 @@ namespace LicenseHeaderManager.Core
 
     /// <summary>
     ///   Replaces the license header of the current document if necessary, if this <see cref="Document" /> instance was
-    ///   initialized with a <see cref="LicenseHeaderPathInput" /> instance.
+    ///   initialized with a <see cref="HeaderPathInput" /> instance.
     /// </summary>
     /// <param name="cancellationToken">Denotes whether the replacement operation has been cancelled.</param>
     /// <exception cref="InvalidOperationException">
     ///   If this <see cref="Document" /> instance was not initialized with a
-    ///   <see cref="LicenseHeaderPathInput" /> instance.
+    ///   <see cref="HeaderPathInput" /> instance.
     /// </exception>
     public async Task ReplaceHeaderIfNecessaryPath (CancellationToken cancellationToken)
     {
-      if (_licenseHeaderInput.InputMode != LicenseHeaderInputMode.FilePath)
-        throw new InvalidOperationException ($"LicenseHeaderInput Mode must be {nameof(LicenseHeaderInputMode.FilePath)}");
+      if (_licenseHeaderInput.InputMode != HeaderInputMode.FilePath)
+        throw new InvalidOperationException ($"HeaderInput Mode must be {nameof(HeaderInputMode.FilePath)}");
 
       await ReplaceHeaderIfNecessary (cancellationToken);
     }
@@ -197,7 +197,7 @@ namespace LicenseHeaderManager.Core
 
     private async Task RefreshText ()
     {
-      if (_licenseHeaderInput.InputMode == LicenseHeaderInputMode.Content && _licenseHeaderInput is LicenseHeaderContentInput contentInput)
+      if (_licenseHeaderInput.InputMode == HeaderInputMode.Content && _licenseHeaderInput is HeaderContentInput contentInput)
       {
         _documentTextCache = contentInput.DocumentContent;
         return;
@@ -229,7 +229,7 @@ namespace LicenseHeaderManager.Core
     private async Task ReplaceHeader (string existingHeader, string newHeader)
     {
       await RemoveHeader (existingHeader);
-      await AddHeader (LicenseHeaderPreparer.Prepare(newHeader, await GetText(), _commentParser, _headerCache));
+      await AddHeader (HeaderPreparer.Prepare(newHeader, await GetText(), _commentParser, _headerCache));
     }
 
     private async Task AddHeader (string header)
@@ -253,7 +253,7 @@ namespace LicenseHeaderManager.Core
 
     private async Task WriteContentAsync (string content)
     {
-      if (_licenseHeaderInput.InputMode == LicenseHeaderInputMode.FilePath)
+      if (_licenseHeaderInput.InputMode == HeaderInputMode.FilePath)
       {
         using (var writer = new StreamWriter (_licenseHeaderInput.DocumentPath, false, Encoding.UTF8))
         {

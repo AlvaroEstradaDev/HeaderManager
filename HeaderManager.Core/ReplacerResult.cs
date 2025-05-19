@@ -13,15 +13,15 @@
 
 using System;
 
-namespace LicenseHeaderManager.Core
+namespace HeaderManager.Core
 {
   /// <summary>
-  ///   Provides a type for a result from <see cref="LicenseHeaderReplacer" /> representing a success (including further
+  ///   Provides a type for a result from <see cref="HeaderReplacer" /> representing a success (including further
   ///   information) or failed license header update operation (including further information).
   /// </summary>
   /// <typeparam name="TError">Type of the additional information describing a potential error.</typeparam>
   /// <typeparam name="TSuccess">Type of the additional information describing a potential success.</typeparam>
-  /// <seealso cref="LicenseHeaderReplacer" />
+  /// <seealso cref="HeaderReplacer" />
   public class ReplacerResult<TSuccess, TError> : ReplacerResult<TError>
   {
     /// <summary>
@@ -50,11 +50,11 @@ namespace LicenseHeaderManager.Core
   }
 
   /// <summary>
-  ///   Provides a type for a result from <see cref="LicenseHeaderReplacer" /> representing a success (without any further
+  ///   Provides a type for a result from <see cref="HeaderReplacer" /> representing a success (without any further
   ///   information) or failed license header update operation (including further information).
   /// </summary>
   /// <typeparam name="TError">Type of the additional information describing a potential error.</typeparam>
-  /// <seealso cref="LicenseHeaderReplacer" />
+  /// <seealso cref="HeaderReplacer" />
   public class ReplacerResult<TError> : ReplacerResult
   {
     /// <summary>
@@ -83,9 +83,9 @@ namespace LicenseHeaderManager.Core
   }
 
   /// <summary>
-  ///   Provides a base type for result objects to be returned from <see cref="LicenseHeaderReplacer" />.
+  ///   Provides a base type for result objects to be returned from <see cref="HeaderReplacer" />.
   /// </summary>
-  /// <seealso cref="LicenseHeaderReplacer" />
+  /// <seealso cref="HeaderReplacer" />
   public abstract class ReplacerResult
   {
     /// <summary>

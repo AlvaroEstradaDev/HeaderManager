@@ -31,6 +31,6 @@
     <ProjectCapability Include="SourceItemsFromImports" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="$(MSBuildThisFileDirectory)App2.Shared.licenseheader" />
+    <None Include="$(MSBuildThisFileDirectory)App2.Shared.header" />
   </ItemGroup>
 </Project>

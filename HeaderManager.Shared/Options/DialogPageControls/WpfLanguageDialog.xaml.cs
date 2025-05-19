@@ -13,17 +13,17 @@
 
 using System;
 using System.Windows;
-using LicenseHeaderManager.Core;
-using LicenseHeaderManager.Utils;
+using HeaderManager.Core;
+using HeaderManager.Utils;
 
-namespace LicenseHeaderManager.Options.DialogPageControls
+namespace HeaderManager.Options.DialogPageControls
 {
   public partial class WpfLanguageDialog : Window
   {
     public WpfLanguageDialog ()
     {
       InitializeComponent();
-      skipExpression.ToolTip = LicenseHeaderManager.Resources.SkipExpressionHelp.ReplaceNewLines();
+      skipExpression.ToolTip = HeaderManager.Resources.SkipExpressionHelp.ReplaceNewLines();
     }
 
     public new Language Language
@@ -45,7 +45,7 @@ namespace LicenseHeaderManager.Options.DialogPageControls
       }
       else
       {
-        MessageBoxHelper.ShowMessage (LicenseHeaderManager.Resources.Error_LanguageInvalid, LicenseHeaderManager.Resources.Error, true);
+        MessageBoxHelper.ShowMessage (HeaderManager.Resources.Error_LanguageInvalid, HeaderManager.Resources.Error, true);
       }
     }
   }

@@ -17,10 +17,10 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using EnvDTE;
 using EnvDTE80;
-using LicenseHeaderManager.Core.Options;
+using HeaderManager.Core.Options;
 using Microsoft.VisualStudio.Shell;
 
-namespace LicenseHeaderManager.Options.Model
+namespace HeaderManager.Options.Model
 {
   public class GeneralOptionsPageModel : BaseOptionModel<GeneralOptionsPageModel>, IGeneralOptionsPageModel
   {

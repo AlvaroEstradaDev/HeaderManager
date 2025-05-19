@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace LicenseHeaderManager.Options.DialogPages
+namespace HeaderManager.Options.DialogPages
 {
   public enum OptionsStoreMode
   {

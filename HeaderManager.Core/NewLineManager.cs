@@ -14,7 +14,7 @@
 using System;
 using System.Linq;
 
-namespace LicenseHeaderManager.Core
+namespace HeaderManager.Core
 {
   /// <summary>
   ///   Detects the most common line ending (CR, LF, CR+LF) in a string and provides functionality to replace line endings.

@@ -13,12 +13,12 @@
 
 using System;
 
-namespace LicenseHeaderManager.Core
+namespace HeaderManager.Core
 {
   /// <summary>
   ///   Identifies different types of errors that might occur while updating license headers.
   /// </summary>
-  /// <seealso cref="LicenseHeaderReplacer" />
+  /// <seealso cref="HeaderReplacer" />
   public enum ReplacerErrorType
   {
     /// <summary>
@@ -60,6 +60,6 @@ namespace LicenseHeaderManager.Core
     /// <summary>
     ///   Specifies that the operation was cancelled because the file is a license header definition document.
     /// </summary>
-    LicenseHeaderDocument
+    HeaderDocument
   }
 }

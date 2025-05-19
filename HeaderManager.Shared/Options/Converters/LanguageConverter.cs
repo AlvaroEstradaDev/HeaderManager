@@ -16,9 +16,9 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Xml.Linq;
-using LicenseHeaderManager.Core;
+using HeaderManager.Core;
 
-namespace LicenseHeaderManager.Options.Converters
+namespace HeaderManager.Options.Converters
 {
   /// <summary>
   ///   Provides means of converting an enumerable range of <see cref="Language" /> objects to and from XML.

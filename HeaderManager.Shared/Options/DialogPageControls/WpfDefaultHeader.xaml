@@ -11,12 +11,12 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
 WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 -->
-<UserControl x:Class="LicenseHeaderManager.Options.DialogPageControls.WpfDefaultLicenseHeader"
+<UserControl x:Class="HeaderManager.Options.DialogPageControls.WpfDefaultHeader"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:lh="clr-namespace:LicenseHeaderManager"
+             xmlns:lh="clr-namespace:HeaderManager"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
   <DockPanel>
@@ -25,7 +25,7 @@ WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN 
     </Label>
     <Button DockPanel.Dock="Bottom" TabIndex="2" Content="{x:Static lh:Resources.FileHeaderTextEditButton}" Width="50" Click="EditButton_Click"
             HorizontalAlignment="Right" />
-    <TextBox x:Name="defaultText" TabIndex="1" Text="{Binding LicenseHeaderFileText, UpdateSourceTrigger=PropertyChanged}"
+    <TextBox x:Name="defaultText" TabIndex="1" Text="{Binding HeaderFileText, UpdateSourceTrigger=PropertyChanged}"
              HorizontalContentAlignment="Stretch" IsReadOnly="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" />
   </DockPanel>
 </UserControl>

@@ -13,18 +13,18 @@
 
 using System;
 
-namespace LicenseHeaderManager.Core
+namespace HeaderManager.Core
 {
   /// <summary>
   ///   Represents an expandable property similar to <see cref="DocumentHeaderProperty" /> whose value has already been
   ///   created.
   /// </summary>
   /// <remarks>
-  ///   This class may be utilized in order to pass additional properties to <see cref="LicenseHeaderReplacer" />
+  ///   This class may be utilized in order to pass additional properties to <see cref="HeaderReplacer" />
   ///   which cannot be expanded by the Core itself.
   /// </remarks>
   /// <seealso cref="DocumentHeaderProperty" />
-  /// <seealso cref="LicenseHeaderReplacer" />
+  /// <seealso cref="HeaderReplacer" />
   public class AdditionalProperty
   {
     /// <summary>

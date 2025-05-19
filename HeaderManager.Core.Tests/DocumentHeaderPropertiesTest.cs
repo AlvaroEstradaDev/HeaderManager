@@ -18,7 +18,7 @@ using System.Linq;
 using NUnit.Framework;
 using Rhino.Mocks;
 
-namespace LicenseHeaderManager.Core.Tests
+namespace HeaderManager.Core.Tests
 {
   [TestFixture]
   public class DocumentHeaderPropertiesTest

@@ -18,7 +18,7 @@ using EnvDTE;
 using log4net;
 using Microsoft.VisualStudio.Shell;
 
-namespace LicenseHeaderManager.Utils
+namespace HeaderManager.Utils
 {
   public static class ProjectItemParentFinder
   {
@@ -62,12 +62,12 @@ namespace LicenseHeaderManager.Utils
       {
         //We catch everything as a multitude of Exceptions can be thrown if the projectItem.Object is not structured as we assume
         s_log.Error (
-            $"Exception got thrown when searching for the LicenseHeaderFile on ProjectItem of Type '{projectItem.GetType().FullName}' with the name '{projectItem.Name}'. ",
+            $"Exception got thrown when searching for the HeaderFile on ProjectItem of Type '{projectItem.GetType().FullName}' with the name '{projectItem.Name}'. ",
             ex);
       }
 
       s_log.Info (
-          $"Could not find .licenseheaderfile for {projectItem.Name}." + "This is probably due to a custom project type."
+          $"Could not find .headerfile for {projectItem.Name}." + "This is probably due to a custom project type."
                                                                        + "Please report the issue and include the type of your project in the description.");
       return null;
     }

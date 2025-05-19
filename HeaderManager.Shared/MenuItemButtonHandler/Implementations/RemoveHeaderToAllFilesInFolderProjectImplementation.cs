@@ -15,19 +15,19 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using EnvDTE;
-using LicenseHeaderManager.Interfaces;
-using LicenseHeaderManager.MenuItemCommands.Common;
-using LicenseHeaderManager.UpdateViewModels;
+using HeaderManager.Interfaces;
+using HeaderManager.MenuItemCommands.Common;
+using HeaderManager.UpdateViewModels;
 using Window = System.Windows.Window;
 
-namespace LicenseHeaderManager.MenuItemButtonHandler.Implementations
+namespace HeaderManager.MenuItemButtonHandler.Implementations
 {
-  internal class RemoveLicenseHeaderToAllFilesInFolderProjectImplementation : MenuItemButtonHandlerImplementation
+  internal class RemoveHeaderToAllFilesInFolderProjectImplementation : MenuItemButtonHandlerImplementation
   {
-    private const string c_commandName = "Remove LicenseHeader from all files in folder or project";
-    private readonly ILicenseHeaderExtension _licenseHeaderExtension;
+    private const string c_commandName = "Remove Header from all files in folder or project";
+    private readonly IHeaderExtension _licenseHeaderExtension;
 
-    public RemoveLicenseHeaderToAllFilesInFolderProjectImplementation (ILicenseHeaderExtension licenseHeaderExtension)
+    public RemoveHeaderToAllFilesInFolderProjectImplementation (IHeaderExtension licenseHeaderExtension)
     {
       _licenseHeaderExtension = licenseHeaderExtension;
     }
@@ -49,10 +49,10 @@ namespace LicenseHeaderManager.MenuItemButtonHandler.Implementations
       await _licenseHeaderExtension.JoinableTaskFactory.SwitchToMainThreadAsync();
 
       var obj = _licenseHeaderExtension.GetSolutionExplorerItem();
-      var removeAllLicenseHeadersCommand =
-          new RemoveLicenseHeaderFromAllFilesInProjectHelper (cancellationToken, _licenseHeaderExtension, viewModel);
+      var removeAllHeadersCommand =
+          new RemoveHeaderFromAllFilesInProjectHelper (cancellationToken, _licenseHeaderExtension, viewModel);
 
-      await removeAllLicenseHeadersCommand.ExecuteAsync (obj);
+      await removeAllHeadersCommand.ExecuteAsync (obj);
     }
   }
 }

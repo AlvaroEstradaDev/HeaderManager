@@ -15,12 +15,12 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 
-namespace LicenseHeaderManager.Core
+namespace HeaderManager.Core
 {
   /// <summary>
   ///   Provides members to parse and extract information describing license headers from given license header definition files.
   /// </summary>
-  public interface ILicenseHeaderExtractor
+  public interface IHeaderExtractor
   {
     /// <summary>
     ///   Extracts license header definitions from a license header definition file represented by its path.

@@ -13,7 +13,7 @@
 
 using System;
 
-namespace LicenseHeaderManager.Headers
+namespace HeaderManager.Headers
 {
   /// <summary>
   ///   Contains new line constants.

@@ -12,10 +12,10 @@
  */
 
 using System;
-using LicenseHeaderManager.MenuItemButtonHandler;
+using HeaderManager.MenuItemButtonHandler;
 using Microsoft.VisualStudio.Shell;
 
-namespace LicenseHeaderManager.Interfaces
+namespace HeaderManager.Interfaces
 {
   /// <summary>
   ///   Provides a common type for classes which encapsulate logic handling the execution of a menu item command

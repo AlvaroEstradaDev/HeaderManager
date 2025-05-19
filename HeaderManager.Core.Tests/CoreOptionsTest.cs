@@ -17,10 +17,10 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
-using LicenseHeaderManager.Core.Options;
+using HeaderManager.Core.Options;
 using NUnit.Framework;
 
-namespace LicenseHeaderManager.Core.Tests
+namespace HeaderManager.Core.Tests
 {
   [TestFixture]
   public class CoreOptionsTest
@@ -45,12 +45,12 @@ namespace LicenseHeaderManager.Core.Tests
     }
 
     [Test]
-    public void CoreOptions_ConstructorInitializeWithDefaultValuesDefaultLicenseHeaderNotExistent_ReturnsDefaultLicenseHeader ()
+    public void CoreOptions_ConstructorInitializeWithDefaultValuesDefaultHeaderNotExistent_ReturnsDefaultHeader ()
     {
       _options = new CoreOptions();
 
       Assert.That (
-          _options.LicenseHeaderFileText,
+          _options.HeaderFileText,
           Is.EqualTo (
               "extensions: designer.cs generated.cs\r\nextensions: .cs .cpp .h\r\n// Copyright (c) 2011 rubicon IT GmbH\r\nextensions: .aspx .ascx\r\n<%-- \r\nCopyright (c) 2011 rubicon IT GmbH\r\n--%>\r\nextensions: .vb\r\n'Sample license text.\r\nextensions:  .xml .config .xsd\r\n<!--\r\nSample license text.\r\n-->"));
     }
@@ -84,13 +84,13 @@ namespace LicenseHeaderManager.Core.Tests
     {
       _options.UseRequiredKeywords = false;
       _options.RequiredKeywords = "new, keywords";
-      _options.LicenseHeaderFileText = "sample text";
+      _options.HeaderFileText = "sample text";
       _options.Languages = _languages;
 
       var actual = _options.Clone();
       Assert.That (_options.UseRequiredKeywords, Is.EqualTo (actual.UseRequiredKeywords));
       Assert.That (_options.RequiredKeywords, Is.EqualTo (actual.RequiredKeywords));
-      Assert.That (_options.LicenseHeaderFileText, Is.EqualTo (actual.LicenseHeaderFileText));
+      Assert.That (_options.HeaderFileText, Is.EqualTo (actual.HeaderFileText));
       Assert.That (_options.Languages.Count, Is.EqualTo (actual.Languages.Count));
     }
 

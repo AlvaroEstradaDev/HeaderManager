@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace LicenseHeaderManager.Core.Properties {
+namespace HeaderManager.Core.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace LicenseHeaderManager.Core.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("LicenseHeaderManager.Core.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("HeaderManager.Core.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -91,9 +91,9 @@ namespace LicenseHeaderManager.Core.Properties {
         /// <summary>
         ///   Looks up a localized string similar to An error occurred while parsing the file {0}.\nMake sure the comment syntax is correct..
         /// </summary>
-        internal static string Error_InvalidLicenseHeader {
+        internal static string Error_InvalidHeader {
             get {
-                return ResourceManager.GetString("Error_InvalidLicenseHeader", resourceCulture);
+                return ResourceManager.GetString("Error_InvalidHeader", resourceCulture);
             }
         }
         
@@ -109,9 +109,9 @@ namespace LicenseHeaderManager.Core.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Inserting license headers into the license header definition file (extension: {0}) is not allowed..
         /// </summary>
-        internal static string Error_LicenseHeaderDefinition_InvalidTarget {
+        internal static string Error_HeaderDefinition_InvalidTarget {
             get {
-                return ResourceManager.GetString("Error_LicenseHeaderDefinition_InvalidTarget", resourceCulture);
+                return ResourceManager.GetString("Error_HeaderDefinition_InvalidTarget", resourceCulture);
             }
         }
         
@@ -136,9 +136,9 @@ namespace LicenseHeaderManager.Core.Properties {
         /// <summary>
         ///   Looks up a localized string similar to HeaderDefinitionExtension: {0}\n\nThe header definition for {0} files contains non-comment text.\nIf you insert this header, you will not be able to remove or replace the header automatically!\n\nDo you really want to add this header to the file?.
         /// </summary>
-        internal static string Warning_InvalidLicenseHeader {
+        internal static string Warning_InvalidHeader {
             get {
-                return ResourceManager.GetString("Warning_InvalidLicenseHeader", resourceCulture);
+                return ResourceManager.GetString("Warning_InvalidHeader", resourceCulture);
             }
         }
     }

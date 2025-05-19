@@ -16,7 +16,7 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using EnvDTE;
 
-namespace LicenseHeaderManager.Options.Model
+namespace HeaderManager.Options.Model
 {
   /// <summary>
   ///   Provides options for the options page regarding Keywords and Linked Commands.

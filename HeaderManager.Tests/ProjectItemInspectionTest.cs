@@ -14,26 +14,26 @@
 using System;
 using System.Threading.Tasks;
 using EnvDTE;
-using LicenseHeaderManager.Utils;
+using HeaderManager.Utils;
 using NUnit.Framework;
 using Rhino.Mocks;
 
-namespace LicenseHeaderManager.Tests
+namespace HeaderManager.Tests
 {
   [TestFixture]
   public class ProjectItemInspectionTest
   {
     [Test]
-    [TestCase ("test.licenseheader", true)]
+    [TestCase ("test.header", true)]
     [TestCase ("test.cs", false)]
-    public async Task IsLicenseHeader_FileWithExtensionGiven_DeterminesIfLicenseHeaderDefinitionFile (string name, bool isLicenseHeader)
+    public async Task IsHeader_FileWithExtensionGiven_DeterminesIfHeaderDefinitionFile (string name, bool isHeader)
     {
       await VisualStudioTestContext.SwitchToMainThread();
 
       var licenseHeader = MockRepository.GenerateMock<ProjectItem>();
       licenseHeader.Expect (x => x.Name).Return (name);
 
-      Assert.That (ProjectItemInspection.IsLicenseHeader (licenseHeader), Is.EqualTo (isLicenseHeader));
+      Assert.That (ProjectItemInspection.IsHeader (licenseHeader), Is.EqualTo (isHeader));
     }
 
     [Test]

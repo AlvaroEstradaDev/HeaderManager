@@ -19,15 +19,15 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading;
 using EnvDTE;
-using LicenseHeaderManager.Core;
-using LicenseHeaderManager.Headers;
-using LicenseHeaderManager.Interfaces;
-using LicenseHeaderManager.UpdateViewModels;
+using HeaderManager.Core;
+using HeaderManager.Headers;
+using HeaderManager.Interfaces;
+using HeaderManager.UpdateViewModels;
 using log4net;
 using Microsoft.VisualStudio.Shell;
 using Task = System.Threading.Tasks.Task;
 
-namespace LicenseHeaderManager.Utils
+namespace HeaderManager.Utils
 {
   internal static class CoreHelpers
   {
@@ -57,7 +57,7 @@ namespace LicenseHeaderManager.Utils
     }
 
     /// <summary>
-    ///   Determines a collection of <see cref="LicenseHeaderContentInput" /> instance to be processed, based on a
+    ///   Determines a collection of <see cref="HeaderContentInput" /> instance to be processed, based on a
     ///   <see cref="ProjectItem" /> and its child items.
     /// </summary>
     /// <param name="item">
@@ -68,7 +68,7 @@ namespace LicenseHeaderManager.Utils
     ///   The parsed headers based on a license header definition file. Keys are file extensions, values
     ///   represent the header, one line per array-element.
     /// </param>
-    /// <param name="countSubLicenseHeaders">
+    /// <param name="countSubHeaders">
     ///   Number of license header definition files found in child
     ///   <see cref="ProjectItem" />s
     /// </param>
@@ -76,37 +76,37 @@ namespace LicenseHeaderManager.Utils
     ///   Provides information on which files (full path, dictionary key) are currently opened
     ///   (values)
     /// </param>
-    /// <param name="searchForLicenseHeaders">
+    /// <param name="searchForHeaders">
     ///   Determines whether child <see cref="ProjectItem" />s should also be searched for
     ///   license header definition files and its corresponding header definitions. If <see langword="false" />, only the
     ///   license header definitions represented by <paramref name="headers" /> are used, even for all child items.
     /// </param>
     /// <returns>
     ///   Returns a <see cref="ICollection{T}" /> whose generic type parameter is
-    ///   <see cref="LicenseHeaderContentInput" /> that encompasses the input for a <see cref="LicenseHeaderReplacer" />
+    ///   <see cref="HeaderContentInput" /> that encompasses the input for a <see cref="HeaderReplacer" />
     ///   instance based on the given parameters.
     /// </returns>
-    public static ICollection<LicenseHeaderContentInput> GetFilesToProcess (
+    public static ICollection<HeaderContentInput> GetFilesToProcess (
         ProjectItem item,
         IDictionary<string, string[]> headers,
-        out int countSubLicenseHeaders,
+        out int countSubHeaders,
         out IDictionary<string, bool> fileOpenedStatus,
-        bool searchForLicenseHeaders = true)
+        bool searchForHeaders = true)
     {
       ThreadHelper.ThrowIfNotOnUIThread();
       fileOpenedStatus = new Dictionary<string, bool>();
-      var files = new List<LicenseHeaderContentInput>();
-      countSubLicenseHeaders = 0;
+      var files = new List<HeaderContentInput>();
+      countSubHeaders = 0;
 
       if (item == null)
         return files;
 
       if (item.FileCount == 1 && File.Exists (item.FileNames[1]))
       {
-        var content = item.GetContent (out var wasAlreadyOpen, LicenseHeadersPackage.Instance);
+        var content = item.GetContent (out var wasAlreadyOpen, HeadersPackage.Instance);
         if (content != null)
         {
-          files.Add (new LicenseHeaderContentInput (content, item.FileNames[1], headers, item.GetAdditionalProperties()));
+          files.Add (new HeaderContentInput (content, item.FileNames[1], headers, item.GetAdditionalProperties()));
           fileOpenedStatus[item.FileNames[1]] = wasAlreadyOpen;
         }
       }
@@ -116,24 +116,24 @@ namespace LicenseHeaderManager.Utils
         return files;
 
       var childHeaders = headers;
-      if (searchForLicenseHeaders)
+      if (searchForHeaders)
       {
-        childHeaders = LicenseHeaderFinder.SearchItemsDirectlyGetHeaderDefinition (item.ProjectItems);
+        childHeaders = HeaderFinder.SearchItemsDirectlyGetHeaderDefinition (item.ProjectItems);
         if (childHeaders != null)
-          countSubLicenseHeaders++;
+          countSubHeaders++;
         else
           childHeaders = headers;
       }
 
       foreach (ProjectItem child in item.ProjectItems)
       {
-        var subFiles = GetFilesToProcess (child, childHeaders, out var subLicenseHeaders, out var subFileOpenedStatus, searchForLicenseHeaders);
+        var subFiles = GetFilesToProcess (child, childHeaders, out var subHeaders, out var subFileOpenedStatus, searchForHeaders);
 
         files.AddRange (subFiles);
         foreach (var status in subFileOpenedStatus)
           fileOpenedStatus[status.Key] = status.Value;
 
-        countSubLicenseHeaders += subLicenseHeaders;
+        countSubHeaders += subHeaders;
       }
 
       return files;
@@ -145,7 +145,7 @@ namespace LicenseHeaderManager.Utils
     /// </summary>
     /// <param name="result">Specifies the replacer result. Indicates whether the specific operation succeeded or failed.</param>
     /// <param name="extension">
-    ///   A <see cref="ILicenseHeaderExtension" /> instance used to access members exposed by the LHM
+    ///   A <see cref="IHeaderExtension" /> instance used to access members exposed by the LHM
     ///   Extension Package.
     /// </param>
     /// <param name="isOpen">Specifies if the current file is currently open.</param>
@@ -154,8 +154,8 @@ namespace LicenseHeaderManager.Utils
     ///   program.
     /// </param>
     public static async Task HandleResultAsync (
-        ReplacerResult<ReplacerSuccess, ReplacerError<LicenseHeaderContentInput>> result,
-        ILicenseHeaderExtension extension,
+        ReplacerResult<ReplacerSuccess, ReplacerError<HeaderContentInput>> result,
+        IHeaderExtension extension,
         bool isOpen,
         bool calledByUser)
     {
@@ -177,7 +177,7 @@ namespace LicenseHeaderManager.Utils
           if (!MessageBoxHelper.AskYesNo (error.Description, Resources.Warning, true))
             return;
 
-          var resultIgnoringNonCommentText = await extension.LicenseHeaderReplacer.RemoveOrReplaceHeader (error.Input);
+          var resultIgnoringNonCommentText = await extension.HeaderReplacer.RemoveOrReplaceHeader (error.Input);
           if (resultIgnoringNonCommentText.IsSuccess)
           {
             ProcessSuccess (resultIgnoringNonCommentText.Success, extension, isOpen);
@@ -191,7 +191,7 @@ namespace LicenseHeaderManager.Utils
         case ReplacerErrorType.LanguageNotFound:
           return; // ignore such an error (i. e. do not propagate to user)
 
-        case ReplacerErrorType.LicenseHeaderDocument:
+        case ReplacerErrorType.HeaderDocument:
           return; // ignore such an error (i. e. do not propagate to user)
 
         default:
@@ -205,15 +205,15 @@ namespace LicenseHeaderManager.Utils
     /// </summary>
     /// <param name="result">Specifies the replacer result. Indicates whether the specific operation succeeded or failed.</param>
     /// <param name="licenseHeaderExtension">
-    ///   A <see cref="ILicenseHeaderExtension" /> instance used to access members exposed
+    ///   A <see cref="IHeaderExtension" /> instance used to access members exposed
     ///   by the LHM Extension Package.
     /// </param>
     /// <param name="viewModel">
     ///   A <see cref="BaseUpdateViewModel" /> instance used to update progress indicator properties if a
-    ///   <see cref="LicenseHeaderReplacer" /> newly needs to be invoked.
+    ///   <see cref="HeaderReplacer" /> newly needs to be invoked.
     /// </param>
     /// <param name="projectName">
-    ///   The name of the project the files updated by a <see cref="LicenseHeaderReplacer" /> operation
+    ///   The name of the project the files updated by a <see cref="HeaderReplacer" /> operation
     ///   belong to.
     /// </param>
     /// <param name="fileOpenedStatus">
@@ -225,8 +225,8 @@ namespace LicenseHeaderManager.Utils
     ///   if they have not been started yet.
     /// </param>
     public static async Task HandleResultAsync (
-        IEnumerable<ReplacerResult<ReplacerSuccess, ReplacerError<LicenseHeaderContentInput>>> result,
-        ILicenseHeaderExtension licenseHeaderExtension,
+        IEnumerable<ReplacerResult<ReplacerSuccess, ReplacerError<HeaderContentInput>>> result,
+        IHeaderExtension licenseHeaderExtension,
         BaseUpdateViewModel viewModel,
         string projectName,
         IDictionary<string, bool> fileOpenedStatus,
@@ -237,10 +237,10 @@ namespace LicenseHeaderManager.Utils
 
       var nonCommentTextErrorsByExtension = errors.Where (x => x.Type == ReplacerErrorType.NonCommentText).GroupBy (x => Path.GetExtension (x.Input.DocumentPath));
 
-      var inputIgnoringNonCommentText = new List<LicenseHeaderContentInput>();
+      var inputIgnoringNonCommentText = new List<HeaderContentInput>();
       foreach (var extension in nonCommentTextErrorsByExtension)
       {
-        var message = string.Format (Resources.Warning_InvalidLicenseHeader, extension.Key).ReplaceNewLines();
+        var message = string.Format (Resources.Warning_InvalidHeader, extension.Key).ReplaceNewLines();
         if (!MessageBoxHelper.AskYesNo (message, Resources.Warning, true))
           continue;
 
@@ -252,11 +252,11 @@ namespace LicenseHeaderManager.Utils
       }
 
       // collect other errors and the ones that occurred while "force-inserting" headers with non-comment-text
-      var overallErrors = errors.Where (x => x.Type != ReplacerErrorType.NonCommentText && x.Type != ReplacerErrorType.LicenseHeaderDocument).ToList();
+      var overallErrors = errors.Where (x => x.Type != ReplacerErrorType.NonCommentText && x.Type != ReplacerErrorType.HeaderDocument).ToList();
       if (inputIgnoringNonCommentText.Count > 0)
       {
         viewModel.FileCountCurrentProject = inputIgnoringNonCommentText.Count;
-        var resultIgnoringNonCommentText = await licenseHeaderExtension.LicenseHeaderReplacer.RemoveOrReplaceHeader (
+        var resultIgnoringNonCommentText = await licenseHeaderExtension.HeaderReplacer.RemoveOrReplaceHeader (
             inputIgnoringNonCommentText,
             CreateProgress (viewModel, projectName, fileOpenedStatus, cancellationToken),
             cancellationToken);
@@ -278,14 +278,14 @@ namespace LicenseHeaderManager.Utils
     /// </summary>
     /// <param name="item">The <see cref="ProjectItem" /> to be opened.</param>
     /// <param name="extension">
-    ///   The <see cref="ILicenseHeaderExtension" /> instance used to access the currently configured
+    ///   The <see cref="IHeaderExtension" /> instance used to access the currently configured
     ///   language definitions.
     /// </param>
     /// <returns>
     ///   Returns <see langword="true" /> if opening <paramref name="item" /> succeeded or was not necessary, otherwise
     ///   <see langword="false" />.
     /// </returns>
-    public static bool TryOpenDocument (ProjectItem item, ILicenseHeaderExtension extension)
+    public static bool TryOpenDocument (ProjectItem item, IHeaderExtension extension)
     {
       try
       {
@@ -294,7 +294,7 @@ namespace LicenseHeaderManager.Utils
         // Opening files potentially having non-text content (.png, .snk) might result in a Visual Studio error "Some bytes have been replaced with the
         // Unicode substitution character while loading file ...". In order to avoid this, files with unknown extensions are not opened. However, in order
         // to keep such files eligible as Core input, still return true
-        var languageForExtension = extension.LicenseHeaderReplacer.GetLanguageFromExtension (Path.GetExtension (item.FileNames[1]));
+        var languageForExtension = extension.HeaderReplacer.GetLanguageFromExtension (Path.GetExtension (item.FileNames[1]));
         if (languageForExtension == null)
           return true;
 
@@ -336,7 +336,7 @@ namespace LicenseHeaderManager.Utils
       }
     }
 
-    private static void ProcessSuccess (ReplacerSuccess replacerSuccess, ILicenseHeaderExtension extension, bool isOpen)
+    private static void ProcessSuccess (ReplacerSuccess replacerSuccess, IHeaderExtension extension, bool isOpen)
     {
       ThreadHelper.ThrowIfNotOnUIThread();
       if (!File.Exists (replacerSuccess.FilePath) || TrySetContent (replacerSuccess.FilePath, extension.Dte2.Solution, replacerSuccess.NewContent, isOpen, extension))
@@ -346,13 +346,13 @@ namespace LicenseHeaderManager.Utils
       MessageBoxHelper.ShowError ($"Updating license header for file {replacerSuccess.FilePath} failed.");
     }
 
-    private static void ProcessError (ReplacerError<LicenseHeaderContentInput> error)
+    private static void ProcessError (ReplacerError<HeaderContentInput> error)
     {
       s_log.Warn ($"File '{error.Input.DocumentPath}' failed with error '{error.Type}': {error.Description}");
       MessageBoxHelper.ShowMessage ($"Could not modify license headers of file '{error.Input.DocumentPath}':\n{error.Description}", Resources.Warning, true);
     }
 
-    private static bool TrySetContent (string itemPath, Solution solution, string content, bool wasOpen, ILicenseHeaderExtension extension)
+    private static bool TrySetContent (string itemPath, Solution solution, string content, bool wasOpen, IHeaderExtension extension)
     {
       ThreadHelper.ThrowIfNotOnUIThread();
       var item = solution.FindProjectItem (itemPath);
@@ -363,7 +363,7 @@ namespace LicenseHeaderManager.Utils
         return false;
 
       // returning false from this method would signify an error, which we do not want since this circumstance is expected to occur with unknown file extensions
-      var languageForExtension = extension.LicenseHeaderReplacer.GetLanguageFromExtension (Path.GetExtension (item.FileNames[1]));
+      var languageForExtension = extension.HeaderReplacer.GetLanguageFromExtension (Path.GetExtension (item.FileNames[1]));
       if (languageForExtension == null)
         return true;
 
@@ -387,16 +387,16 @@ namespace LicenseHeaderManager.Utils
         IDictionary<string, bool> fileOpenedStatus,
         CancellationToken cancellationToken)
     {
-      await LicenseHeadersPackage.Instance.JoinableTaskFactory.SwitchToMainThreadAsync();
+      await HeadersPackage.Instance.JoinableTaskFactory.SwitchToMainThreadAsync();
 
       if (!cancellationToken.IsCancellationRequested)
       {
-        var result = new ReplacerResult<ReplacerSuccess, ReplacerError<LicenseHeaderContentInput>> (
+        var result = new ReplacerResult<ReplacerSuccess, ReplacerError<HeaderContentInput>> (
             new ReplacerSuccess (progress.ProcessedFilePath, progress.ProcessFileNewContent));
         if (fileOpenedStatus.TryGetValue (progress.ProcessedFilePath, out var wasOpen))
-          await HandleResultAsync (result, LicenseHeadersPackage.Instance, wasOpen, false);
+          await HandleResultAsync (result, HeadersPackage.Instance, wasOpen, false);
         else
-          await HandleResultAsync (result, LicenseHeadersPackage.Instance, false, false);
+          await HandleResultAsync (result, HeadersPackage.Instance, false, false);
       }
 
       if (baseUpdateViewModel == null)

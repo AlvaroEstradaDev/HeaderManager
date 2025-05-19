@@ -17,7 +17,7 @@ using System.Windows.Controls;
 using Microsoft.VisualStudio.Shell;
 using Window = System.Windows.Window;
 
-namespace LicenseHeaderManager.PopUp.FeaturesQuestion
+namespace HeaderManager.PopUp.FeaturesQuestion
 {
   public partial class WpfFeaturesQuestion : Window
   {

@@ -21,7 +21,7 @@ using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Threading;
 using Task = System.Threading.Tasks.Task;
 
-namespace LicenseHeaderManager.Options.Model
+namespace HeaderManager.Options.Model
 {
   /// <summary>
   ///   A base class for specifying options
@@ -29,7 +29,7 @@ namespace LicenseHeaderManager.Options.Model
   public abstract class BaseOptionModel<T>
       where T : BaseOptionModel<T>, new()
   {
-    private static readonly AsyncLazy<T> s_liveModel = new AsyncLazy<T> (CreateAsync, LicenseHeadersPackage.Instance.JoinableTaskFactory);
+    private static readonly AsyncLazy<T> s_liveModel = new AsyncLazy<T> (CreateAsync, HeadersPackage.Instance.JoinableTaskFactory);
     private static readonly ILog s_log = LogManager.GetLogger (MethodBase.GetCurrentMethod().DeclaringType);
 
     protected BaseOptionModel ()
@@ -46,7 +46,7 @@ namespace LicenseHeaderManager.Options.Model
         ThreadHelper.ThrowIfNotOnUIThread();
 
 #pragma warning disable VSTHRD104 // Offer async methods
-        return LicenseHeadersPackage.Instance.JoinableTaskFactory.Run (GetLiveInstanceAsync);
+        return HeadersPackage.Instance.JoinableTaskFactory.Run (GetLiveInstanceAsync);
 #pragma warning restore VSTHRD104 // Offer async methods
       }
     }
@@ -75,7 +75,7 @@ namespace LicenseHeaderManager.Options.Model
     /// </summary>
     public virtual void Load ()
     {
-      LicenseHeadersPackage.Instance.JoinableTaskFactory.Run (LoadAsync);
+      HeadersPackage.Instance.JoinableTaskFactory.Run (LoadAsync);
     }
 
     /// <summary>
@@ -102,7 +102,7 @@ namespace LicenseHeaderManager.Options.Model
     /// </summary>
     public virtual void Save ()
     {
-      LicenseHeadersPackage.Instance.JoinableTaskFactory.Run (SaveAsync);
+      HeadersPackage.Instance.JoinableTaskFactory.Run (SaveAsync);
     }
 
     /// <summary>

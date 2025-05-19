@@ -47,11 +47,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\TypeScriptHTMLApp1\testFolder\testFolder.licenseheader">
-      <Link>NewFolder1\testFolder.licenseheader</Link>
+    <None Include="..\TypeScriptHTMLApp1\testFolder\testFolder.header">
+      <Link>NewFolder1\testFolder.header</Link>
     </None>
     <None Include="App.config" />
-    <None Include="LHM-CsProjTest.licenseheader" />
+    <None Include="LHM-CsProjTest.header" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

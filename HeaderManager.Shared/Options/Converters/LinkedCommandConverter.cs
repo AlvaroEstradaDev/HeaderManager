@@ -17,7 +17,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Xml.Linq;
 
-namespace LicenseHeaderManager.Options.Converters
+namespace HeaderManager.Options.Converters
 {
   /// <summary>
   ///   Provides means of converting an enumerable range of <see cref="LinkedCommand" /> objects to and from XML.

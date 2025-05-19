@@ -17,11 +17,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using EnvDTE;
 using EnvDTE80;
-using LicenseHeaderManager.Utils;
+using HeaderManager.Utils;
 using NUnit.Framework;
 using Rhino.Mocks;
 
-namespace LicenseHeaderManager.Tests
+namespace HeaderManager.Tests
 {
   [TestFixture]
   public class AllSolutionProjectsSearcherBaseTest

@@ -80,10 +80,10 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
-    <None Include="..\TypeScriptHTMLApp1\TypeScriptHTMLApp1.licenseheader">
-      <Link>NewFolder1\TypeScriptHTMLApp1.licenseheader</Link>
+    <None Include="..\TypeScriptHTMLApp1\TypeScriptHTMLApp1.header">
+      <Link>NewFolder1\TypeScriptHTMLApp1.header</Link>
     </None>
-    <None Include="App1.licenseheader" />
+    <None Include="App1.header" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">

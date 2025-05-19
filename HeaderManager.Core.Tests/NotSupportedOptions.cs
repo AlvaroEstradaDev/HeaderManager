@@ -13,15 +13,15 @@
 
 using System;
 using System.Collections.Generic;
-using LicenseHeaderManager.Core.Options;
+using HeaderManager.Core.Options;
 
-namespace LicenseHeaderManager.Core.Tests
+namespace HeaderManager.Core.Tests
 {
   /// <summary>
   ///   This option class that is used for testing purposes is not supported because there is no built-in
   ///   converter to (de-)serialize the <c>Dictionary&lt;int, string&gt;</c> type of the property <c>NotSupportedMember</c>.
   /// </summary>
-  [LicenseHeaderManagerOptions]
+  [HeaderManagerOptions]
   internal class NotSupportedOptions
   {
     public NotSupportedOptions ()

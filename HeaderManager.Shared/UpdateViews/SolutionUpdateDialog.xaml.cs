@@ -16,11 +16,11 @@ using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Data;
-using LicenseHeaderManager.UpdateViewModels;
-using LicenseHeaderManager.Utils;
+using HeaderManager.UpdateViewModels;
+using HeaderManager.Utils;
 using Microsoft.VisualStudio.PlatformUI;
 
-namespace LicenseHeaderManager.UpdateViews
+namespace HeaderManager.UpdateViews
 {
   /// <summary>
   ///   Interaction logic for SolutionUpdateDialog.xaml
@@ -41,7 +41,7 @@ namespace LicenseHeaderManager.UpdateViews
 
     private async Task UpdateControlsAsync (PropertyChangedEventArgs args)
     {
-      await LicenseHeadersPackage.Instance.JoinableTaskFactory.SwitchToMainThreadAsync();
+      await HeadersPackage.Instance.JoinableTaskFactory.SwitchToMainThreadAsync();
 
       // for unknown reasons, changes in below DependencyProperties' data source are sometimes not reflected in the UI => trigger update manually
       var context = (SolutionUpdateViewModel) DataContext;

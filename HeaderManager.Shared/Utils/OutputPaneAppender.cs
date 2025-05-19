@@ -18,7 +18,7 @@ using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using Task = System.Threading.Tasks.Task;
 
-namespace LicenseHeaderManager.Utils
+namespace HeaderManager.Utils
 {
   internal class OutputPaneAppender : AppenderSkeleton
   {
@@ -29,7 +29,7 @@ namespace LicenseHeaderManager.Utils
       ThreadHelper.ThrowIfNotOnUIThread();
 
       Threshold = threshold;
-      outputPane.GetPane (ref LicenseHeadersPackage.GuidOutputPaneAppender, out _licenseHeaderManagerPane);
+      outputPane.GetPane (ref HeadersPackage.GuidOutputPaneAppender, out _licenseHeaderManagerPane);
     }
 
     protected override void Append (LoggingEvent loggingEvent)
@@ -39,7 +39,7 @@ namespace LicenseHeaderManager.Utils
 
     private async Task LogMessageAsync (LoggingEvent loggingEvent)
     {
-      await LicenseHeadersPackage.Instance.JoinableTaskFactory.SwitchToMainThreadAsync();
+      await HeadersPackage.Instance.JoinableTaskFactory.SwitchToMainThreadAsync();
 
       _licenseHeaderManagerPane.OutputStringThreadSafe (
           $"{loggingEvent.TimeStamp:yyyy-MM-dd HH:mm:ss,fff} [{loggingEvent.Level}] {loggingEvent.LoggerName}: {loggingEvent.RenderedMessage}\n");

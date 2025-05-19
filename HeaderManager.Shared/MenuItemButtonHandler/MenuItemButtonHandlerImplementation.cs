@@ -15,11 +15,11 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using EnvDTE;
-using LicenseHeaderManager.Interfaces;
-using LicenseHeaderManager.UpdateViewModels;
+using HeaderManager.Interfaces;
+using HeaderManager.UpdateViewModels;
 using Window = System.Windows.Window;
 
-namespace LicenseHeaderManager.MenuItemButtonHandler
+namespace HeaderManager.MenuItemButtonHandler
 {
   /// <summary>
   ///   Acts as a type work to be done by a <see cref="IMenuItemButtonHandler" /> instance can be delegated to.

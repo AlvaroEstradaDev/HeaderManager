@@ -13,7 +13,7 @@
 
 using System;
 
-namespace LicenseHeaderManager.Core.Tests
+namespace HeaderManager.Core.Tests
 {
   public static class StringArrayExtensions
   {

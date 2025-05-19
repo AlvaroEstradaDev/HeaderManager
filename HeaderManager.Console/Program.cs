@@ -4,10 +4,10 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using CommandLine;
-using LicenseHeaderManager.Core;
-using LicenseHeaderManager.Core.Options;
+using HeaderManager.Core;
+using HeaderManager.Core.Options;
 
-namespace LicenseHeaderManager.Console
+namespace HeaderManager.Console
 {
   public static class Program
   {
@@ -18,9 +18,9 @@ namespace LicenseHeaderManager.Console
     private const ConsoleColor c_colorSuccess = ConsoleColor.Green;
     private const ConsoleColor c_colorWarning = ConsoleColor.Yellow;
 
-    private static LicenseHeaderExtractor s_headerExtractor;
+    private static HeaderExtractor s_headerExtractor;
     private static CoreOptions s_defaultCoreSettings;
-    private static LicenseHeaderReplacer s_replacer;
+    private static HeaderReplacer s_replacer;
 
     public static int Main (string[] args)
     {
@@ -69,9 +69,9 @@ namespace LicenseHeaderManager.Console
         s_defaultCoreSettings = new CoreOptions (true);
       }
 
-      s_headerExtractor = new LicenseHeaderExtractor();
-      s_replacer = new LicenseHeaderReplacer (s_defaultCoreSettings.Languages, CoreOptions.RequiredKeywordsAsEnumerable (s_defaultCoreSettings.RequiredKeywords));
-      UpdateLicenseHeaders (options);
+      s_headerExtractor = new HeaderExtractor();
+      s_replacer = new HeaderReplacer (s_defaultCoreSettings.Languages, CoreOptions.RequiredKeywordsAsEnumerable (s_defaultCoreSettings.RequiredKeywords));
+      UpdateHeaders (options);
     }
 
     private static void HandleParsingError (IEnumerable<Error> errors)
@@ -88,15 +88,15 @@ namespace LicenseHeaderManager.Console
     ///   Updates the headers in the files of the given paths or in the files in the given directory, depending on the options passed.
     /// </summary>
     /// <param name="options">Encapsulates option that were passed to the application via the command line and provide information required to apply license headers.</param>
-    private static void UpdateLicenseHeaders (Options options)
+    private static void UpdateHeaders (Options options)
     {
       switch (options.Target)
       {
         case UpdateTarget.Files:
-          UpdateLicenseHeadersForFiles (options.Mode, options.LicenseHeaderDefinitionFile, options.Files.ToList());
+          UpdateHeadersForFiles (options.Mode, options.HeaderDefinitionFile, options.Files.ToList());
           break;
         case UpdateTarget.Directory:
-          UpdateLicenseHeadersForDirectory (options.Mode, options.LicenseHeaderDefinitionFile, options.Directory, options.Recursive);
+          UpdateHeadersForDirectory (options.Mode, options.HeaderDefinitionFile, options.Directory, options.Recursive);
           break;
         default:
           WriteLineColor ("Cannot determine target of license header application (files, directory). Aborting execution.", c_colorError);
@@ -111,12 +111,12 @@ namespace LicenseHeaderManager.Console
     /// <param name="mode">Specifies whether the license headers should be added or removed to/from the files.</param>
     /// <param name="headerDefinitionFile">Specifies the path to the license header definition file.</param>
     /// <param name="files">Specifies the path (or paths) to the files that should be updated.</param>
-    private static void UpdateLicenseHeadersForFiles (UpdateMode mode, FileSystemInfo headerDefinitionFile, IReadOnlyList<FileInfo> files)
+    private static void UpdateHeadersForFiles (UpdateMode mode, FileSystemInfo headerDefinitionFile, IReadOnlyList<FileInfo> files)
     {
       if (files.Count == 1)
-        UpdateLicenseHeaderForOneFile (mode, headerDefinitionFile.FullName, files[0].FullName);
+        UpdateHeaderForOneFile (mode, headerDefinitionFile.FullName, files[0].FullName);
       else if (files.Count > 1)
-        UpdateLicenseHeadersForMultipleFiles (mode, headerDefinitionFile.FullName, files.Select (x => x.FullName).ToList());
+        UpdateHeadersForMultipleFiles (mode, headerDefinitionFile.FullName, files.Select (x => x.FullName).ToList());
       else
         WriteLineColor ("No files given to add license headers to. Nothing to be done.", c_colorWarning);
     }
@@ -127,13 +127,13 @@ namespace LicenseHeaderManager.Console
     /// <param name="mode">Specifies whether the license headers should be added or removed to/from the files.</param>
     /// <param name="definitionFilePath">Specifies the path to the license header definition file.</param>
     /// <param name="filePath">Specifies the path to the file that should be updated.</param>
-    private static void UpdateLicenseHeaderForOneFile (UpdateMode mode, string definitionFilePath, string filePath)
+    private static void UpdateHeaderForOneFile (UpdateMode mode, string definitionFilePath, string filePath)
     {
       System.Console.WriteLine ($"Updating license headers for one file: \"{filePath}\".");
       System.Console.WriteLine ($"Using license header definition file: \"{definitionFilePath}\".");
 
       var headers = mode == UpdateMode.Add ? s_headerExtractor.ExtractHeaderDefinitions (definitionFilePath) : null;
-      var replacerInput = new LicenseHeaderPathInput (filePath, headers);
+      var replacerInput = new HeaderPathInput (filePath, headers);
 
       var replacerResult = s_replacer.RemoveOrReplaceHeader (replacerInput).Result;
 
@@ -153,13 +153,13 @@ namespace LicenseHeaderManager.Console
     /// <param name="mode">Specifies whether the license headers should be added or removed to/from the files.</param>
     /// <param name="definitionFilePath">Specifies the path to the license header definition file.</param>
     /// <param name="filePaths">Specifies the paths to the files that should be updated.</param>
-    private static void UpdateLicenseHeadersForMultipleFiles (UpdateMode mode, string definitionFilePath, IReadOnlyCollection<string> filePaths)
+    private static void UpdateHeadersForMultipleFiles (UpdateMode mode, string definitionFilePath, IReadOnlyCollection<string> filePaths)
     {
       System.Console.WriteLine ($"Updating license headers for {filePaths.Count} files.");
       System.Console.WriteLine ($"Using license header definition file: \"{definitionFilePath}\".");
 
       var headers = mode == UpdateMode.Add ? s_headerExtractor.ExtractHeaderDefinitions (definitionFilePath) : null;
-      var replacerInput = filePaths.Select (x => new LicenseHeaderPathInput (x, headers)).ToList();
+      var replacerInput = filePaths.Select (x => new HeaderPathInput (x, headers)).ToList();
 
       var replacerResult = s_replacer.RemoveOrReplaceHeader (
           replacerInput,
@@ -187,7 +187,7 @@ namespace LicenseHeaderManager.Console
     /// <param name="headerDefinitionFile"></param>
     /// <param name="directory">Specifies the path of the directory containing the files that should be updated.</param>
     /// <param name="recursive">Specifies whether the directory should be searched recursively.</param>
-    private static void UpdateLicenseHeadersForDirectory (UpdateMode mode, FileSystemInfo headerDefinitionFile, DirectoryInfo directory, bool recursive)
+    private static void UpdateHeadersForDirectory (UpdateMode mode, FileSystemInfo headerDefinitionFile, DirectoryInfo directory, bool recursive)
     {
       System.Console.WriteLine (
           $"Searching for files in directory \"{directory.FullName}\" to apply license headers to ({(recursive ? string.Empty : "non-")}recursively).");
@@ -195,7 +195,7 @@ namespace LicenseHeaderManager.Console
       var files = directory.EnumerateFiles ("*", recursive ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly).ToList();
       System.Console.WriteLine ($"Found {files.Count} files.");
 
-      UpdateLicenseHeadersForMultipleFiles (mode, headerDefinitionFile.FullName, files.Select (x => x.FullName).ToList());
+      UpdateHeadersForMultipleFiles (mode, headerDefinitionFile.FullName, files.Select (x => x.FullName).ToList());
     }
 
     /// <summary>

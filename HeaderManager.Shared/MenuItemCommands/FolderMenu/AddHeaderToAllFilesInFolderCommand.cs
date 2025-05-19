@@ -14,18 +14,18 @@
 using System;
 using System.ComponentModel.Design;
 using EnvDTE;
-using LicenseHeaderManager.Interfaces;
-using LicenseHeaderManager.MenuItemButtonHandler;
-using LicenseHeaderManager.Utils;
+using HeaderManager.Interfaces;
+using HeaderManager.MenuItemButtonHandler;
+using HeaderManager.Utils;
 using Microsoft.VisualStudio.Shell;
 using Task = System.Threading.Tasks.Task;
 
-namespace LicenseHeaderManager.MenuItemCommands.FolderMenu
+namespace HeaderManager.MenuItemCommands.FolderMenu
 {
   /// <summary>
   ///   Command handler
   /// </summary>
-  internal sealed class AddLicenseHeaderToAllFilesInFolderCommand
+  internal sealed class AddHeaderToAllFilesInFolderCommand
   {
     /// <summary>
     ///   Command ID.
@@ -40,14 +40,14 @@ namespace LicenseHeaderManager.MenuItemCommands.FolderMenu
     private readonly OleMenuCommand _menuItem;
 
     /// <summary>
-    ///   Initializes a new instance of the <see cref="AddLicenseHeaderToAllFilesInFolderCommand" /> class.
+    ///   Initializes a new instance of the <see cref="AddHeaderToAllFilesInFolderCommand" /> class.
     ///   Adds our command handlers for menu (commands must exist in the command table file)
     /// </summary>
     /// <param name="package">Owner package, not null.</param>
     /// <param name="commandService">Command service to add command to, not null.</param>
-    private AddLicenseHeaderToAllFilesInFolderCommand (AsyncPackage package, OleMenuCommandService commandService)
+    private AddHeaderToAllFilesInFolderCommand (AsyncPackage package, OleMenuCommandService commandService)
     {
-      ServiceProvider = (ILicenseHeaderExtension) package ?? throw new ArgumentNullException (nameof(package));
+      ServiceProvider = (IHeaderExtension) package ?? throw new ArgumentNullException (nameof(package));
       commandService = commandService ?? throw new ArgumentNullException (nameof(commandService));
 
       var menuCommandID = new CommandID (s_commandSet, c_commandId);
@@ -59,12 +59,12 @@ namespace LicenseHeaderManager.MenuItemCommands.FolderMenu
     /// <summary>
     ///   Gets the instance of the command.
     /// </summary>
-    public static AddLicenseHeaderToAllFilesInFolderCommand Instance { get; private set; }
+    public static AddHeaderToAllFilesInFolderCommand Instance { get; private set; }
 
     /// <summary>
     ///   Gets the service provider from the owner package.
     /// </summary>
-    private ILicenseHeaderExtension ServiceProvider { get; }
+    private IHeaderExtension ServiceProvider { get; }
 
     private void OnQueryAllFilesCommandStatus (object sender, EventArgs e)
     {
@@ -86,12 +86,12 @@ namespace LicenseHeaderManager.MenuItemCommands.FolderMenu
     /// <param name="package">Owner package, not null.</param>
     public static async Task InitializeAsync (AsyncPackage package)
     {
-      // Switch to the main thread - the call to AddCommand in AddLicenseHeaderToAllFilesInFolderCommand's constructor requires
+      // Switch to the main thread - the call to AddCommand in AddHeaderToAllFilesInFolderCommand's constructor requires
       // the UI thread.
-      await LicenseHeadersPackage.Instance.JoinableTaskFactory.SwitchToMainThreadAsync (package.DisposalToken);
+      await HeadersPackage.Instance.JoinableTaskFactory.SwitchToMainThreadAsync (package.DisposalToken);
 
       var commandService = await package.GetServiceAsync (typeof (IMenuCommandService)) as OleMenuCommandService;
-      Instance = new AddLicenseHeaderToAllFilesInFolderCommand (package, commandService);
+      Instance = new AddHeaderToAllFilesInFolderCommand (package, commandService);
     }
 
     /// <summary>

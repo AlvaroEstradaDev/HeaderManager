@@ -7,6 +7,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include="$(MSBuildThisFileDirectory)js\default.js" />
-    <Content Include="$(MSBuildThisFileDirectory)TypeScriptHTMLApp1.licenseheader" />
+    <Content Include="$(MSBuildThisFileDirectory)TypeScriptHTMLApp1.header" />
   </ItemGroup>
 </Project>

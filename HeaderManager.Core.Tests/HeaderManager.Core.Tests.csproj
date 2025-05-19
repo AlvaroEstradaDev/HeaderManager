@@ -7,8 +7,8 @@
     <ProjectGuid>{87AC04E1-0862-4491-BCD8-9F507BFD97AA}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>LicenseHeaderManager.Core.Tests</RootNamespace>
-    <AssemblyName>LicenseHeaderManager.Core.Tests</AssemblyName>
+    <RootNamespace>HeaderManager.Core.Tests</RootNamespace>
+    <AssemblyName>HeaderManager.Core.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -60,12 +60,12 @@
     <Compile Include="DocumentTest.cs" />
     <Compile Include="JsonOptionsManagerTest.cs" />
     <Compile Include="LanguageTest.cs" />
-    <Compile Include="LicenseHeaderExtractorTest.cs" />
-    <Compile Include="LicenseHeaderContentInputTest.cs" />
-    <Compile Include="LicenseHeaderInputBaseTest.cs" />
-    <Compile Include="LicenseHeaderPathInputTest.cs" />
-    <Compile Include="LicenseHeaderPreparerTest.cs" />
-    <Compile Include="LicenseHeaderReplacerTest.cs" />
+    <Compile Include="HeaderExtractorTest.cs" />
+    <Compile Include="HeaderContentInputTest.cs" />
+    <Compile Include="HeaderInputBaseTest.cs" />
+    <Compile Include="HeaderPathInputTest.cs" />
+    <Compile Include="HeaderPreparerTest.cs" />
+    <Compile Include="HeaderReplacerTest.cs" />
     <Compile Include="LineManagerTest.cs" />
     <Compile Include="NotSupportedOptions.cs" />
     <Compile Include="PathUtilityTest.cs" />
@@ -79,15 +79,15 @@
     <Compile Include="UserInfoTest.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\LicenseHeaderManager.sln.licenseheader">
-      <Link>LicenseHeaderManager.sln.licenseheader</Link>
+    <None Include="..\HeaderManager.sln.header">
+      <Link>HeaderManager.sln.header</Link>
     </None>
     <None Include="app.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\LicenseHeaderManager.Core\LicenseHeaderManager.Core.csproj">
+    <ProjectReference Include="..\HeaderManager.Core\HeaderManager.Core.csproj">
       <Project>{b8d94ed6-4b73-443e-aba0-2c373b9e6735}</Project>
-      <Name>LicenseHeaderManager.Core</Name>
+      <Name>HeaderManager.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

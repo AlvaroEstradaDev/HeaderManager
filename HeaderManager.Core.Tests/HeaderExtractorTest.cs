@@ -17,10 +17,10 @@ using System.IO;
 using System.Text;
 using NUnit.Framework;
 
-namespace LicenseHeaderManager.Core.Tests
+namespace HeaderManager.Core.Tests
 {
   [TestFixture]
-  public class LicenseHeaderExtractorTest
+  public class HeaderExtractorTest
   {
     private readonly List<string> _paths = new List<string>();
 
@@ -35,7 +35,7 @@ namespace LicenseHeaderManager.Core.Tests
     public void ExtractHeaderDefinitions_FilePathIsNull_ReturnsNull ()
     {
       string filePath = null;
-      var extractor = new LicenseHeaderExtractor();
+      var extractor = new HeaderExtractor();
       var actual = extractor.ExtractHeaderDefinitions (filePath);
 
       Assert.That (actual, Is.Null);
@@ -44,9 +44,9 @@ namespace LicenseHeaderManager.Core.Tests
     [Test]
     public void ExtractHeaderDefinitions_ValidFilePathTextStartsWithExtension_ReturnsTwoHeaders ()
     {
-      var filePath = CreateLicenseHeaderDefinitionFile();
+      var filePath = CreateHeaderDefinitionFile();
 
-      var extractor = new LicenseHeaderExtractor();
+      var extractor = new HeaderExtractor();
       var actual = extractor.ExtractHeaderDefinitions (filePath);
 
       Assert.That (actual.Count, Is.EqualTo (2));
@@ -55,9 +55,9 @@ namespace LicenseHeaderManager.Core.Tests
     [Test]
     public void ExtractHeaderDefinitions_ValidFilePathTextDoesNotStartWithExtension_ReturnsOneHeader ()
     {
-      var filePath = CreateLicenseHeaderDefinitionFile (false);
+      var filePath = CreateHeaderDefinitionFile (false);
 
-      var extractor = new LicenseHeaderExtractor();
+      var extractor = new HeaderExtractor();
       var actual = extractor.ExtractHeaderDefinitions (filePath);
 
       Assert.That (actual.Count, Is.EqualTo (1));
@@ -66,9 +66,9 @@ namespace LicenseHeaderManager.Core.Tests
     [Test]
     public void ExtractHeaderDefinitions_ValidFilePathTextStartsWithExtension_ReturnsCorrectItems ()
     {
-      var filePath = CreateLicenseHeaderDefinitionFile();
+      var filePath = CreateHeaderDefinitionFile();
 
-      var extractor = new LicenseHeaderExtractor();
+      var extractor = new HeaderExtractor();
       const string expectedCs =
           "/* Copyright (c) rubicon IT GmbH\r\n *\r\n * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"),\r\n * to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense,\r\n * and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:\r\n * \r\n * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.\r\n * \r\n * THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS\r\n * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,\r\n * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. \r\n */\r\n";
       const string expectedXaml =
@@ -80,9 +80,9 @@ namespace LicenseHeaderManager.Core.Tests
       Assert.That (actual[".xaml"].JoinWithNewLine(), Is.EqualTo (expectedXaml));
     }
 
-    private string CreateLicenseHeaderDefinitionFile (bool startsWithExtension = true)
+    private string CreateHeaderDefinitionFile (bool startsWithExtension = true)
     {
-      var licenseHeaderDefinitionFile = GetPath (".licenseheader");
+      var licenseHeaderDefinitionFile = GetPath (".header");
       _paths.Add (licenseHeaderDefinitionFile);
 
       using (var fs = File.Create (licenseHeaderDefinitionFile))

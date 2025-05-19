@@ -15,17 +15,17 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 
-namespace LicenseHeaderManager.Core
+namespace HeaderManager.Core
 {
   /// <summary>
-  ///   Encapsulates information that are required in any case by the <see cref="LicenseHeaderReplacer" /> when updating
+  ///   Encapsulates information that are required in any case by the <see cref="HeaderReplacer" /> when updating
   ///   license headers.
   /// </summary>
-  /// <seealso cref="LicenseHeaderReplacer" />
-  public abstract class LicenseHeaderInput
+  /// <seealso cref="HeaderReplacer" />
+  public abstract class HeaderInput
   {
     /// <summary>
-    ///   Initializes a new <see cref="LicenseHeaderContentInput" /> instance.
+    ///   Initializes a new <see cref="HeaderContentInput" /> instance.
     /// </summary>
     /// <param name="documentPath">The path of the file whose headers are to be modified.</param>
     /// <param name="headers">
@@ -37,7 +37,7 @@ namespace LicenseHeaderManager.Core
     ///   Additional properties that cannot be expanded by the Core whose tokens should be
     ///   replaced by their values.
     /// </param>
-    protected LicenseHeaderInput (IDictionary<string, string[]> headers, IEnumerable<AdditionalProperty> additionalProperties, string documentPath)
+    protected HeaderInput (IDictionary<string, string[]> headers, IEnumerable<AdditionalProperty> additionalProperties, string documentPath)
     {
       Headers = headers;
       AdditionalProperties = additionalProperties;
@@ -76,8 +76,8 @@ namespace LicenseHeaderManager.Core
     public string Extension { get; }
 
     /// <summary>
-    ///   Gets the input mode this <see cref="LicenseHeaderInput" /> instance is to be used for.
+    ///   Gets the input mode this <see cref="HeaderInput" /> instance is to be used for.
     /// </summary>
-    internal abstract LicenseHeaderInputMode InputMode { get; }
+    internal abstract HeaderInputMode InputMode { get; }
   }
 }

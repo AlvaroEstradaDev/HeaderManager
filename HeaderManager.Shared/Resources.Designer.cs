@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace LicenseHeaderManager {
+namespace HeaderManager {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace LicenseHeaderManager {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("LicenseHeaderManager.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("HeaderManager.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -207,9 +207,9 @@ namespace LicenseHeaderManager {
         /// <summary>
         ///   Looks up a localized string similar to No license header definition file found in following projects:\n\n{0}\n\nDo you want to add an existing License Header Definition File into these Projects?.
         /// </summary>
-        public static string Error_MultipleProjectsNoLicenseHeaderFile {
+        public static string Error_MultipleProjectsNoHeaderFile {
             get {
-                return ResourceManager.GetString("Error_MultipleProjectsNoLicenseHeaderFile", resourceCulture);
+                return ResourceManager.GetString("Error_MultipleProjectsNoHeaderFile", resourceCulture);
             }
         }
         
@@ -279,9 +279,9 @@ namespace LicenseHeaderManager {
         /// <summary>
         ///   Looks up a localized string similar to License Header Manager.
         /// </summary>
-        public static string LicenseHeaderManagerName {
+        public static string HeaderManagerName {
             get {
-                return ResourceManager.GetString("LicenseHeaderManagerName", resourceCulture);
+                return ResourceManager.GetString("HeaderManagerName", resourceCulture);
             }
         }
         
@@ -360,9 +360,9 @@ namespace LicenseHeaderManager {
         /// <summary>
         ///   Looks up a localized string similar to The file scan has finished.\nNo License Header Definition File found. Do you want to add a new one for the Solution?.
         /// </summary>
-        public static string Question_AddNewLicenseHeaderDefinitionForSolution {
+        public static string Question_AddNewHeaderDefinitionForSolution {
             get {
-                return ResourceManager.GetString("Question_AddNewLicenseHeaderDefinitionForSolution", resourceCulture);
+                return ResourceManager.GetString("Question_AddNewHeaderDefinitionForSolution", resourceCulture);
             }
         }
         
@@ -412,7 +412,7 @@ namespace LicenseHeaderManager {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Some languages require special instructions at the very beginning of the file.\nXML-based languages need the &lt;?xml ... ?&gt; declaration for example. You can\ndefine a regular expression that identifies these instructions here so that the\nlicense header comment can be inserted after them, leaving the file valid.\n\nSee the online documentation on https://github.com/rubicon-oss/LicenseHeaderManager\nfor more detailed information..
+        ///   Looks up a localized string similar to Some languages require special instructions at the very beginning of the file.\nXML-based languages need the &lt;?xml ... ?&gt; declaration for example. You can\ndefine a regular expression that identifies these instructions here so that the\nlicense header comment can be inserted after them, leaving the file valid.\n\nSee the online documentation on https://github.com/rubicon-oss/HeaderManager\nfor more detailed information..
         /// </summary>
         public static string SkipExpressionHelp {
             get {
@@ -504,18 +504,18 @@ namespace LicenseHeaderManager {
         /// <summary>
         ///   Looks up a localized string similar to HeaderDefinitionExtension: {0}\n\nThe header definition for {0} files contains non-comment text.\nIf you insert this header, you will not be able to remove or replace the header automatically!\n\nDo you really want to add this header to the file?.
         /// </summary>
-        public static string Warning_InvalidLicenseHeader {
+        public static string Warning_InvalidHeader {
             get {
-                return ResourceManager.GetString("Warning_InvalidLicenseHeader", resourceCulture);
+                return ResourceManager.GetString("Warning_InvalidHeader", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Edit default header definition.
         /// </summary>
-        public static string WpfDefaultLicenseHeaderDialogTitle {
+        public static string WpfDefaultHeaderDialogTitle {
             get {
-                return ResourceManager.GetString("WpfDefaultLicenseHeaderDialogTitle", resourceCulture);
+                return ResourceManager.GetString("WpfDefaultHeaderDialogTitle", resourceCulture);
             }
         }
         

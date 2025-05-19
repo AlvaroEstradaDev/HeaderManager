@@ -15,26 +15,26 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Windows.Forms;
-using LicenseHeaderManager.Core.Options;
-using LicenseHeaderManager.Options.DialogPageControls;
-using LicenseHeaderManager.Options.Model;
+using HeaderManager.Core.Options;
+using HeaderManager.Options.DialogPageControls;
+using HeaderManager.Options.Model;
 using log4net;
 
-namespace LicenseHeaderManager.Options.DialogPages
+namespace HeaderManager.Options.DialogPages
 {
-  public class DefaultLicenseHeaderPage : BaseOptionPage<DefaultLicenseHeaderPageModel>
+  public class DefaultHeaderPage : BaseOptionPage<DefaultHeaderPageModel>
   {
     private static readonly ILog s_log = LogManager.GetLogger (MethodBase.GetCurrentMethod().DeclaringType);
 
-    public DefaultLicenseHeaderPage ()
+    public DefaultHeaderPage ()
     {
     }
 
-    protected override IWin32Window Window => new WpfHost (new WpfDefaultLicenseHeader ((IDefaultLicenseHeaderPageModel) Model));
+    protected override IWin32Window Window => new WpfHost (new WpfDefaultHeader ((IDefaultHeaderPageModel) Model));
 
     public override void ResetSettings ()
     {
-      ((IDefaultLicenseHeaderPageModel) Model).Reset();
+      ((IDefaultHeaderPageModel) Model).Reset();
     }
 
     protected override IEnumerable<UpdateStep> GetVersionUpdateSteps ()
@@ -53,13 +53,13 @@ namespace LicenseHeaderManager.Options.DialogPages
       else
       {
         s_log.Info ("Migration to 3.0.1 with existing default license header text page");
-        var migratedDefaultLicenseHeaderTextPage = new DefaultLicenseHeaderPageModel();
-        LoadCurrentRegistryValues_3_0_3 (migratedDefaultLicenseHeaderTextPage);
+        var migratedDefaultHeaderTextPage = new DefaultHeaderPageModel();
+        LoadCurrentRegistryValues_3_0_3 (migratedDefaultHeaderTextPage);
 
-        OptionsFacade.CurrentOptions.LicenseHeaderFileText = ThreeWaySelectionForMigration (
-            OptionsFacade.CurrentOptions.LicenseHeaderFileText,
-            migratedDefaultLicenseHeaderTextPage.LicenseHeaderFileText,
-            CoreOptions.DefaultLicenseHeaderFileText);
+        OptionsFacade.CurrentOptions.HeaderFileText = ThreeWaySelectionForMigration (
+            OptionsFacade.CurrentOptions.HeaderFileText,
+            migratedDefaultHeaderTextPage.HeaderFileText,
+            CoreOptions.DefaultHeaderFileText);
       }
     }
   }

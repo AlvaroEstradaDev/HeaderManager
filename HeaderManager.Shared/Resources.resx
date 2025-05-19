@@ -165,7 +165,7 @@
   <data name="Error_LanguageInvalid" xml:space="preserve">
     <value>Please provide at least an extension and either a line comment or begin and end comment tags.</value>
   </data>
-  <data name="Error_MultipleProjectsNoLicenseHeaderFile" xml:space="preserve">
+  <data name="Error_MultipleProjectsNoHeaderFile" xml:space="preserve">
     <value>No license header definition file found in following projects:\n\n{0}\n\nDo you want to add an existing License Header Definition File into these Projects?</value>
   </data>
   <data name="Error_NoHeaderDefinition" xml:space="preserve">
@@ -186,7 +186,7 @@
   <data name="InsertInNewFiles" xml:space="preserve">
     <value>Automatically insert license headers in new files</value>
   </data>
-  <data name="LicenseHeaderManagerName" xml:space="preserve">
+  <data name="HeaderManagerName" xml:space="preserve">
     <value>License Header Manager</value>
   </data>
   <data name="Line" xml:space="preserve">
@@ -220,7 +220,7 @@
     <value>Skip expression</value>
   </data>
   <data name="SkipExpressionHelp" xml:space="preserve">
-    <value>Some languages require special instructions at the very beginning of the file.\nXML-based languages need the &lt;?xml ... ?&gt; declaration for example. You can\ndefine a regular expression that identifies these instructions here so that the\nlicense header comment can be inserted after them, leaving the file valid.\n\nSee the online documentation on https://github.com/rubicon-oss/LicenseHeaderManager\nfor more detailed information.</value>
+    <value>Some languages require special instructions at the very beginning of the file.\nXML-based languages need the &lt;?xml ... ?&gt; declaration for example. You can\ndefine a regular expression that identifies these instructions here so that the\nlicense header comment can be inserted after them, leaving the file valid.\n\nSee the online documentation on https://github.com/rubicon-oss/HeaderManager\nfor more detailed information.</value>
   </data>
   <data name="Update_1_1_3" xml:space="preserve">
     <value>License Header Manager has automatically updated its configuration to add SkipExpressions.\n\nPlease check your language settings if they were modified\nbefore the update.\n\nIf you added any XML-based languages, you might need to add\na SkipExpression.</value>
@@ -243,16 +243,16 @@
   <data name="Warning_CantLinkItemInSameProject" xml:space="preserve">
     <value>The selected license header definition file already exists in this project. It is not possible to add a link to an item that already exists in the project.</value>
   </data>
-  <data name="Warning_InvalidLicenseHeader" xml:space="preserve">
+  <data name="Warning_InvalidHeader" xml:space="preserve">
     <value>HeaderDefinitionExtension: {0}\n\nThe header definition for {0} files contains non-comment text.\nIf you insert this header, you will not be able to remove or replace the header automatically!\n\nDo you really want to add this header to the file?</value>
   </data>
-  <data name="WpfDefaultLicenseHeaderDialogTitle" xml:space="preserve">
+  <data name="WpfDefaultHeaderDialogTitle" xml:space="preserve">
     <value>Edit default header definition</value>
   </data>
   <data name="WpfLanguageDialogTitle" xml:space="preserve">
     <value>Edit language</value>
   </data>
-  <data name="Question_AddNewLicenseHeaderDefinitionForSolution" xml:space="preserve">
+  <data name="Question_AddNewHeaderDefinitionForSolution" xml:space="preserve">
     <value>The file scan has finished.\nNo License Header Definition File found. Do you want to add a new one for the Solution?</value>
   </data>
   <data name="Question_AddExistingDefinitionFileToProject" xml:space="preserve">

@@ -17,10 +17,10 @@ using System.IO;
 using System.Text;
 using NUnit.Framework;
 
-namespace LicenseHeaderManager.Core.Tests
+namespace HeaderManager.Core.Tests
 {
   [TestFixture]
-  public abstract class LicenseHeaderInputBaseTest
+  public abstract class HeaderInputBaseTest
   {
     protected List<string> Paths;
 

@@ -15,7 +15,7 @@ using System;
 using System.Collections.Generic;
 using NUnit.Framework;
 
-namespace LicenseHeaderManager.Core.Tests
+namespace HeaderManager.Core.Tests
 {
   [TestFixture]
   public class DocumentHeaderTest

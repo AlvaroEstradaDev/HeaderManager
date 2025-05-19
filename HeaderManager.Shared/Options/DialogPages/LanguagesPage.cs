@@ -17,13 +17,13 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Windows.Forms;
-using LicenseHeaderManager.Core;
-using LicenseHeaderManager.Options.DialogPageControls;
-using LicenseHeaderManager.Options.Model;
-using LicenseHeaderManager.Utils;
+using HeaderManager.Core;
+using HeaderManager.Options.DialogPageControls;
+using HeaderManager.Options.Model;
+using HeaderManager.Utils;
 using log4net;
 
-namespace LicenseHeaderManager.Options.DialogPages
+namespace HeaderManager.Options.DialogPages
 {
   public class LanguagesPage : BaseOptionPage<LanguagesPageModel>
   {

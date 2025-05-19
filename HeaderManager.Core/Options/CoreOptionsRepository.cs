@@ -14,7 +14,7 @@
 using System;
 using System.Threading.Tasks;
 
-namespace LicenseHeaderManager.Core.Options
+namespace HeaderManager.Core.Options
 {
   public class CoreOptionsRepository
   {

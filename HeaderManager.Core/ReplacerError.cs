@@ -13,20 +13,20 @@
 
 using System;
 
-namespace LicenseHeaderManager.Core
+namespace HeaderManager.Core
 {
   /// <summary>
   ///   Represents an error that occurred during updating license headers, along with the input that provoked it.
   /// </summary>
-  /// <seealso cref="LicenseHeaderReplacer" />
-  /// <typeparam name="TInput">Type of input the <see cref="LicenseHeaderReplacer" />was invoked with.</typeparam>
+  /// <seealso cref="HeaderReplacer" />
+  /// <typeparam name="TInput">Type of input the <see cref="HeaderReplacer" />was invoked with.</typeparam>
   public class ReplacerError<TInput>
-      where TInput : LicenseHeaderInput
+      where TInput : HeaderInput
   {
     /// <summary>
     ///   Initializes a new <see cref="ReplacerError{TInput}" /> instance.
     /// </summary>
-    /// <param name="input">The input the <see cref="LicenseHeaderReplacer" />was invoked with.</param>
+    /// <param name="input">The input the <see cref="HeaderReplacer" />was invoked with.</param>
     /// <param name="type">The type of error that occurred.</param>
     /// <param name="description">A description of the error that occurred.</param>
     public ReplacerError (TInput input, ReplacerErrorType type, string description)
@@ -47,7 +47,7 @@ namespace LicenseHeaderManager.Core
     public string Description { get; }
 
     /// <summary>
-    ///   Gets the <see cref="TInput" /> instance the <see cref="LicenseHeaderReplacer" /> was invoked with.
+    ///   Gets the <see cref="TInput" /> instance the <see cref="HeaderReplacer" /> was invoked with.
     /// </summary>
     public TInput Input { get; }
   }

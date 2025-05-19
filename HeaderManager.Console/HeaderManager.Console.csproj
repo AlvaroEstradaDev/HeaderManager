@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{912F8A5E-80BB-45CB-89F8-47D4B3C3A658}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>LicenseHeaderManager.Console</RootNamespace>
-    <AssemblyName>LicenseHeaderManager.Console</AssemblyName>
+    <RootNamespace>HeaderManager.Console</RootNamespace>
+    <AssemblyName>HeaderManager.Console</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -61,9 +61,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\LicenseHeaderManager.Core\LicenseHeaderManager.Core.csproj">
+    <ProjectReference Include="..\HeaderManager.Core\HeaderManager.Core.csproj">
       <Project>{b8d94ed6-4b73-443e-aba0-2c373b9e6735}</Project>
-      <Name>LicenseHeaderManager.Core</Name>
+      <Name>HeaderManager.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

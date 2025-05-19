@@ -13,11 +13,11 @@
 
 using System;
 
-namespace LicenseHeaderManager.Core
+namespace HeaderManager.Core
 {
   /// <summary>
   ///   Represents information linked to a successful license header update operation when the
-  ///   <see cref="LicenseHeaderReplacer" /> was invoked with file contents.
+  ///   <see cref="HeaderReplacer" /> was invoked with file contents.
   /// </summary>
   public class ReplacerSuccess
   {

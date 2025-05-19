@@ -15,7 +15,7 @@ using System;
 using System.Collections.Generic;
 using EnvDTE;
 
-namespace LicenseHeaderManager.Interfaces
+namespace HeaderManager.Interfaces
 {
   /// <summary>
   ///   Analyzes linked files and categorizes them into three types: to be processed, not a part of the solution and no
@@ -31,7 +31,7 @@ namespace LicenseHeaderManager.Interfaces
     /// <summary>
     ///   Gets a list of linked files that do not have a license header definition file associated with them.
     /// </summary>
-    List<ProjectItem> NoLicenseHeaderFile { get; }
+    List<ProjectItem> NoHeaderFile { get; }
 
     /// <summary>
     ///   Gets a list of linked files that do not belong to the solution.
